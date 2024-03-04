@@ -1,0 +1,74 @@
+body
+    margin: 0
+* 
+    font-family: sans-serif
+    box-sizing: border-box
+
+@keyframes but 
+    0%
+        background: #6366F1
+    100%
+        background: #3437f1
+
+
+.login
+    display: flex
+    align-items: center
+    flex-direction: column
+    justify-content: center
+    height: 100vh
+    & .block
+        display: flex
+        flex-direction: column
+        width: 20%
+        margin: auto
+        & h2
+            font-size: 2rem
+            font-weight: 600
+            margin: .5rem 0
+        & div
+            & span
+                color: #6C737F
+                font-size: 1rem
+            & a
+                font-size: 1rem
+                text-decoration: 0
+                color: #6366F1
+                margin-left: .5rem
+        & .input
+            margin-top: 2rem
+            & input
+                border-radius: 8px
+                color: #6C737F
+                border: 1px solid #E5E7EB
+                padding: 1.0625rem .75rem
+                width: 100%
+        & .attention 
+            color: red
+            & input
+                border: 4px solid red
+            & p
+                margin: 0
+        & .button
+            color: white
+            background: #6366F1
+            border-radius: 8px
+            width: 100% 
+            padding: .875rem 0
+            text-align: center
+            margin-top: 1rem
+            cursor: pointer
+
+            &:hover
+                animation-name: but
+                animation-duration: .2s 
+                animation-fill-mode: both
+        
+
+                
+                
+
+        
+
+
+            

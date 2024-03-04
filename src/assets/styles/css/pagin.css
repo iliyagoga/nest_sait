@@ -1,0 +1,26 @@
+.pagin {
+  margin-left: auto;
+  padding: 0 1rem;
+  display: flex;
+  width: -moz-max-content;
+  width: max-content;
+}
+.pagin .n {
+  font-weight: 600;
+}
+.pagin select {
+  outline: none;
+  border: none;
+}
+.pagin .pages {
+  margin-left: 1rem;
+}
+.pagin .throws {
+  width: 2rem;
+  display: flex;
+  justify-content: space-around;
+  margin-left: 1rem;
+}
+.pagin .throws span {
+  cursor: pointer;
+}

@@ -1,0 +1,49 @@
+import pr from '../assets/imgs/product.svg'
+import ct from '../assets/imgs/category.svg'
+import at from '../assets/imgs/attributes.svg'
+import tag from '../assets/imgs/tags.svg'
+import '../assets/styles/css/adminPanel.css'
+import { apiMap } from '../utilites/apiMap.ts'
+import { role } from '../utilites/axiosConfig.ts'
+import  AuthStore  from '../stores/AuthStore.ts';
+import { useState } from 'react';
+import Workspace from '../components/adminpanel/Workspace.jsx'
+export default function AdminPanel(){
+    const [ mode, setMode]= useState(false)
+    const [m, setM] = useState(0)
+    role.post(apiMap.role.checkRole, {},{
+        headers:{
+            Authorization: 'Bearer '+ (AuthStore.getAuth()? AuthStore.getAuth(): localStorage.getItem('token'))}}).then((e)=>{setMode(e.data)})
+    if(mode){
+        return <div className='adminPanel'>
+        <div className='sidebar'>
+            <div className='productBlock block'>
+                <h2>Товар</h2>
+                <div className='product child_block'>
+                    <div> 
+                        <img src={pr} alt="product_icon" />
+                        <p onClick={()=>{setM(1)}}>Товары</p>
+                    </div>
+                    <div>
+                        <img src={ct} alt="category_icon" />
+                        <p onClick={()=>{setM(2)}}>Категории</p>
+                      
+                    </div>
+                    <div>
+                        <img src={at} alt="attribute_icon" />
+                        <p onClick={()=>{setM(3)}}>Атрибуты</p>
+                     
+                    </div>
+                    <div>
+                        <img src={tag} alt="tag_icon" />
+                        <p onClick={()=>{setM(4)}}>Теги</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Workspace m= {m}></Workspace>
+    </div>
+    }
+    
+
+}

@@ -1,0 +1,53 @@
+export const apiMap={
+    host: 'http://localhost',
+    port: '5000',
+    auth: {
+        way: '/user',
+        reg: '/reg',
+        login: '/login'
+    },
+    role: {
+        way: '/role',
+        checkRole: '/checkRole'
+    },
+
+    filters: {
+        way: '/filters',
+        getTags: '/getTags',
+        getCountTags: '/getCountTags',
+        createTag: '/createTag',
+        redactTag: '/redactTag',
+        countTags: '/countTags',
+        removeTag: '/removeTag',
+        getGroups: '/getGroups',
+        getGroupsCountPages: '/getGroupsCountPages',
+        createGroup: '/createGroup',
+        renameGroup: '/renameGroup',
+        removeGroup: '/removeGroup',
+        getCategoriesByGroup: '/getCategoriesByGroup',
+        createCategory: '/createCategory',
+        removeCategory: '/removeCategory',
+        getCategoriesCountPages: '/getCategoriesCountPages',
+        renameCategory: '/renameCategory',
+        getAllGroups: '/getAllGroups'
+    },
+
+    products:{
+        way: '/products',
+        getAttributes: '/getAttributes',
+        getCountAttributePages:'/getCountAttributesPages',
+        getAttributesValues: '/getAttributesValues',
+        renameAttributeValue: '/renameAttributeValue',
+        addAttributeValue: '/createAttributeValue',
+        getCountAttributeValuesPages: '/getCountAttributeValuesPages',
+        deleteAttributeValue: '/deleteAttributeValue',
+        createAttribute: '/createAttribute',
+        renameAttribute: '/renameAttribute',
+        deleteAttribute: '/deleteAttribute',
+        createProduct: '/createProduct',
+        getProducts: '/getProducts',
+        getProduct: '/getProduct',
+        getPhotos:'/getPhotos'
+
+    }
+}
