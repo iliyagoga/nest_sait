@@ -117,14 +117,10 @@ export class ProductsService {
             if(images.length>0){
                 const mean_img= await this.fileService.createFile(images[0]);
                 const preview = await this.preview.create({title: mean_img, productId: product.id})
-                for (let i = 1; i < images.length; i++) {
-                    const imgTitle= await this.fileService.createFile(images[i]);
-                    const img = await this.gallery.create({title: imgTitle, productId: product.id})
-                }
+            
             }
     
             if(JSON.parse(dto.categories).length>0){
-                console.log(JSON.parse(dto.categories))
                 for(const cat of JSON.parse(dto.categories)){
                     await this.cat_pr.create({productId:product.id, categoryId:cat})
                 }
@@ -135,38 +131,74 @@ export class ProductsService {
                 }
             }
     
+
             if(JSON.parse(dto.tags).length>0){
                 for(const t of JSON.parse(dto.tags)){
                 await  this.tagProduct.create({tagId:t, productId: product.id})
                 }
             }
-            return true;
+            return product;
         } catch (error) {
             throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
         }
        
     }
+    async createGalleryProduct(images: Blob[],dto){
+        console.log(dto)
+        for (let i = 0; i < images.length; i++) {
+            const imgTitle= await this.fileService.createFile(images[i]);
+            const img = await this.gallery.create({title: imgTitle, productId: dto['id']})
+        }
+    }
 
-    async redactProduct(dto: RedactProductDto){
-        const product = await this.product.findOne({where:{id: dto.id}})
+    async redactProduct(dto: object, images: Blob[]){
+        const product = await this.product.findOne({
+            where:{id: dto['id']},
+            include:[
+                {model: Previews}
+            ]
+        })
         if(product){
-            const r= await this.product.update({...dto},{where: {id: dto.id}})
-            if(dto.categories!=undefined){
+            if(images.length>0){
+                if(product.previews.length==0 && dto['preview'].length!=0){
+                    const mean_img= await this.fileService.createFile(images[0]);
+                    const preview = await this.preview.create({title: mean_img, productId: product.id})
+                }
+                else{
+                    if(product.previews.length==1){
+                        if(product.previews[0].title!=dto['preview']){
+                            const mean_img= await this.fileService.createFile(images[0]);
+                            const preview = await this.preview.update({title: mean_img}, {where:{productId: product.id}})
+                   
+                        }
+                    }
+                }
+            }
+            const r= await this.product.update({
+                productName: dto['productName'],
+                title: dto['title'],
+                description: dto['description'],
+                price: dto['price'],
+                sale_price: dto['sale_price'],
+    
+
+            },{where: {id: dto['id']}})
+            if(dto['categories']!=undefined){
                 await this.cat_pr.destroy({where: {productId:product.id}})
-                for(const cat of dto.categories){
+                for(const cat of JSON.parse(dto['categories'])){
                     try {
                         
                         await this.cat_pr.create({productId:product.id, categoryId:cat})
                     } catch (error) {
-                        console.log(error)
                         throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
+                        
                     }
                   
                 }
             }
-            if(dto.attributes!=undefined){
+            if(dto['attributes']!=undefined){
                 await this.attrProduct.destroy({where: {productId:product.id}})
-                for(const attr of dto.attributes){
+                for(const attr of JSON.parse(dto['attributes'])){
                     try {
                         await this.attrProduct.create({productId:product.id, attributeValueId: attr})
                     } catch (error) {
@@ -176,9 +208,9 @@ export class ProductsService {
                 }
             }
     
-            if(dto.tags!=undefined){
+            if(dto['tags']!=undefined){
                 await this.tagProduct.destroy({where: {productId:product.id}})
-                for(const t of dto.tags){
+                for(const t of JSON.parse(dto['tags'])){
                     try {
                         await this.tagProduct.create({tagId:t, productId: product.id})
                     } catch (error) {
@@ -191,6 +223,61 @@ export class ProductsService {
         }
         throw new HttpException("Такого товара не сущетсвует", HttpStatus.BAD_REQUEST)
 
+    }
+
+    async updateGalleryProduct(images: Blob[], dto: object){
+        const product = await this.product.findOne({
+            where:{id: Number(dto['productId'])},
+            include:[
+                {model: Gallery}
+            ]
+        })
+
+        if(images.length==0){
+            if(product.gallery.length>JSON.parse(dto['gallery']).length){
+               const data=JSON.parse(dto['gallery']).map(v=>{return v.split('/')[3]})
+                await this.gallery.destroy({where: {
+                    title:{
+                        [Op.notIn]: data
+                    },
+                    productId: product.id
+                    
+                }})
+
+            }
+        }
+        else{
+            const def=[]
+            let c=0
+            for(let elem of JSON.parse(dto['gallery'])){
+                const t= elem.split(':')
+                
+                if(t[0]!='blob'){
+                    def.push(t[2].split('/')[1])
+                 
+                }
+            }
+            await this.gallery.destroy({where: {
+                title:{
+                    [Op.notIn]: def
+                },
+                productId: product.id
+                
+            }})
+
+            for(let elem of JSON.parse(dto['gallery'])){
+                const t= elem.split(':')
+                
+                if(t[0]=='blob' && t[1]=='http' && t[2]=='//localhost'){
+                    const mean_img= await this.fileService.createFile(images[c]);
+                    const preview = await this.gallery.create({title: mean_img ,productId: product.id})
+                c++;
+                }
+            
+        }
+        }
+         return true
+        
     }
 
     async deleteProduct(id: number){

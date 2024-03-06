@@ -38,7 +38,7 @@ import { ServeStaticModule } from "@nestjs/serve-static";
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host:'localhost',
-      port: 5433,
+      port: 5432,
       username: 'postgres',
       password: 'admin',
       database: 'Shop',
