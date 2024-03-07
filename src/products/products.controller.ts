@@ -83,6 +83,12 @@ export class ProductsController {
     async redactProduct(@UploadedFiles() images: Blob[],  @Body() dto: ProductDto){
         return this.productService.redactProduct(dto, images);
     }
+    @UseGuards(JwtAuthGuard)
+    @UseInterceptors(FilesInterceptor('img'))
+    @Post("/updateGalleryProduct")
+    async updateGalleryProduct(@UploadedFiles() images: Blob[],  @Body() dto: ProductDto){
+        return this.productService.updateGalleryProduct(images,dto)
+    }
 
     @UseGuards(JwtAuthGuard)
     @Post("/deleteProduct")
