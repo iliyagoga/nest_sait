@@ -160,13 +160,13 @@ export class ProductsService {
         })
         if(product){
             if(images.length>0){
-                if(product.previews.length==0 && dto['preview'].length!=0){
+                if(product.previews.length==0 && dto['previews'].length!=0){
                     const mean_img= await this.fileService.createFile(images[0]);
                     const preview = await this.preview.create({title: mean_img, productId: product.id})
                 }
                 else{
                     if(product.previews.length==1){
-                        if(product.previews[0].title!=dto['preview']){
+                        if(product.previews[0].title!=dto['previews']){
                             const mean_img= await this.fileService.createFile(images[0]);
                             const preview = await this.preview.update({title: mean_img}, {where:{productId: product.id}})
                    
@@ -227,7 +227,7 @@ export class ProductsService {
 
     async updateGalleryProduct(images: Blob[], dto: object){
         const product = await this.product.findOne({
-            where:{id: Number(dto['productId'])},
+            where:{id: Number(dto['id'])},
             include:[
                 {model: Gallery}
             ]

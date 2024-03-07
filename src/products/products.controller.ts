@@ -63,19 +63,10 @@ export class ProductsController {
 
     @UseGuards(JwtAuthGuard)
     @UseInterceptors(FilesInterceptor('img'))
-    @Post("/redactGalleryProduct")
-    async redactGalleryProduct(@UploadedFiles() images: Blob[],  @Body() dto: ProductDto){
-        return this.productService.updateGalleryProduct(images,dto);
-    }
-
-    @UseGuards(JwtAuthGuard)
-    @UseInterceptors(FilesInterceptor('img'))
     @Post("/createGalleryProduct")
     async createGalleryProduct(@UploadedFiles() images: Blob[],  @Body() dto: ProductDto){
-        if(dto.productName.length>0 && dto.productName.length>0){
             return this.productService.createGalleryProduct(images,dto)
-        }
-        throw new HttpException("Имя и короткое описание продукта должны быть заполнены", HttpStatus.BAD_REQUEST)    }
+        }    
 
     @UseGuards(JwtAuthGuard)
     @UseInterceptors(FilesInterceptor('img'))
@@ -83,6 +74,7 @@ export class ProductsController {
     async redactProduct(@UploadedFiles() images: Blob[],  @Body() dto: ProductDto){
         return this.productService.redactProduct(dto, images);
     }
+
     @UseGuards(JwtAuthGuard)
     @UseInterceptors(FilesInterceptor('img'))
     @Post("/updateGalleryProduct")
