@@ -49,7 +49,8 @@ export const apiMap={
         getProduct: '/getProduct',
         getPhotos:'/getPhotos',
         createGalleryProduct: '/createGalleryProduct',
-        updateGAlleryProduct: '/updateGAlleryProduct'
+        updateProduct: '/redactProduct',
+        updateGalleryProduct: '/updateGAlleryProduct'
 
     }
 }

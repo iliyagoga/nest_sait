@@ -129,14 +129,63 @@ export class Products{
 
     }
 
+    async updateProduct(){
+        try {
+            let formdata= new FormData()
+            if(AdminPanelStore.getName()==undefined){
+                throw new Error('Имя товара не должно быть пустым')
+            }
+
+            if(AdminPanelStore.getTitle()==undefined){
+                throw new Error('Краткое описание товара не должно быть пустым')
+            }
+            let atrsIds: number[]=[]
+            for(let u of AdminPanelStore.getActualAttrValuesIds()){
+                for(let i of u.avVIds){
+                    atrsIds.push(i)
+                }
+               
+            }
+            formdata.append("id", String(AdminPanelStore.getActualProductId()))
+            formdata.append("productName", AdminPanelStore.getName())
+            formdata.append("title",AdminPanelStore.getTitle())
+            formdata.append("description", AdminPanelStore.getDescr())
+            formdata.append("price", String(AdminPanelStore.getOldPrice()))
+            formdata.append("sale_price", String(AdminPanelStore.getNewPrice()))
+            formdata.append("categories", JSON.stringify(AdminPanelStore.getActualCategories()))
+            formdata.append("tags", JSON.stringify(AdminPanelStore.getActualTagsIds()))
+            formdata.append("attributes", JSON.stringify(atrsIds))
+           
+            if(AdminPanelStore.getImgFile()!=undefined){
+                formdata.append('previews',URL.createObjectURL(AdminPanelStore.getImgFile()))
+                formdata.append('img', AdminPanelStore.getImgFile())
+            }
+            else{
+                formdata.append('previews',"")
+            }
+            const res = await products.post(apiMap.products.updateProduct,
+               formdata
+            ,{headers:{
+                Authorization:('Bearer '+ localStorage.getItem('token')),
+                "Content-Type": 'multipart/form-data'
+            }})
+            this.updateGalleryProduct()
+            if(res)
+                return true
+            else
+                return false
+        } catch (error) {
+            throw error;
+        }
+    }
     async updateGalleryProduct(){
         const formdata = new FormData()
         formdata.append('id',String(AdminPanelStore.getActualProductId()))
         formdata.append('gallery', JSON.stringify(AdminPanelStore.getUploadImages()))
-        for(let y=0; y < AdminPanelStore.getGallery().length; y++){
-            formdata.append("img", AdminPanelStore.getGallery()[y])
+        for(let y=0; y < AdminPanelStore.getUploadGallery().length; y++){
+            formdata.append("img", AdminPanelStore.getUploadGallery()[y].file)
         }
-        await products.post(apiMap.products.updateGAlleryProduct, formdata, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}}) 
+        await products.post(apiMap.products.updateGalleryProduct, formdata, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}}) 
 
     }
 }

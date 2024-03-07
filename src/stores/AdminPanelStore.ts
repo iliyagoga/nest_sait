@@ -90,6 +90,7 @@ class AdminPanelStore{
     private photos: any[]=[]
     private _uploadImages: any[]=[]
     private _actualImage: string;
+    private _uploadGallery: {title: string, file: Blob}[]=[]
 
 
 
@@ -789,6 +790,43 @@ class AdminPanelStore{
 
 
 
+    getUploadGallery(){
+        return this._uploadGallery;
+    }
+
+    setUploadGallery(title: string, file: Blob){
+        this._uploadGallery.push({title, file});
+    }
+
+    deleteUploadGallery(elem: string){
+        for(let i=0; i<this._uploadGallery.length;i++){
+            if(this._uploadGallery[i].title==elem){
+                if(i==0){
+                    this._uploadGallery.shift()
+                }
+                else{
+                    if(i==this._uploadGallery.length-1){
+                        this._uploadGallery.pop()
+                    }
+                    else{
+                        this._uploadGallery=[...this._uploadGallery.slice(0,i),...this._uploadGallery.slice(i+1)];
+                    }
+            
+                }
+               
+                break;
+            }
+
+           
+        }
+    }
+
+
+
+
+
+
 
 }
 export default new AdminPanelStore()
+

@@ -22,6 +22,7 @@ const PhotoItem=observer(({v})=>{
             <div className="del">
                 <p className="d" onClick={()=>{
                     AdminPanelStore.deleteUploadImages(v);
+                    AdminPanelStore.deleteUploadGallery(v)
                     setClk(false)
                 }}>Удалить</p>
                 <p className="back" onClick={()=>{setClk(false)}}>Отмена</p>

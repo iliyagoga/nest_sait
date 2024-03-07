@@ -272,6 +272,7 @@ const UpdateProduct = observer(({setShow})=>{
                                 e.target.files[0]['name'].split('.')[1]=="svg" 
                                 ){
                                     AdminPanelStore.setUploadImages(URL.createObjectURL(e.target.files[0]))
+                                    AdminPanelStore.setUploadGallery(URL.createObjectURL(e.target.files[0]), e.target.files[0])
                                 }
                                 
                             }}/>
@@ -521,7 +522,7 @@ const UpdateProduct = observer(({setShow})=>{
             </div>
         </div>
         <div className="create"  onClick={async ()=>{
-            await panel.createProduct()
+            await panel.updateProduct()
         }}>
             <span>Готово</span>
         </div>
