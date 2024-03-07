@@ -81,17 +81,13 @@ export class Products{
             if(AdminPanelStore.getImgFile()!=undefined){
                 formdata.append('img', AdminPanelStore.getImgFile())
             }
-           
-            for(let y=0; y < AdminPanelStore.getGallery().length; y++){
-                formdata.append("img", AdminPanelStore.getGallery()[y])
-            }
-            console.log(formdata.values())
             const res = await products.post(apiMap.products.createProduct,
                formdata
             ,{headers:{
                 Authorization:('Bearer '+ localStorage.getItem('token')),
                 "Content-Type": 'multipart/form-data'
             }})
+            this.createGalleryProduct(res.data.id)
             if(res)
                 return true
             else
@@ -119,5 +115,28 @@ export class Products{
         AdminPanelStore.setPhotos(res.data)
        
   
+    }
+
+    async createGalleryProduct(id: number){
+        const formdata= new FormData()
+        formdata.append('id', String(id))
+        for(let y=0; y < AdminPanelStore.getGallery().length; y++){
+            formdata.append("img", AdminPanelStore.getGallery()[y])
+        }
+
+        await products.post(apiMap.products.createGalleryProduct,formdata,{headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}}) 
+
+
+    }
+
+    async updateGalleryProduct(){
+        const formdata = new FormData()
+        formdata.append('id',String(AdminPanelStore.getActualProductId()))
+        formdata.append('gallery', JSON.stringify(AdminPanelStore.getUploadImages()))
+        for(let y=0; y < AdminPanelStore.getGallery().length; y++){
+            formdata.append("img", AdminPanelStore.getGallery()[y])
+        }
+        await products.post(apiMap.products.updateGAlleryProduct, formdata, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}}) 
+
     }
 }
