@@ -389,6 +389,36 @@ body {
   align-items: center;
   position: relative;
 }
+.adminPanel .createProduct .basicInfo .l .img .info {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  z-index: 400;
+  cursor: pointer;
+}
+.adminPanel .createProduct .basicInfo .l .img .del {
+  width: -moz-max-content;
+  width: max-content;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+.adminPanel .createProduct .basicInfo .l .img .del .d {
+  padding: 0.5rem;
+  width: 20rem;
+  background: red;
+  color: white;
+  cursor: pointer;
+}
+.adminPanel .createProduct .basicInfo .l .img .del .backC {
+  padding: 0.5rem;
+  width: 20rem;
+  background: #6366F1;
+  color: white;
+  cursor: pointer;
+}
 .adminPanel .createProduct .basicInfo .l .img input {
   position: absolute;
   opacity: 0;
@@ -1152,4 +1182,4 @@ body {
   bottom: 0;
   z-index: 100;
   opacity: 0;
-}
+}/*# sourceMappingURL=adminPanel.css.map */

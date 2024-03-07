@@ -7,8 +7,7 @@ import MiniModal from "../modals/modal.jsx";
 import del from '../../assets/imgs/Vector (5).svg'
 import def from '../../assets/imgs/def.png'
 import back from '../../assets/imgs/Vector (6).svg'
-import date from '../../assets/imgs/Vector (7).svg'
-
+import info from '../../assets/imgs/Vector.svg'
 import { apiMap } from "../../utilites/apiMap.ts";
 import MiddleModal from "../modals/middleModal.jsx";
 import PhotoItem from "./GalleryItem.jsx";
@@ -18,6 +17,8 @@ const UpdateProduct = observer(({setShow})=>{
     const panel = new Products();
     const reader= new FileReader()
     const [fileImg, setFileImg]= useState("")
+    const [move, setMove]= useState(false) 
+    const [redo, setRedo]= useState(false)
     useEffect(()=>{
         if(AdminPanelStore.getImgFile()!=undefined){
             setFileImg(URL.createObjectURL(AdminPanelStore.getImgFile()))
@@ -264,7 +265,6 @@ const UpdateProduct = observer(({setShow})=>{
                     <div className="bar">
                         <div className="upload">
                             <input type="file" onChange={(e)=>{
-                                console.log(e.target.files[0])
                                 if(e.target.files[0]['name'].split('.')[1]=="jpg" ||
                                 e.target.files[0]['name'].split('.')[1]=="png" ||
                                 e.target.files[0]['name'].split('.')[1]=="webp" ||
@@ -303,11 +303,28 @@ const UpdateProduct = observer(({setShow})=>{
         <div className="basicInfo">
             <div className="l">
                 <h3>Начальная информация</h3>
-                {fileImg.length>0&&  <div className="img">
-                    <input type="file" onChange={(e)=>{
+                {fileImg.length>0&&  <div className="img" onMouseOut={()=>{setMove(false); }} onMouseOver={()=>{setMove(true)}}>
+                    {move&&<div className="info" onClick={()=>{
+                        setRedo(true)
+                    }}>
+                        <img src={info} alt="" />
+                    </div>}
+                    {redo?<>
+                            <div className="del">
+                                <p className="d" onClick={()=>{
+                                    AdminPanelStore.setImgFile(undefined);
+                                    setFileImg([])
+                                    setRedo(false)
+                                }}>Удалить</p>
+                                <p className="backC" onClick={()=>{setRedo(false)}}>Отмена</p>
+                            </div>
+                    </>:<>
+                        <input type="file" onChange={(e)=>{
                             AdminPanelStore.setImgFile(e.target.files[0])
                         }}/>
-                    <img src={fileImg} alt="" /></div>}
+                    <img src={fileImg} alt="" />
+                    </>}
+                    </div>}
                 {fileImg.length==0&&  <div className="block">
                     <input type="file" onChange={(e)=>{
                         AdminPanelStore.setImgFile(e.target.files[0])

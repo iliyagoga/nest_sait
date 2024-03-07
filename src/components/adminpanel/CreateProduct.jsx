@@ -6,6 +6,9 @@ import { Products } from "../../utilites/adminPanel/products.ts";
 import MiniModal from "../modals/modal.jsx";
 import del from '../../assets/imgs/Vector (5).svg'
 import back from '../../assets/imgs/Vector (6).svg'
+import info from '../../assets/imgs/Vector.svg'
+import PhotoCreateItem from "./PhotoCreateItem.jsx";
+import MiddleModal from "../modals/middleModal.jsx";
 
 const CreateProduct = observer(({setShow})=>{
     const panel = new Products();
@@ -33,6 +36,10 @@ const CreateProduct = observer(({setShow})=>{
     const [showTags, setShowTags] = useState(false)
     const [showAttrs, setShowAttrs]= useState(false)
     const [showAttrsValue, setShowAttrsValue]= useState(false)
+    const [move, setMove]= useState(false) 
+    const [redo, setRedo]= useState(false)
+    const [showImages, setShowImages] = useState(false)
+    const [trigMModal, setTrigMModal]= useState(false)
     const [actualGroup, setActualGroup] = useState(null)
     const [actualAttr, setActualAttr] = useState(null)
     const [actualAttrId, setActualAttrId] = useState(null)
@@ -184,6 +191,44 @@ const CreateProduct = observer(({setShow})=>{
             }>
         
         </MiniModal>
+        <MiddleModal
+        handleClose={setShowImages}
+        show={showImages}
+        he={"Галерея"}
+        body={
+            <div className="gals">
+                <div className="head">
+                    <h4 onClick={()=>{setTrigMModal(false)}} className={!trigMModal?'active':''}>Фотографии товара</h4>
+                </div>
+               {!trigMModal&& <div className="body def">
+                    <div className="photos">                 
+                        {(AdminPanelStore.getGallery()).map((v,i)=>{
+                           return  <PhotoCreateItem v={v}></PhotoCreateItem>
+                          
+                        })}
+                    </div>
+                    <div className="bar">
+                        <div className="upload">
+                            <input type="file" onChange={(e)=>{
+                                if(e.target.files[0]['name'].split('.')[1]=="jpg" ||
+                                e.target.files[0]['name'].split('.')[1]=="png" ||
+                                e.target.files[0]['name'].split('.')[1]=="webp" ||
+                                e.target.files[0]['name'].split('.')[1]=="PNG" ||
+                                e.target.files[0]['name'].split('.')[1]=="svg" 
+                                ){
+                                    AdminPanelStore.addFileGallery(URL.createObjectURL(e.target.files[0]))
+                                }
+                                
+                            }}/>
+                            <img src={up} alt="" />
+                        </div>
+                    </div>
+                </div>}
+            </div>
+        }
+        >
+
+        </MiddleModal>
         
         <div className="back" onClick={()=>setShow()}>
             <img src={back} alt="" />
@@ -195,11 +240,28 @@ const CreateProduct = observer(({setShow})=>{
         <div className="basicInfo">
             <div className="l">
                 <h3>Начальная информация</h3>
-                {fileImg.length>0&&  <div className="img">
-                    <input type="file" onChange={(e)=>{
+                {fileImg.length>0&&  <div className="img" onMouseOut={()=>{setMove(false); }} onMouseOver={()=>{setMove(true)}}>
+                    {move&&<div className="info" onClick={()=>{
+                        setRedo(true)
+                    }}>
+                        <img src={info} alt="" />
+                    </div>}
+                    {redo?<>
+                            <div className="del">
+                                <p className="d" onClick={()=>{
+                                    AdminPanelStore.setImgFile(undefined);
+                                    setFileImg([])
+                                    setRedo(false)
+                                }}>Удалить</p>
+                                <p className="backC" onClick={()=>{setRedo(false)}}>Отмена</p>
+                            </div>
+                    </>:<>
+                        <input type="file" onChange={(e)=>{
                             AdminPanelStore.setImgFile(e.target.files[0])
                         }}/>
-                    <img src={fileImg} alt="" /></div>}
+                    <img src={fileImg} alt="" />
+                    </>}
+                    </div>}
                 {fileImg.length==0&&  <div className="block">
                     <input type="file" onChange={(e)=>{
                         AdminPanelStore.setImgFile(e.target.files[0])
@@ -274,32 +336,9 @@ const CreateProduct = observer(({setShow})=>{
                 <span>(Нажмите на картинку, чтобы удалить)</span>
             </div>
             <div className="r">
-            {AdminPanelStore.getGallery().length>0&&<>
-                <div className="slider">
-                <   div className="sliderGallery">
-                        {AdminPanelStore.getGallery().map((v,i)=>{
-                            return <div className="img" onClick={()=>{
-                                AdminPanelStore.deleteFileGallery(v)
-                            }}>
-                                <img src={URL.createObjectURL(v)} alt="" />
-                            </div>
-                        })}
-                    </div>
-                    <div className="under">
-                        <input type="file" className="file" title="SVG, JPG, PNG, GIF, WEBP, SVG" onChange={(e)=>{
-                            AdminPanelStore.addFileGallery(e.target.files[0])
-                        }}/>
-                        <img src={up} alt="" />
-                    </div>
-                </div>
-                
-            </>}
-            {AdminPanelStore.getGallery().length==0&&<>
-                <div className="block">
-                    <input type="file" className="file" onChange={(e)=>{
-                        AdminPanelStore.addFileGallery(e.target.files[0])
-                    }}/>
-                    <div className="under">
+
+             {!showImages&&   <div className="block" onClick={()=>{setShowImages(true)}}>
+                    <div className="under" >
                         <img src={up} alt="" />
                         <div className="u">
                             <h4>Загрузите c компьютера или перетащите файлы</h4>
@@ -307,7 +346,7 @@ const CreateProduct = observer(({setShow})=>{
                         </div>
                     </div>
                 </div>
-            </>
+            
             }
               
             </div>

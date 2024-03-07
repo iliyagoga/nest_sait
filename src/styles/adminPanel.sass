@@ -330,6 +330,31 @@ body
                     justify-content: center
                     align-items: center
                     position: relative
+                    & .info
+                        position: absolute
+                        right: 1rem
+                        top: 1rem
+                        z-index: 400
+                        cursor: pointer
+                    & .del
+                        width: max-content
+                        margin-top: 1rem
+                        display: flex
+                        flex-direction: column
+                        text-align: center
+                        justify-content: center
+                        & .d
+                            padding: .5rem
+                            width: 20rem
+                            background: red
+                            color: white
+                            cursor: pointer
+                        & .backC
+                            padding: .5rem
+                            width: 20rem
+                            background: #6366F1
+                            color: white
+                            cursor: pointer
                   
                     & input
                         position: absolute
