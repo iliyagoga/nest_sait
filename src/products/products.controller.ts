@@ -89,7 +89,7 @@ export class ProductsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get('/getProducts/:page/:limit/:price/:date')
+    @Get('/getProducts/:page/:limit/:price/:date/:search')
     async getProducts(@Param() pars: string[]){
         return this.productService.getProducts(pars);
     }
@@ -106,12 +106,12 @@ export class ProductsController {
         return this.productService.getPhotos();
     }
 
+    
     @UseGuards(JwtAuthGuard)
-    @Get('/searchProducts/:search')
-    async searchProducts(@Param('search') search:string ){
-        return this.productService.searchProduct(search);
+    @Get('/getProductCountPages/:limit')
+    async getProductCountPages(@Param('limit') limit: string,){
+        return this.productService.getProductCountPages(limit);
     }
-
     @UseGuards(JwtAuthGuard)
     @Get('/getAttributes/:num')
     async getAttributes(@Param('num') page: number){

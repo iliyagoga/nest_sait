@@ -111,6 +111,11 @@ export class ProductsService {
         }
     }
 
+    async getProductCountPages(limit: string){
+        const pages = Math.floor((await this.product.count())/Number(limit))+1
+        return pages;
+    }
+
     async createProduct(dto: ProductDto,images: Blob[]){
         try {
             const product =await this.product.create(dto);
@@ -312,76 +317,123 @@ export class ProductsService {
             const page= Number(pars['page']);
             const limit= Number(pars['limit']);
             let price=null
-            if(pars['price']=='desc'){
-                price='desc'
+            if(pars['search'] == 'null'){
+                if(pars['price']=='desc'){
+                    price='desc'
+                }
+                else{
+                    if(pars['price']=='asc')
+                        price='asc'
+                    else
+                        price=null
+                }
+                let date=null
+                if(pars['date']=='desc'){
+                    date='desc'
+                }
+                else{
+                    if(pars['date']=='asc')
+                        date='asc'
+                    else
+                        date=null
+                }
+                if(date && !price){
+                    return await this.product.findAll({
+                        offset: limit*page,
+                        limit,
+                        order:[
+                            ['date', date]
+                        ],
+                        include:{
+                            model: Previews,
+                            attributes:['title']
+                        }
+                    })
+                }
+                if(!date && price){
+                    return await this.product.findAll({
+                        offset: limit*page,
+                        limit,
+                        order:[
+                            ['price', price]
+                        ],
+                        include:{
+                            model: Previews,
+                            attributes:['title']
+                        }
+                    })
+                }
+                if(date && price){
+                    return await this.product.findAll({
+                        offset: limit*page,
+                        limit,
+                        order:[
+                            ['date', date],
+                            ['price', price]
+                        ],
+                        include:{
+                            model: Previews,
+                            attributes:['title']
+                        }
+                    })
+                }   
+                return await this.product.findAll({
+                    offset: limit*page,
+                    limit,
+                    include:{
+                        model: Previews,
+                        attributes:['title']
+                    },
+                    order:[
+                        ['id','desc']
+                    ]
+                })
             }
             else{
-                if(pars['price']=='asc')
-                    price='asc'
-                else
-                    price=null
-            }
-            let date=null
-            if(pars['date']=='desc'){
-                date='desc'
-            }
-            else{
-                if(pars['date']=='asc')
-                    date='asc'
-                else
-                    date=null
-            }
-            if(date && !price){
-                return await this.product.findAll({
-                    offset: limit*page,
-                    limit,
-                    order:[
-                        ['date', date]
-                    ],
-                    include:{
-                        model: Previews,
-                        attributes:['title']
+                let search= pars['search']
+                if(search[0]=="$"){
+                    let copy: string =search;
+                    let sArr: string[] =copy.split('');
+                    sArr.shift();
+                    let str: string = sArr.join("");
+        
+                    
+                    const products= await this.product.findAll({
+                        include:[{
+                            model:Tag,
+                            where:{
+                                tagTitle:{
+                                    [Op.startsWith]: str
+                                }
+                                
+                            },
+                            
+                        },
+                            {
+                                model: Previews
+                            }],
+                        order: [['id','desc']]
+                    })
+                    return products;
+                }
+                else{
+                    const products= await this.product.findAll({
+                        where:{ productName:{
+                            [Op.startsWith]: search
+                        }
+                            
+                        },
+                        order: [['id','desc']],
+                        include: {
+                            model: Previews
+                        }
                     }
-                })
+                        
+                    )
+                    return products;
+                }
             }
-            if(!date && price){
-                return await this.product.findAll({
-                    offset: limit*page,
-                    limit,
-                    order:[
-                        ['price', price]
-                    ],
-                    include:{
-                        model: Previews,
-                        attributes:['title']
-                    }
-                })
-            }
-            if(date && price){
-                return await this.product.findAll({
-                    offset: limit*page,
-                    limit,
-                    order:[
-                        ['date', date],
-                        ['price', price]
-                    ],
-                    include:{
-                        model: Previews,
-                        attributes:['title']
-                    }
-                })
-            }   
-            return await this.product.findAll({
-                offset: limit*page,
-                limit,
-                include:{
-                    model: Previews,
-                    attributes:['title']
-                },
-                order:[
-                    ['id','desc']
-                ]
-            })
+            
 
                
     }
@@ -439,41 +491,6 @@ export class ProductsService {
         return await this.gallery.findAll({attributes:['title']})
     }
 
-    async searchProduct(search: string){
-        if(search[0]=="$"){
-            let copy: string =search;
-            let sArr: string[] =copy.split('');
-            sArr.shift();
-            let str: string = sArr.join("");
-
-            
-            const products= await this.product.findAll({
-                include:{
-                    model:Tag,
-                    where:{
-                        tagTitle:{
-                            [Op.startsWith]: str
-                        }
-                        
-                    }
-                }
-            })
-            return products;
-        }
-        else{
-            const products= await this.product.findAll({
-                where:{ productName:{
-                    [Op.startsWith]: search
-                }
-                    
-                }
-            }
-                
-            )
-            return products;
-        }
-     
-    }
 
     async getAttributes(page:number,limit: number=6){
         return this.attr.findAll({
