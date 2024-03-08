@@ -8,16 +8,21 @@ import th from '../../assets/imgs/Vector (4).svg'
 import { apiMap } from "../../utilites/apiMap.ts";
 import def from '../../assets/imgs/def.png'
 import UpdateProduct from "./UpdateProduct.jsx";
+import Pagination from "../Pagination.jsx";
 const ProductView = observer(()=>{
     const panel = new Products()
     useEffect(()=>{
-        
-        panel.getProducts(0,6, 'null', 'null')
+        AdminPanelStore.setProductPage(0)
+        panel.getProducts(0,6, 'null', 'null', AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
+        panel.productCountPages(6)
     },[])
-
+    useEffect(()=>{
+        panel.getProducts(AdminPanelStore.getProductPage(),6, 'null', 'null', AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
+    },[AdminPanelStore.getProductPage()])
+    
     const [showAdd, SetShowAdd]= useState(true)
     const [showUpdate, setShowUpdate] = useState(true) 
-    return <>
+        return <>
         {(showAdd&&showUpdate)?<>
             <div className="products">
                 <div className="block">
@@ -30,15 +35,34 @@ const ProductView = observer(()=>{
                     <div className="body">
                         <div className="search">
                             <img src={srch} alt="" />
-                            <input type="text" placeholder="Введите имя продукта"/>
+                            <input type="text"  value={AdminPanelStore.getSearch()} onChange={(e)=>{
+                                AdminPanelStore.setSearch(e.target.value);  
+                                if(e.target.value.length!=0){
+                                    panel.getProducts(AdminPanelStore.getProductPage(),6, 'null', 'null', e.target.value)
+                                }
+                                else{
+                                    panel.getProducts(AdminPanelStore.getProductPage(),6, 'null', 'null', 'null')
+                                }}} placeholder="Введите имя продукта"/>
                         </div>
                         <div className="filters">
-                            <select >
-                                <option value="0">Цена</option>
-                            </select>
-                            <select >
-                                <option value="0">Дата публикации</option>
-                            </select>
+                            <div className="fs">
+                                <select >
+                                    <option value="0">Цена</option>
+                                </select>
+                                <select >
+                                    <option value="0">Дата публикации</option>
+                                </select>
+                            </div>
+                            <div className="pag">
+                                <Pagination
+                                actualPage={AdminPanelStore.getProductPage()}
+                                countPages={AdminPanelStore.getProductCountPages()}
+                                func={(a)=>{AdminPanelStore.setProductPage(a)}}
+                                setPage={(a)=>{AdminPanelStore.setProductPage(a)}}
+                                > 
+                                </Pagination>            
+                            </div>
+                    
                         </div>
                         <div className="table">
                             <div className="col1">

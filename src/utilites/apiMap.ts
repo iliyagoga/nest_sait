@@ -50,7 +50,8 @@ export const apiMap={
         getPhotos:'/getPhotos',
         createGalleryProduct: '/createGalleryProduct',
         updateProduct: '/redactProduct',
-        updateGalleryProduct: '/updateGAlleryProduct'
+        updateGalleryProduct: '/updateGalleryProduct',
+        getProductCountPages: '/getProductCountPages'
 
     }
 }

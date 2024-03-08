@@ -81,7 +81,9 @@ class AdminPanelStore{
     private _descr: string;
     private _old_price: number  = 0;
     private _new_price: number = 0;
-
+    private _productPage: number =0;
+    private _productCountPages: number = 1;
+    private _seacrh: string = "";
 
 
     private _products: any[] = [];
@@ -91,6 +93,7 @@ class AdminPanelStore{
     private _uploadImages: any[]=[]
     private _actualImage: string;
     private _uploadGallery: {title: string, file: Blob}[]=[]
+    private _createGallery: {title: string, file: Blob}[]=[]
 
 
 
@@ -682,6 +685,22 @@ class AdminPanelStore{
         }
     }
 
+    getProductPage(){
+        return this._productPage;
+    }
+
+    setProductPage(page: number){
+        this._productPage=page;
+    }
+
+    getProductCountPages(){
+        return this._productCountPages;
+    }
+
+    setProductCountPages(pages: number){
+        this._productCountPages=pages;
+    }
+
     getName(){
         return this._name;
     }
@@ -785,6 +804,38 @@ class AdminPanelStore{
         }
     }
 
+    getCreateGallery(){
+        return this._createGallery;
+    }
+
+    setCreateGallery(title: string, file: Blob){
+        this._createGallery.push({title,file});
+    }
+
+    deleteCreateGallery(elem: string){
+        for(let i=0; i<this._createGallery.length;i++){
+            if(this._createGallery[i].title==elem){
+                if(i==0){
+                    this._createGallery.shift()
+                }
+                else{
+                    if(i==this._createGallery.length-1){
+                        this._createGallery.pop()
+                    }
+                    else{
+                        this._createGallery=[...this._createGallery.slice(0,i),...this._createGallery.slice(i+1)];
+                    }
+            
+                }
+               
+                break;
+            }
+
+           
+        }
+    }
+
+
 
 
 
@@ -819,6 +870,14 @@ class AdminPanelStore{
 
            
         }
+    }
+
+    getSearch(){
+        return this._seacrh;
+    }
+
+    setSearch(str: string){
+        this._seacrh=str;
     }
 
 

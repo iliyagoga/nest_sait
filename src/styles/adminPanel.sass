@@ -681,6 +681,8 @@ body
             & .header
                 display: flex
                 align-items: center
+                width: 97%
+                margin: auto
                 & h2
                     margin: 0
                 & .button
@@ -692,13 +694,14 @@ body
                     font-size: 1.2rem
                     cursor: pointer
                     width: max-content
-                    margin-top: 2rem
+                    margin-left: auto
             & .body
                 border-radius: 20px
                 box-shadow: #8b8b8b2d 0px 5px 22px 0  
                 padding: 1rem 0
                 width: 97%
                 margin: auto
+                margin-top: 2rem
                 & .search
                     width: 100%
                     display: flex
@@ -716,14 +719,18 @@ body
                         padding: 1rem 0
                 & .filters
                     display: flex
-                    & select
-                        font-size: 1.2rem
-                        font-weight: 600
-                        padding: 1rem .5rem
-                        width: max-content
-                        border: 0
-                        outline: none
-                        margin-left: 1rem
+                    align-items: center
+                    & .fs
+                        & select
+                            font-size: 1.2rem
+                            font-weight: 600
+                            padding: 1rem .5rem
+                            width: max-content
+                            border: 0
+                            outline: none
+                            margin-left: 1rem
+                    & .pag
+                        margin-left: auto
                 & .table
                     display: flex
                     & .col1
@@ -751,6 +758,7 @@ body
                                 display: flex
                                 margin-left: 1rem
                                 align-items: center
+                                overflow: hidden
                                 & .img
                                     width: 6rem
                                     height: 6rem

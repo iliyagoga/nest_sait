@@ -805,6 +805,8 @@ body {
 .adminPanel .products .block .header {
   display: flex;
   align-items: center;
+  width: 97%;
+  margin: auto;
 }
 .adminPanel .products .block .header h2 {
   margin: 0;
@@ -820,7 +822,7 @@ body {
   cursor: pointer;
   width: -moz-max-content;
   width: max-content;
-  margin-top: 2rem;
+  margin-left: auto;
 }
 .adminPanel .products .block .body {
   border-radius: 20px;
@@ -828,6 +830,7 @@ body {
   padding: 1rem 0;
   width: 97%;
   margin: auto;
+  margin-top: 2rem;
 }
 .adminPanel .products .block .body .search {
   width: 100%;
@@ -849,8 +852,9 @@ body {
 }
 .adminPanel .products .block .body .filters {
   display: flex;
+  align-items: center;
 }
-.adminPanel .products .block .body .filters select {
+.adminPanel .products .block .body .filters .fs select {
   font-size: 1.2rem;
   font-weight: 600;
   padding: 1rem 0.5rem;
@@ -859,6 +863,9 @@ body {
   border: 0;
   outline: none;
   margin-left: 1rem;
+}
+.adminPanel .products .block .body .filters .pag {
+  margin-left: auto;
 }
 .adminPanel .products .block .body .table {
   display: flex;
@@ -893,6 +900,7 @@ body {
   display: flex;
   margin-left: 1rem;
   align-items: center;
+  overflow: hidden;
 }
 .adminPanel .products .block .body .table .col1 .bl .under .img {
   width: 6rem;

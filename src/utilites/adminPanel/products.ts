@@ -96,8 +96,8 @@ export class Products{
             throw error;
         }
     }
-    async getProducts(page: number, limit: number, price: string, date: string){
-        const res= await products.get(apiMap.products.getProducts + '/' + page + '/' + limit + '/' + price + '/' + date, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}})
+    async getProducts(page: number, limit: number, price: string, date: string, search: string){
+        const res= await products.get(apiMap.products.getProducts + '/' + page + '/' + limit + '/' + price + '/' + date + '/' +search, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}})
         AdminPanelStore.setProducts(res.data)
     }
 
@@ -120,8 +120,8 @@ export class Products{
     async createGalleryProduct(id: number){
         const formdata= new FormData()
         formdata.append('id', String(id))
-        for(let y=0; y < AdminPanelStore.getGallery().length; y++){
-            formdata.append("img", AdminPanelStore.getGallery()[y])
+        for(let y=0; y < AdminPanelStore.getCreateGallery().length; y++){
+            formdata.append("img", AdminPanelStore.getCreateGallery()[y].file)
         }
 
         await products.post(apiMap.products.createGalleryProduct,formdata,{headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}}) 
@@ -187,5 +187,10 @@ export class Products{
         }
         await products.post(apiMap.products.updateGalleryProduct, formdata, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}}) 
 
+    }
+
+    async productCountPages(limit: number){
+        const res = await products.get(apiMap.products.getProductCountPages + "/" + limit, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}}) 
+        AdminPanelStore.setProductCountPages(res.data)
     }
 }

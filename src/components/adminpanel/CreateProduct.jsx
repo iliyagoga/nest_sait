@@ -217,6 +217,7 @@ const CreateProduct = observer(({setShow})=>{
                                 e.target.files[0]['name'].split('.')[1]=="svg" 
                                 ){
                                     AdminPanelStore.addFileGallery(URL.createObjectURL(e.target.files[0]))
+                                    AdminPanelStore.setCreateGallery(URL.createObjectURL(e.target.files[0]),e.target.files[0])
                                 }
                                 
                             }}/>
