@@ -111,9 +111,105 @@ export class ProductsService {
         }
     }
 
-    async getProductCountPages(limit: string){
-        const pages = Math.floor((await this.product.count())/Number(limit))+1
-        return pages;
+    async getProductCountPages(pars: string[]){
+        const limit= pars['limit']
+            let count=0;
+            let price=null
+            if(pars['search'] == 'null'){
+                if(pars['price']=='desc'){
+                    price='desc'
+                }
+                else{
+                    if(pars['price']=='asc')
+                        price='asc'
+                    else
+                        price=null
+                }
+                let date=null
+                if(pars['date']=='desc'){
+                    date='desc'
+                }
+                else{
+                    if(pars['date']=='asc')
+                        date='asc'
+                    else
+                        date=null
+                }
+                if(date && !price){
+                    count= await this.product.count({
+                        include:{
+                            model: Previews,
+                            attributes:['title']
+                        }
+                    })
+                }
+                if(!date && price){
+                    count= await this.product.count({
+                        include:{
+                            model: Previews,
+                            attributes:['title']
+                        }
+                    })
+                }
+                if(date && price){
+                    count= await this.product.count({
+                        include:{
+                            model: Previews,
+                            attributes:['title']
+                        }
+                    })
+                }   
+                count= await this.product.count({
+                    include:{
+                        model: Previews,
+                        attributes:['title']
+                    },
+                })
+                return Math.floor(count/limit)+1
+            }
+            else{
+                let search= pars['search']
+                if(search[0]=="$"){
+                    let copy: string =search;
+                    let sArr: string[] =copy.split('');
+                    sArr.shift();
+                    let str: string = sArr.join("");
+        
+                    
+                    const products= await this.product.count({
+                        include:[{
+                            model:Tag,
+                            where:{
+                                tagTitle:{
+                                    [Op.startsWith]: str
+                                }
+                                
+                            },
+                            
+                        },
+                            {
+                                model: Previews
+                            }]
+                    })
+                    return Math.floor(products/limit)+1;
+                }
+                else{
+                    const products= await this.product.count({
+                        where:{ productName:{
+                            [Op.startsWith]: search
+                        }
+                            
+                        },
+                        include: {
+                            model: Previews
+                        }
+                    }
+                        
+                    )
+                    return Math.floor(products/limit)+1;
+                }
+            }
+            
     }
 
     async createProduct(dto: ProductDto,images: Blob[]){

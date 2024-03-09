@@ -108,9 +108,9 @@ export class ProductsController {
 
     
     @UseGuards(JwtAuthGuard)
-    @Get('/getProductCountPages/:limit')
-    async getProductCountPages(@Param('limit') limit: string,){
-        return this.productService.getProductCountPages(limit);
+    @Get('/getProductCountPages/:limit/:price/:date/:search')
+    async getProductCountPages(@Param() pars: string[]){
+        return this.productService.getProductCountPages(pars);
     }
     @UseGuards(JwtAuthGuard)
     @Get('/getAttributes/:num')
