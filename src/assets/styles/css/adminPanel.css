@@ -782,7 +782,10 @@ body {
   width: max-content;
   margin-top: 2rem;
 }
-.adminPanel .createProduct .create {
+.adminPanel .createProduct .bts {
+  display: flex;
+}
+.adminPanel .createProduct .bts .create {
   padding: 1.5rem 3rem;
   border-radius: 8px;
   width: -moz-max-content;
@@ -792,6 +795,18 @@ body {
   font-size: 1.5rem;
   cursor: pointer;
   margin-top: 5rem;
+}
+.adminPanel .createProduct .bts .delete {
+  padding: 1.5rem 3rem;
+  border-radius: 8px;
+  width: -moz-max-content;
+  width: max-content;
+  background: red;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-top: 5rem;
+  margin-left: 2rem;
 }
 .adminPanel .products {
   display: flex;
@@ -853,6 +868,21 @@ body {
 .adminPanel .products .block .body .filters {
   display: flex;
   align-items: center;
+  margin: 1rem 0;
+}
+.adminPanel .products .block .body .filters .fs {
+  display: flex;
+  margin-left: 1rem;
+}
+.adminPanel .products .block .body .filters .fs > * {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+.adminPanel .products .block .body .filters .fs > * h4 {
+  margin: 0;
+  color: #2F3746;
+  font-size: 1.1rem;
 }
 .adminPanel .products .block .body .filters .fs select {
   font-size: 1.2rem;
@@ -862,7 +892,7 @@ body {
   width: max-content;
   border: 0;
   outline: none;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
 }
 .adminPanel .products .block .body .filters .pag {
   margin-left: auto;

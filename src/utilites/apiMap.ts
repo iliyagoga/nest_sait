@@ -1,5 +1,5 @@
 export const apiMap={
-    host: 'http://localhost',
+    host: 'http://192.168.1.117',
     port: '5000',
     auth: {
         way: '/user',
@@ -51,7 +51,8 @@ export const apiMap={
         createGalleryProduct: '/createGalleryProduct',
         updateProduct: '/redactProduct',
         updateGalleryProduct: '/updateGalleryProduct',
-        getProductCountPages: '/getProductCountPages'
+        getProductCountPages: '/getProductCountPages',
+        deleteProduct: '/deleteProduct'
 
     }
 }

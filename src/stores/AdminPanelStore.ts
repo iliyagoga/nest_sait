@@ -84,6 +84,8 @@ class AdminPanelStore{
     private _productPage: number =0;
     private _productCountPages: number = 1;
     private _seacrh: string = "";
+    private _filterPrice: string = 'null'
+    private _filterDate: string = 'null'
 
 
     private _products: any[] = [];
@@ -878,6 +880,22 @@ class AdminPanelStore{
 
     setSearch(str: string){
         this._seacrh=str;
+    }
+
+    setFilterPrice(price: string){
+        this._filterPrice=price;
+    }
+    
+    getFilterPrice(){
+        return this._filterPrice;
+    }
+
+    setFilterDate(date: string){
+        this._filterDate=date;
+    }
+    
+    getFilterDate(){
+        return this._filterDate;
     }
 
 

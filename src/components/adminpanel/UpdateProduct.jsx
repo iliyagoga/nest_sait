@@ -11,6 +11,7 @@ import info from '../../assets/imgs/Vector.svg'
 import { apiMap } from "../../utilites/apiMap.ts";
 import MiddleModal from "../modals/middleModal.jsx";
 import PhotoItem from "./GalleryItem.jsx";
+import DeleteModal from "../modals/deleteModal.jsx";
 
 
 const UpdateProduct = observer(({setShow})=>{
@@ -91,7 +92,7 @@ const UpdateProduct = observer(({setShow})=>{
     const [actualGroup, setActualGroup] = useState(null)
     const [actualAttr, setActualAttr] = useState(null)
     const [actualAttrId, setActualAttrId] = useState(null)
-
+    const [deleteMode, setDeleteMode] = useState(false)
     const [trigMModal, setTrigMModal]= useState(false)
 
 
@@ -122,6 +123,31 @@ const UpdateProduct = observer(({setShow})=>{
             <p>Товары</p>
         </div>
 
+
+        <DeleteModal
+        show={deleteMode}
+        handleClose={()=>{setDeleteMode(false)}}
+        he={'Удаление'}
+        func={async ()=>{
+            try {
+                await panel.deleteProduct()
+                await panel.getProducts(AdminPanelStore.getProductPage(),6, AdminPanelStore.getFilterPrice(), AdminPanelStore.getFilterDate(),  AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
+                await panel.productCountPages(6, AdminPanelStore.getFilterPrice(), AdminPanelStore.getFilterDate(), AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
+                setShow()
+            } catch (error) {
+                throw error
+            }
+
+            
+            }}
+        body={<div className="d">
+            <p>Вы уверены, что хотите удалить?</p>
+        </div>
+       }
+
+        >
+            
+        </DeleteModal>
         <MiniModal show={showGroups}
         handleClose={()=>{setShowGroups(false)}}
         header={"Группы"}
@@ -538,11 +564,19 @@ const UpdateProduct = observer(({setShow})=>{
                 </div>
             </div>
         </div>
-        <div className="create"  onClick={async ()=>{
-            await panel.updateProduct()
-        }}>
-            <span>Готово</span>
+        <div className="bts">
+            <div className="create"  onClick={async ()=>{
+                await panel.updateProduct()
+            }}>
+                <span>Готово</span>
+            </div>
+            <div className="delete"  onClick={async ()=>{
+                setDeleteMode(true)
+            }}>
+                <span>Удалить</span>
+            </div>
         </div>
+      
     </div>
 
 })

@@ -14,7 +14,7 @@ const ProductView = observer(()=>{
     useEffect(()=>{
         AdminPanelStore.setProductPage(0)
         panel.getProducts(0,6, 'null', 'null', AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
-        panel.productCountPages(6)
+        panel.productCountPages(6, 'null', 'null', AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
     },[])
     useEffect(()=>{
         panel.getProducts(AdminPanelStore.getProductPage(),6, 'null', 'null', AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
@@ -39,20 +39,42 @@ const ProductView = observer(()=>{
                                 AdminPanelStore.setSearch(e.target.value);  
                                 if(e.target.value.length!=0){
                                     panel.getProducts(AdminPanelStore.getProductPage(),6, 'null', 'null', e.target.value)
+                                    panel.productCountPages(6, 'null', 'null', AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
                                 }
                                 else{
                                     panel.getProducts(AdminPanelStore.getProductPage(),6, 'null', 'null', 'null')
+                                    panel.productCountPages(6, 'null', 'null', AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
                                 }}} placeholder="Введите имя продукта"/>
                         </div>
                         <div className="filters">
-                            <div className="fs">
-                                <select >
-                                    <option value="0">Цена</option>
+                            {AdminPanelStore.getSearch().length==0&&<div className="fs">
+                                <div className="fPrice">
+                                <h4>Цена:</h4>
+                                <select onChange={(e)=>{
+                                    AdminPanelStore.setFilterPrice(e.target.value)
+                                    panel.getProducts(AdminPanelStore.getProductPage(),6, AdminPanelStore.getFilterPrice(), AdminPanelStore.getFilterDate(),  AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
+                                    panel.productCountPages(6, AdminPanelStore.getFilterPrice(), AdminPanelStore.getFilterDate(), AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
+                                    }}>
+                                    <option value="null">Нет</option>
+                                    <option value="asc">По возрастранию</option>
+                                    <option value="desc">По убыванию</option>
                                 </select>
-                                <select >
-                                    <option value="0">Дата публикации</option>
-                                </select>
+                                </div>
+                                <div className="fRating">
+                                    <h4>Рейтинг:</h4>
+                                    <select onChange={(e)=>{
+                                        AdminPanelStore.setFilterDate(e.target.value)
+                                        panel.getProducts(AdminPanelStore.getProductPage(),6, AdminPanelStore.getFilterPrice(), AdminPanelStore.getFilterDate(),  AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
+                                        panel.productCountPages(6, AdminPanelStore.getFilterPrice(), AdminPanelStore.getFilterDate(), AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
+                                        }}>
+                                        <option value="null">Нет</option>
+                                        <option value="asc">По возрастранию</option>
+                                        <option value="desc">По убыванию</option>
+                                    </select>
+                                </div>
+                               
                             </div>
+                            }
                             <div className="pag">
                                 <Pagination
                                 actualPage={AdminPanelStore.getProductPage()}

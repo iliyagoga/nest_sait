@@ -659,15 +659,27 @@ body
                     cursor: pointer
                     width: max-content
                     margin-top: 2rem
-        & .create
-            padding: 1.5rem 3rem
-            border-radius: 8px
-            width: max-content
-            background: #1e1b46
-            color: white
-            font-size: 1.5rem
-            cursor: pointer
-            margin-top: 5rem
+        & .bts
+            display: flex
+            & .create
+                padding: 1.5rem 3rem
+                border-radius: 8px
+                width: max-content
+                background: #1e1b46
+                color: white
+                font-size: 1.5rem
+                cursor: pointer
+                margin-top: 5rem
+            & .delete
+                padding: 1.5rem 3rem
+                border-radius: 8px
+                width: max-content
+                background: red
+                color: white
+                font-size: 1.5rem
+                cursor: pointer
+                margin-top: 5rem
+                margin-left: 2rem
     & .products
         display: flex
         position: relative
@@ -720,7 +732,18 @@ body
                 & .filters
                     display: flex
                     align-items: center
+                    margin: 1rem 0
                     & .fs
+                        display: flex
+                        margin-left: 1rem
+                        &>*
+                            display: flex
+                            align-items: center
+                            margin-left: 1rem
+                            & h4
+                                margin: 0
+                                color: #2F3746
+                                font-size: 1.1rem
                         & select
                             font-size: 1.2rem
                             font-weight: 600
@@ -728,7 +751,7 @@ body
                             width: max-content
                             border: 0
                             outline: none
-                            margin-left: 1rem
+                            margin-left: .5rem
                     & .pag
                         margin-left: auto
                 & .table

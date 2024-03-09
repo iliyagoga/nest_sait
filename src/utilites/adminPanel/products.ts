@@ -96,8 +96,8 @@ export class Products{
             throw error;
         }
     }
-    async getProducts(page: number, limit: number, price: string, date: string, search: string){
-        const res= await products.get(apiMap.products.getProducts + '/' + page + '/' + limit + '/' + price + '/' + date + '/' +search, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}})
+    async getProducts(page: number, limit: number, rating: string, date: string, search: string){
+        const res= await products.get(apiMap.products.getProducts + '/' + page + '/' + limit + '/' + rating + '/' + date + '/' +search, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}})
         AdminPanelStore.setProducts(res.data)
     }
 
@@ -189,8 +189,19 @@ export class Products{
 
     }
 
-    async productCountPages(limit: number){
-        const res = await products.get(apiMap.products.getProductCountPages + "/" + limit, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}}) 
+    async productCountPages(limit: number, price: string, rating: string, search: string){
+        const res = await products.get(apiMap.products.getProductCountPages + '/' + limit + '/' + price + '/' + rating + '/' +search, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}}) 
         AdminPanelStore.setProductCountPages(res.data)
+        AdminPanelStore.setProductPage(0)
+    }
+    
+    async deleteProduct(){
+        try {
+            await products.post(apiMap.products.deleteProduct, {id: AdminPanelStore.getActualProductId()}, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}})
+            return true
+        } catch (error) {
+            return error
+        }
+       
     }
 }
