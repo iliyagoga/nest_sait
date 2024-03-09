@@ -125,17 +125,17 @@ export class ProductsService {
                     else
                         price=null
                 }
-                let date=null
-                if(pars['date']=='desc'){
-                    date='desc'
+                let rating=null
+                if(pars['rating']=='desc'){
+                    rating='desc'
                 }
                 else{
-                    if(pars['date']=='asc')
-                        date='asc'
+                    if(pars['rating']=='asc')
+                        rating='asc'
                     else
-                        date=null
+                        rating=null
                 }
-                if(date && !price){
+                if(rating && !price){
                     count= await this.product.count({
                         include:{
                             model: Previews,
@@ -143,7 +143,7 @@ export class ProductsService {
                         }
                     })
                 }
-                if(!date && price){
+                if(!rating && price){
                     count= await this.product.count({
                         include:{
                             model: Previews,
@@ -151,7 +151,7 @@ export class ProductsService {
                         }
                     })
                 }
-                if(date && price){
+                if(rating && price){
                     count= await this.product.count({
                         include:{
                             model: Previews,
@@ -245,7 +245,6 @@ export class ProductsService {
        
     }
     async createGalleryProduct(images: Blob[],dto){
-        console.log(dto)
         for (let i = 0; i < images.length; i++) {
             const imgTitle= await this.fileService.createFile(images[i]);
             const img = await this.gallery.create({title: imgTitle, productId: dto['id']})
@@ -399,6 +398,16 @@ export class ProductsService {
                     productId:id
                 }
             })
+            await this.gallery.destroy({
+                where:{
+                    productId:id
+                }
+            })
+            await this.preview.destroy({
+                where:{
+                    productId:id
+                }
+            })
             await this.product.destroy({where:{id}})
             return true;
         }
@@ -423,22 +432,22 @@ export class ProductsService {
                     else
                         price=null
                 }
-                let date=null
-                if(pars['date']=='desc'){
-                    date='desc'
+                let rating=null
+                if(pars['rating']=='desc'){
+                    rating='desc'
                 }
                 else{
-                    if(pars['date']=='asc')
-                        date='asc'
+                    if(pars['rating']=='asc')
+                        rating='asc'
                     else
-                        date=null
+                        rating=null
                 }
-                if(date && !price){
+                if(rating && !price){
                     return await this.product.findAll({
                         offset: limit*page,
                         limit,
                         order:[
-                            ['date', date]
+                            ['rating', rating]
                         ],
                         include:{
                             model: Previews,
@@ -446,7 +455,7 @@ export class ProductsService {
                         }
                     })
                 }
-                if(!date && price){
+                if(!rating && price){
                     return await this.product.findAll({
                         offset: limit*page,
                         limit,
@@ -459,13 +468,14 @@ export class ProductsService {
                         }
                     })
                 }
-                if(date && price){
+                if(rating && price){
                     return await this.product.findAll({
                         offset: limit*page,
                         limit,
                         order:[
-                            ['date', date],
-                            ['price', price]
+                            ['price', price],
+                            ['rating', rating]
+                          
                         ],
                         include:{
                             model: Previews,

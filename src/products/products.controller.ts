@@ -89,7 +89,7 @@ export class ProductsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get('/getProducts/:page/:limit/:price/:date/:search')
+    @Get('/getProducts/:page/:limit/:price/:rating/:search')
     async getProducts(@Param() pars: string[]){
         return this.productService.getProducts(pars);
     }
@@ -108,7 +108,7 @@ export class ProductsController {
 
     
     @UseGuards(JwtAuthGuard)
-    @Get('/getProductCountPages/:limit/:price/:date/:search')
+    @Get('/getProductCountPages/:limit/:price/:rating/:search')
     async getProductCountPages(@Param() pars: string[]){
         return this.productService.getProductCountPages(pars);
     }
