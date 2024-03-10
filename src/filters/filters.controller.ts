@@ -175,6 +175,12 @@ export class FiltersController {
         return this.filtersService.countGroupsPages();
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Get('/getGroupsClient')
+    getGroupsClient(){
+        return this.filtersService.getAllGroups()
+    }
+
     
 
 
