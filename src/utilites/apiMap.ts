@@ -29,7 +29,8 @@ export const apiMap={
         removeCategory: '/removeCategory',
         getCategoriesCountPages: '/getCategoriesCountPages',
         renameCategory: '/renameCategory',
-        getAllGroups: '/getAllGroups'
+        getAllGroups: '/getAllGroups',
+        getGroupsClient: '/getGroupsClient'
     },
 
     products:{

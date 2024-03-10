@@ -2,5 +2,7 @@
 export const config={
     adminPanel:'/adminPanel',
     login:'/login',
-    reg:'/reg'
+    reg:'/reg',
+    mean: '/mean',
+    catalog: '/catalog'
 }

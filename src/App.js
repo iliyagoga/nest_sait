@@ -4,6 +4,8 @@ import AdminPanel from './pages/AdminPanel.jsx';
 import Login from './pages/Auth.jsx';
 import './assets/styles/css/main.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MeanPage from './pages/MeanPage.jsx';
+import Catalog from './pages/Catalog.jsx';
 function App() {
   return <>
   <Routes>
@@ -14,11 +16,23 @@ function App() {
 
     <Route path={config.reg} element={
       <Login mode={true}></Login>
-    }></Route>
-
-    <Route path={ '/*' || config.login} element={
-          <Login mode={false}></Login>
-        }>
+          }>
+    </Route>
+    <Route path={ config.mean} element={
+            <MeanPage></MeanPage>
+          }>
+    </Route>
+    <Route path={ config.catalog} element={
+            <Catalog></Catalog>
+          }>
+    </Route>
+    <Route path={ config.login} element={
+            <Login></Login>
+          }>
+    </Route>
+    <Route path={ '/*'} element={
+          <MeanPage></MeanPage>
+          }>
     </Route>
   
   </Routes>
