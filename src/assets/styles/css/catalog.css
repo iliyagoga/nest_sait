@@ -39,8 +39,7 @@
   margin-left: 5rem;
   height: -moz-max-content;
   height: max-content;
-  width: -moz-max-content;
-  width: max-content;
+  width: 100%;
   margin-top: 0.2rem;
 }
 .catalog .body .container .filters {
@@ -61,6 +60,87 @@
   outline: none;
   border: 0;
   color: #9DA4AE;
+}
+.catalog .body .container .products {
+  display: flex;
+  flex-wrap: wrap;
+  width: 60rem;
+  justify-content: space-between;
+  margin: 2rem auto;
+}
+.catalog .body .container .products .product {
+  display: flex;
+  flex-direction: column;
+  width: 18.75rem;
+  margin-top: 1rem;
+}
+.catalog .body .container .products .product .preview {
+  height: 22.5rem;
+  position: relative;
+  overflow: hidden;
+  width: 18.75rem;
+}
+.catalog .body .container .products .product .preview .rating {
+  position: absolute;
+  left: 0;
+  display: flex;
+  width: 7rem;
+  height: 2rem;
+  border-radius: 0 0 20px 0;
+  z-index: 200;
+  background: rgba(233, 233, 233, 0.768627451);
+}
+.catalog .body .container .products .product .preview .rating .rat {
+  left: 1rem;
+  top: 0.5rem;
+  margin-right: 0.2rem;
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+}
+.catalog .body .container .products .product .preview .new {
+  position: absolute;
+  top: 0;
+  width: 4rem;
+  height: 2rem;
+  border-radius: 0 0 0 20px;
+  right: 0;
+  z-index: 200;
+  color: white;
+  background: #E0BEA2;
+}
+.catalog .body .container .products .product .preview .new span {
+  font-family: "Raleway-Regular";
+  position: relative;
+  left: 1rem;
+  top: 0.2rem;
+}
+.catalog .body .container .products .product .preview img {
+  position: absolute;
+  height: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.catalog .body .container .products .product .title {
+  margin: 0.5rem auto;
+}
+.catalog .body .container .products .product .title span {
+  text-align: center;
+  font-family: "Raleway-Regular";
+}
+.catalog .body .container .products .product .price {
+  display: flex;
+  justify-content: center;
+  color: #E0BEA2;
+}
+.catalog .body .container .products .product .price .old {
+  text-decoration: line-through;
+  color: #9DA4AE;
+}
+.catalog .body .container .products .product .price .sale {
+  margin-left: 0.5rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid #E0BEA2;
 }
 .catalog .body .sidebar {
   width: -moz-max-content;
