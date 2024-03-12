@@ -192,6 +192,16 @@ export class FiltersService {
     async countGroupsPages(){
         return Math.floor(await this.group.count()/6)+1
     }
+
+    async getAllCategories(){
+        const res = await this.group.findAll({
+            include:{
+                model: Category
+            }
+        })
+        return res
+    }
+
     
 
 

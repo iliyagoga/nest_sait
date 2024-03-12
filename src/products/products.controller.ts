@@ -150,4 +150,16 @@ export class ProductsController {
     }
 
 
+    @Get('/getProductsClientCats/:idGroup/:idCategory/:price/:rating/:order/:limit/:offset')
+    getProductsCats(@Param() params: string[]){
+        return this.productService.getProductsCats(params)
+    }
+
+    @Get('/getProductsClient/:price/:rating/:order/:limit/:offset')
+    getProductsDef(@Param() params: string[]){
+        return this.productService.getProductsDef(params)
+    }
+
+   
+
 }

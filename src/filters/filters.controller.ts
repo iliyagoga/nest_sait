@@ -175,10 +175,15 @@ export class FiltersController {
         return this.filtersService.countGroupsPages();
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get('/getGroupsClient')
     getGroupsClient(){
         return this.filtersService.getAllGroups()
+    }
+
+
+    @Get('/getCategoriesClient')
+    getCategoriesClient(){
+        return this.filtersService.getAllCategories()
     }
 
     

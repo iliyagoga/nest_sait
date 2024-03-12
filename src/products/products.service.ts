@@ -624,6 +624,90 @@ export class ProductsService {
         return Math.floor((await this.attrValue.count({where:{attributeId}})/6))+1
     }
 
+    async getProductsCats(params: string[]){
+       try {
+        let orders=[]
+        if(params['price']=='asc'){
+            orders.push(['price', 'asc'])
+        }
+        if(params['price']=='desc'){
+            orders.push(['price', 'desc'])
+        }
+        if(params['rating']=='asc'){
+            orders.push(['rating', 'asc'])
+        }
+        if(params['rating']=='desc'){
+            orders.push(['rating', 'desc'])
+        }
+        if(params['order']=='asc'){
+            orders.push(['id', 'asc'])
+        }
+        if(params['order']=='desc'){
+            orders.push(['id', 'desc'])
+        }
+
+        const res = await this.product.findAll({
+            offset: Number(params['offset']),
+            limit: Number(params['limit']),
+            include:[
+                {model: Previews},
+                {model: Gallery},
+                {
+                model: Category,
+                where: {
+                    id: Number(params['idCategory'])
+                }
+                }
+            ],
+            order: orders
+            
+        })
+        return res
+       } catch (error) {
+        throw error;
+       }
+    }
+
+    async getProductsDef(params: string[]){
+        try {
+         let orders=[]
+         if(params['price']=='asc'){
+             orders.push(['price', 'asc'])
+         }
+         if(params['price']=='desc'){
+             orders.push(['price', 'desc'])
+         }
+         if(params['rating']=='asc'){
+             orders.push(['rating', 'asc'])
+         }
+         if(params['rating']=='desc'){
+             orders.push(['rating', 'desc'])
+         }
+         if(params['order']=='asc'){
+             orders.push(['id', 'asc'])
+         }
+         if(params['order']=='desc'){
+             orders.push(['id', 'desc'])
+         }
+ 
+         const res = await this.product.findAll({
+             offset: Number(params['offset']),
+             limit: Number(params['limit']),
+             order: orders,
+             include:[
+                {model: Previews},
+                {model: Gallery}
+             ]
+             
+         })
+         return res
+        } catch (error) {
+         throw error;
+        }
+     }
+ 
+
+
 
     
 }
