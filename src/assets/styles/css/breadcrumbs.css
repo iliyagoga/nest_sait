@@ -1,0 +1,17 @@
+.breadcrumbs {
+  display: flex;
+  position: relative;
+  margin-top: 7rem;
+}
+.breadcrumbs > * {
+  margin-right: 1rem;
+}
+.breadcrumbs span {
+  cursor: pointer;
+  color: #9DA4AE;
+  padding: 0.2rem 0;
+}
+.breadcrumbs .activeLink {
+  border-bottom: 1px solid black;
+  color: black;
+}/*# sourceMappingURL=breadcrumbs.css.map */

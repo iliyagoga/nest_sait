@@ -6,13 +6,16 @@ import b_search from '../../assets/imgs/b_search.svg'
 import b_accaunt from '../../assets/imgs/b_accaunt.svg'
 import b_cart from '../../assets/imgs/b_cart.svg'
 import '../../assets/styles/css/header.css'
+import { useNavigate } from "react-router-dom";
+import { config } from "../../config.ts";
 const Header = observer(({theme=true})=>{
+    const nav = useNavigate()
     return <header className={theme?"":"black"}>
         <div className={theme?"left": "left black"}>
             <span>
                 New
             </span>
-            <span>
+            <span onClick={()=>{nav(config.catalog)}}>
                 Каталог
             </span>
             <span>

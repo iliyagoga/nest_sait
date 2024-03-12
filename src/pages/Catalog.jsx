@@ -6,23 +6,25 @@ import { useEffect } from "react";
 import Client from "../stores/Client.ts";
 
 import '../assets/styles/css/catalog.css'
+import Category from "../components/client/Category.jsx";
+import { config } from "../config.ts";
+import Product from "../components/client/Product.jsx";
 
 const Catalog = observer(()=>{
     const catalog = new CatalogUtilite()
     useEffect(()=>{
-        catalog.getGroups()
+        catalog.getCategories()
+        catalog.getProducts('null', 'null', 'null', 12, 0)
     },[])
     return <div className="catalog">
         <Header theme={false}></Header>
-        <BreadCrumbs></BreadCrumbs>
+        <BreadCrumbs names={['Главная','Каталог']} links={[config.mean, config.catalog]}></BreadCrumbs>
         <div className="body">
             <div className="sidebar">
                 <h3>Каталог</h3>
                 <div className="groups">
-                    {Client.getGroups()!=undefined&&Client.getGroups().map(v=>{
-                        return <div className="ul">
-                            <span>{v.groupTitle}</span>
-                        </div>
+                    {Client.getCategories()!=undefined&&Client.getCategories().map(v=>{
+                        return <Category title={v} categories={v.category}></Category>
                     })}
                 </div>
             </div>
@@ -30,7 +32,14 @@ const Catalog = observer(()=>{
                 <div className="filters">
                     <div className="price">
                         <h4>Цена:</h4>
-                        <select name="" id="">
+                        <select  onChange={(e)=>{
+                            Client.setPriceFilter(e.target.value);
+                            if(Client.getCategory()!=undefined){
+                                catalog.getProductsCats(Client.getCategory().idGroup, Client.getCategory().idCat, Client.getPriceFilter(), Client.getRatingFilter(), Client.getOrderFilter(), 12, 0)
+                            }
+                            else{
+                                catalog.getProducts(Client.getPriceFilter(), Client.getRatingFilter(), Client.getOrderFilter(), 12, 0)
+                            }                            }}   name="" id="">
                             <option value="null">Нет</option>
                             <option value="asc">По возрастанию</option>
                             <option value="desc">По убыванию</option>
@@ -38,7 +47,16 @@ const Catalog = observer(()=>{
                     </div>
                     <div className="rating">
                         <h4>Рейтинг:</h4>
-                        <select name="" id="">
+                        <select onChange={(e)=>{
+                            Client.setRatingFilter(e.target.value);
+                            if(Client.getCategory()!=undefined){
+                                catalog.getProductsCats(Client.getCategory().idGroup, Client.getCategory().idCat, Client.getPriceFilter(), Client.getRatingFilter(), Client.getOrderFilter(), 12, 0)
+                            }
+                            else{
+                                catalog.getProducts(Client.getPriceFilter(), Client.getRatingFilter(), Client.getOrderFilter(), 12, 0)
+                            }
+                          
+                            }}   name="" id="">
                             <option value="null">Нет</option>
                             <option value="asc">По возрастанию</option>
                             <option value="desc">По убыванию</option>
@@ -46,12 +64,24 @@ const Catalog = observer(()=>{
                     </div>
                     <div className="other">
                         <h4>Сортировать по:</h4>
-                        <select name="" id="">
+                        <select onChange={(e)=>{
+                            Client.setOrderFilter(e.target.value);
+                            if(Client.getCategory()!=undefined){
+                                catalog.getProductsCats(Client.getCategory().idGroup, Client.getCategory().idCat, Client.getPriceFilter(), Client.getRatingFilter(), Client.getOrderFilter(), 12, 0)
+                            }
+                            else{
+                                catalog.getProducts(Client.getPriceFilter(), Client.getRatingFilter(), Client.getOrderFilter(), 12, 0)
+                            }                            }}  name="" id="">
                             <option value="null">Нет</option>
                             <option value="asc">Новые</option>
                             <option value="desc">Старые</option>
                         </select>
                     </div>
+                </div>
+                <div className="products">
+                    {Client.getProducts()!=undefined&&Client.getProducts().map(v=>{
+                        return <Product product={v}></Product>
+                    })}
                 </div>
             </div>
          

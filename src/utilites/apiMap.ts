@@ -30,7 +30,8 @@ export const apiMap={
         getCategoriesCountPages: '/getCategoriesCountPages',
         renameCategory: '/renameCategory',
         getAllGroups: '/getAllGroups',
-        getGroupsClient: '/getGroupsClient'
+        getGroupsClient: '/getGroupsClient',
+        getCategoriesClient: '/getCategoriesClient'
     },
 
     products:{
@@ -53,7 +54,9 @@ export const apiMap={
         updateProduct: '/redactProduct',
         updateGalleryProduct: '/updateGalleryProduct',
         getProductCountPages: '/getProductCountPages',
-        deleteProduct: '/deleteProduct'
+        deleteProduct: '/deleteProduct',
+        getProductsClientCats: '/getProductsClientCats',
+        getProductsClient: '/getProductsClient'
 
     }
 }

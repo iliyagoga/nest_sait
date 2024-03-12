@@ -1,9 +1,88 @@
+@font-face 
+    font-family: 'Raleway-Bold'
+    src: url('../static/Raleway-Bold.ttf')
+@font-face 
+    font-family: 'Raleway-ExtraBold'
+    src: url('../static/Raleway-ExtraBold.ttf')
+@font-face
+    font-family: 'Raleway-Light'
+    src: url('../static/Raleway-Light.ttf')
+@font-face 
+    font-family: 'Raleway-Medium'
+    src:   url('../static/Raleway-Medium.ttf')
+@font-face 
+    font-family: 'Raleway-Regular'
+    src: url('../static/Raleway-Regular.ttf')
+@font-face 
+    font-family: 'Raleway-Thin'
+    src: url('../static/Raleway-Thin.ttf'), 
 .catalog
     display: flex
     width: 90%
     margin: auto
     position: relative
     height: auto
+    flex-direction: column
    
     & .body
-        margin-top: 10rem
+        margin-top: 3rem
+        display: flex
+        width: 100%
+        & .container
+            margin-left: 5rem
+            height: max-content
+            width: max-content
+            margin-top: .2rem
+            & .filters
+                display: flex
+                width: max-content
+                & div
+                    display: flex
+                    font-family: 'Raleway-Regular'
+                    margin-right: 4rem
+                    & h4
+                        font-size: 1rem
+
+                        margin: 0
+
+                    & select
+                        outline: none
+                        border: 0
+                        color: #9DA4AE
+        & .sidebar
+            width: max-content
+            width: 10rem
+            & h3
+                font-family: 'Raleway-Regular'
+                font-size: 1.25rem
+            & .groups
+                margin-top: 1rem
+                & .ul
+                    padding: .625rem 0
+                    & span
+                        font-family: 'Raleway-Regular'
+                        font-size: 1rem
+                        cursor: pointer
+                        transition-timing-function: ease-in-out
+                        transition-duration: .2s
+                        letter-spacing: 0
+                      
+                    & .active
+                        letter-spacing: .2rem
+                        transition-duration: .2s
+                        transition-timing-function: ease-in-out
+                        color: #9DA4AE
+                    & ul
+                        height: 0
+                        padding-left: 1rem
+                        margin: 0
+                    & .activeUl
+                        height: max-content
+                        & li
+                            padding: .3rem 0
+                            font-family: 'Raleway-Regular'
+                            cursor: pointer
+                            &:not(:last-child)
+                                border-bottom: 1px solid black
+                        
+
