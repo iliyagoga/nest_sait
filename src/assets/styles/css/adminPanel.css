@@ -538,6 +538,31 @@ body {
   width: max-content;
   margin-top: 2rem;
 }
+.adminPanel .createProduct .variations {
+  display: flex;
+  border-radius: 20px;
+  box-shadow: 0px 7px 22px rgba(68, 68, 68, 0.0196078431), 0px -5px 22px rgba(68, 68, 68, 0.0196078431);
+  padding: 2rem 1rem;
+}
+.adminPanel .createProduct .variations .l {
+  width: 40%;
+}
+.adminPanel .createProduct .variations .r {
+  width: 60%;
+}
+.adminPanel .createProduct .variations .r .button {
+  padding: 1rem 5rem;
+  border-radius: 8px;
+  background: #6C737F;
+  height: -moz-max-content;
+  height: max-content;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  width: -moz-max-content;
+  width: max-content;
+  margin-top: 2rem;
+}
 .adminPanel .createProduct .gallery {
   margin-top: 3rem;
   display: flex;

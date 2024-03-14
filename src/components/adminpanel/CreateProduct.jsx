@@ -36,6 +36,8 @@ const CreateProduct = observer(({setShow})=>{
     const [showTags, setShowTags] = useState(false)
     const [showAttrs, setShowAttrs]= useState(false)
     const [showAttrsValue, setShowAttrsValue]= useState(false)
+    const [showAttrsV, setShowAttrsV]= useState(false)
+    const [showAttrsValueV, setShowAttrsValueV]= useState(false)
     const [move, setMove]= useState(false) 
     const [redo, setRedo]= useState(false)
     const [showImages, setShowImages] = useState(false)
@@ -43,6 +45,8 @@ const CreateProduct = observer(({setShow})=>{
     const [actualGroup, setActualGroup] = useState(null)
     const [actualAttr, setActualAttr] = useState(null)
     const [actualAttrId, setActualAttrId] = useState(null)
+    const [actualAttrV, setActualAttrV] = useState(null)
+    const [actualAttrIdV, setActualAttrIdV] = useState(null)
 
 
     const deleteFunction =  (copy,values,i)=>{
@@ -230,6 +234,44 @@ const CreateProduct = observer(({setShow})=>{
         >
 
         </MiddleModal>
+
+
+        <MiniModal show={showAttrsV}
+        handleClose={()=>{setShowAttrsV(false)}}
+        header={"Атрибуты"}
+        text={<div className="modalGroupsBody">
+            {
+                AdminPanelStore.getProductsAttrs()!=undefined&&AdminPanelStore.getProductsAttrs().map((v)=>{
+                    return <span onClick={async ()=>{
+                        await panel.getAttributesValuesLimit(v.id, 0, 10000)
+                        setShowAttrsV(false)
+                        setShowAttrsValueV(true)
+                        setActualAttrV(v.attributeName)
+                        setActualAttrIdV(v.id)
+                    }}>{v.attributeName}</span>
+                })
+            }
+        </div>
+            }>
+        
+        </MiniModal>
+
+        
+        <MiniModal show={showAttrsValueV}
+        handleClose={()=>{setShowAttrsValueV(false)}}
+        header={"Значение атрибута"}
+        text={<div className="modalGroupsBody">
+            {
+                AdminPanelStore.getProductsAttrsValues()!=undefined&&AdminPanelStore.getProductsAttrsValues().map((v)=>{
+                    return <span className={AdminPanelStore.findActualAttrValuesIds(actualAttrIdV, v.id)? 'active': ''} onClick={ ()=>{
+                            AdminPanelStore.setActualAttrValuesIds(actualAttrIdV, v.id,actualAttrV, v.attributeValue)
+                    }}>{v.attributeValue}</span>
+                })
+            }
+        </div>
+            }>
+        
+        </MiniModal>
         
         <div className="back" onClick={()=>setShow()}>
             <img src={back} alt="" />
@@ -327,6 +369,35 @@ const CreateProduct = observer(({setShow})=>{
                 }
                 
                
+            </div>
+        </div>
+        <div className="variations">
+            <div className="l">
+                <h3>Вариации</h3>
+                <p>Выберите атрибут, который будет характеризировать вариации товара</p>
+            </div>
+            <div className="r">
+            <div className="button" onClick={async ()=>{
+                    await panel.getAttributes(0,10000)
+                    setShowAttrsV(true)
+                    }}>
+                    Добавить
+                </div>
+                {AdminPanelStore.getAttrAttrsValues().length>0&&<>
+                <div className="block">
+                    {AdminPanelStore.getAttrAttrsValues().map((v,i)=>{
+                        return <div className="atrs">
+                            <h4>{v.aV}: </h4>
+                            {v.avVs.map((y,j)=>{
+                                return <span onClick={()=>{
+                                    AdminPanelStore.setActualAttrValuesIds(AdminPanelStore.getActualAttrValuesIds()[i].aVid,AdminPanelStore.getActualAttrValuesIds()[i].avVIds[j])
+                                }}>{y}{(v.avVs.length-1)>j&&','}</span>
+                            })}
+                        </div>
+                    })}
+                </div>
+                </>
+                }
             </div>
         </div>
 

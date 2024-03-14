@@ -74,6 +74,8 @@ class AdminPanelStore{
     private _productsAttrsValue: any[];
     private _AttrsAttrsValueIds:  {aVid: number, avVIds: number[]}[]=[];
     private _AttrsAttrsValue: {aV: string, avVs: string[]}[]=[];
+    private _AttrsAttrsValueIdsV:  {aVid: number, avVIds: number[]}[]=[];
+    private _AttrsAttrsValueV: {aV: string, avVs: string[]}[]=[];
     private _imgFile: File;
     private _galleryFiles: Blob[] = [];
     private _name: string;
@@ -649,6 +651,19 @@ class AdminPanelStore{
     getAttrAttrsValues(){
         return this._AttrsAttrsValue;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     setImgFile(file: any){
         this._imgFile=file;
