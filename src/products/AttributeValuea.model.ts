@@ -1,8 +1,9 @@
 import { DataTypes } from "sequelize";
-import { BelongsToMany, Column, ForeignKey, Model, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 import { Attribute } from "./attributes.model";
 import { Product } from "./product.model";
 import { AttributeProduct } from "./AttributeProduct.model";
+import { Variations } from "./variations.model";
 
 
 @Table({tableName:"AtrributeValue"})
@@ -22,5 +23,8 @@ export class AttributeValue extends Model<AttributeValue>{
     attributeId: number;
 
     @BelongsToMany(()=>Product,()=>AttributeProduct)
-    product: Product[]
+    product: Product[];
+
+    @HasMany(()=>Variations)
+    variations: Variations[];
 }

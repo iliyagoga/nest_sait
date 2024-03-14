@@ -11,6 +11,8 @@ import { Cart } from "src/cart/cart.model";
 import { OrderProduct } from "src/order/orderProduct.model";
 import { Previews } from "./preview.model";
 import { Gallery } from "./gallery.model";
+import { Variations } from "./variations.model";
+import { RecommendationProducts } from "./recommendationProduct.model";
 
 
 @Table({tableName:"Products"})
@@ -51,18 +53,6 @@ export class Product extends Model<Product>{
 
     ratingCount: number
 
-    @ForeignKey(()=>Product)
-    @Column({type: DataTypes.INTEGER})
-
-    parentId: number;
-
-    @BelongsTo(()=>Product)
-
-    parent: Product;
-
-    @HasMany(()=>Product)
-
-    product: Product[];
 
     @BelongsToMany(()=>Category,()=>CategoryProduct)
     category: Category[];
@@ -88,6 +78,12 @@ export class Product extends Model<Product>{
 
     @HasMany(()=>Gallery)
     gallery: Gallery[]
+
+    @HasMany(()=>Variations)
+    variations: Variations[];
+
+    @HasMany(()=>RecommendationProducts)
+    recommendationProducts: RecommendationProducts[];
 
 
 

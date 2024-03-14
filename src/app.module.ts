@@ -31,6 +31,8 @@ import { Previews } from './products/preview.model';
 import { Gallery } from './products/gallery.model';
 import * as path from 'path'
 import { ServeStaticModule } from "@nestjs/serve-static";
+import { Variations } from './products/variations.model';
+import { RecommendationProducts } from './products/recommendationProduct.model';
 
 @Module({
   imports: [
@@ -43,7 +45,7 @@ import { ServeStaticModule } from "@nestjs/serve-static";
       password: 'admin',
       database: 'Shop',
       models: [Cart,Coupon,Category, CategoryProduct, Colors, Group, Tag, TagProduct, AddresOrder, Order,OrderProduct, Attribute, AttributeValue, AttributeProduct,
-      Product, Role, RolesUser, User, Previews, Gallery],
+      Product, Role, RolesUser, User, Previews, Gallery, Variations, RecommendationProducts],
       autoLoadModels:true
     }),
     RoleModule, FiltersModule, ProductsModule, CartModule, OrderModule, UserModule, CouponModule, FilesModule,
