@@ -468,6 +468,31 @@ body
                 width: 40%
             & .r
                 width: 60%
+                & .block
+                    display: flex
+                    padding: 1rem 2rem
+                    border-radius: 8px
+                    flex-direction: column
+                    border: 1px solid #E5E7EB
+                    margin-top: 1rem
+                    & .atrs
+                        display: flex
+                        width: 100%
+                        padding: .5rem 0
+                        border-bottom: 1px solid #E5E7EB
+                        align-items: center
+                        &:not(:last-child)
+                            border-bottom: 1px solid #E5E7EB
+    
+                        & h4
+                            margin: 0
+                            font-size: 1.4rem
+                            color: #6d6d6d
+                        & span
+                            font-size: 1.2rem
+                            color: #979797
+                            margin-left: .5rem
+                            cursor: pointer
                 & .button
                     padding: 1rem 5rem
                     border-radius: 8px
@@ -483,7 +508,7 @@ body
             margin-top: 3rem
             display: flex
             border-radius: 20px
-            box-shadow: 0px 7px 22px #44444405, 0px -5px 22px #44444405
+            box-shadow: 0px 7px 22px #c0727205, 0px -5px 22px #44444405
             padding: 2rem 1rem
 
             & .l

@@ -74,8 +74,8 @@ class AdminPanelStore{
     private _productsAttrsValue: any[];
     private _AttrsAttrsValueIds:  {aVid: number, avVIds: number[]}[]=[];
     private _AttrsAttrsValue: {aV: string, avVs: string[]}[]=[];
-    private _AttrsAttrsValueIdsV:  {aVid: number, avVIds: number[]}[]=[];
-    private _AttrsAttrsValueV: {aV: string, avVs: string[]}[]=[];
+    private _AttrsAttrsValueVarsIds:  {aVid: number, avVIds: number[]} | undefined = undefined;
+    private _AttrsAttrsValueVars: {aV: string, avVs: string[]} | undefined=undefined;
     private _imgFile: File;
     private _galleryFiles: Blob[] = [];
     private _name: string;
@@ -507,6 +507,9 @@ class AdminPanelStore{
         this._productsAttrsValue=arr;
     }
 
+
+
+
     getActualAttrValuesIds(){
         return this._AttrsAttrsValueIds;
     }
@@ -650,6 +653,114 @@ class AdminPanelStore{
 
     getAttrAttrsValues(){
         return this._AttrsAttrsValue;
+    }
+
+
+
+
+
+
+
+
+
+    getActualAttrValueVarsIds(){
+        return this._AttrsAttrsValueVarsIds;
+    }
+    findActualAttrValuesVarsIds(idAv: number ){
+        let c=false
+        let y=false
+        if(this._AttrsAttrsValueVarsIds!=undefined){
+            for(let i of this._AttrsAttrsValueVarsIds.avVIds){
+                if(i==idAv){
+                    return true
+                }
+            }
+        }
+     
+        return y
+    }
+    clearActualAttrValuesVarsIds(){
+        this._AttrsAttrsValueVars = undefined;
+        this._AttrsAttrsValueVarsIds = undefined;
+    }
+
+    setActualAttrValuesVarsIds(idA:number, idAv: number,a: string, av:string){
+        let c=false
+        if(this._AttrsAttrsValueVarsIds==undefined || this._AttrsAttrsValueVars == undefined){
+            this._AttrsAttrsValueVarsIds = {aVid: idA, avVIds: [idAv]}
+            this._AttrsAttrsValueVars = {aV:a, avVs: [av]}
+        }
+        else{
+            let i = this._AttrsAttrsValueVarsIds
+            let y=false
+            for(let j of i.avVIds){
+                if(j==idAv){
+                    y=true
+                }
+            }
+            if(this._AttrsAttrsValueVarsIds.aVid==idA){
+                if(y){
+                    if(i.avVIds.length==1){
+                        this._AttrsAttrsValueVars = undefined;
+                        this._AttrsAttrsValueVarsIds = undefined;
+                               
+                    }
+                    else{
+                        
+                        if(i.avVIds.indexOf(idAv)==0){
+                            i.avVIds.shift()
+                            this._AttrsAttrsValueVars.avVs.shift()
+                        }
+                        else
+                        if(i.avVIds.indexOf(idAv)==i.avVIds.length-1){
+                            i.avVIds.pop()
+                            this._AttrsAttrsValueVars.avVs.pop()
+                        }
+                        else{
+                            this._AttrsAttrsValueVars.avVs=[...this._AttrsAttrsValueVars.avVs.slice(0, i.avVIds.indexOf(idAv)),...this._AttrsAttrsValueVars.avVs.slice(i.avVIds.indexOf(idAv)+1)]
+                            i.avVIds=[...i.avVIds.slice(0, i.avVIds.indexOf(idAv)),...i.avVIds.slice( i.avVIds.indexOf(idAv)+1)]
+    
+                        }
+                        
+                    }
+                    
+    
+                }
+                else{
+                    i.avVIds.push(idAv)
+                    this._AttrsAttrsValueVars.avVs.push(av)
+    
+    
+                }
+            }
+            else{
+                throw new Error('Удалите уже выбранную вариацию, прежде чем выбирать новую')
+            }
+          
+                    
+            }
+        
+    }
+
+
+       
+    
+
+    setActualAttrValuesIdsVarsAuto(idA:number, idAv: number,a: string, av:string){
+
+        this._AttrsAttrsValueVarsIds={aVid: idA, avVIds: [idAv]}
+        this._AttrsAttrsValueVars={aV:a, avVs: [av]}
+      
+       
+    }
+
+
+    setAttrAttrsValuesVars(aV: string, avVs: string[]){
+        this._AttrsAttrsValueVars= {aV,avVs};
+    }
+
+    getAttrAttrsValuesVars(){
+        return this._AttrsAttrsValueVars;
     }
 
 

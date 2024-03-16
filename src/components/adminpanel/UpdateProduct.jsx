@@ -29,55 +29,13 @@ const UpdateProduct = observer(({setShow})=>{
     
     useEffect(()=>{
         const product= AdminPanelStore.getActualProduct()
-        AdminPanelStore.setActualTags([])
-        AdminPanelStore.setActualTagsIds([])
-        if(product!=undefined){
-            try {
-                setFileImg(product['res']['previews']==undefined?def:(apiMap.host+':'+apiMap.port+'/'+product['res']['previews'][0].title))
-            } catch (error) {
-            }
-            product['res'].productName!=undefined&&AdminPanelStore.setName(product['res'].productName)
-            product['res'].title!=undefined&&AdminPanelStore.setTitle(product['res'].title)
-            product['res'].description!=undefined&&AdminPanelStore.setDescr(product['res'].description)
-            product['res'].price!=undefined&&AdminPanelStore.setOldPrice(product['res'].price)
-            product['res']['sale_price']!=undefined&&AdminPanelStore.setNewPrice(product['res']['sale_price'])
-            for(let v of product['res']['tag']){
-                let c=true
-                for(let g of AdminPanelStore.getActualTags()){
-                    if(g==v.id){
-                        c=false
-                    }
-                }
-                if(c){
-                    AdminPanelStore.addActualTags(v.tagTitle)
-                    AdminPanelStore.addActualTagsIds(v.id)
-                    
-                }
-            }
-
-            for(let v of product['cs']){
-                if(AdminPanelStore.getActualCategories().length==0){
-                    AdminPanelStore.addActualCategories(v.id)
-                    AdminPanelStore.addGroupCategories(v['group'].groupTitle, v.categoryName)
-                }
-                let c=true
-                for(let y of AdminPanelStore.getActualCategories()){
-                    if(y==v.id){
-                        c=false
-                    }
-                }
-                if(c){
-                    AdminPanelStore.addActualCategories(v.id)
-                    AdminPanelStore.addGroupCategories(v['group'].groupTitle, v.categoryName)
-                }
-            }
-            for(let v of product['ats']){
-                AdminPanelStore.setActualAttrValuesIdsAuto(v['id'], v['attributeValue'][0]['id'],v['attributeName'], v['attributeValue'][0]['attributeValue'])
-            }
-            panel.getPhotos()
-        }
+  
             
-       
+        try {
+            setFileImg(product['res']['previews']==undefined?def:(apiMap.host+':'+apiMap.port+'/'+product['res']['previews'][0].title))
+        } catch (error) {
+        }
+        panel.getPhotos()
 
   
   
@@ -94,6 +52,10 @@ const UpdateProduct = observer(({setShow})=>{
     const [actualAttrId, setActualAttrId] = useState(null)
     const [deleteMode, setDeleteMode] = useState(false)
     const [trigMModal, setTrigMModal]= useState(false)
+    const [showAttrsV, setShowAttrsV]= useState(false)
+    const [showAttrsValueV, setShowAttrsValueV]= useState(false)
+    const [actualAttrV, setActualAttrV] = useState(null)
+    const [actualAttrIdV, setActualAttrIdV] = useState(null)
 
 
     const deleteFunction =  (copy,values,i)=>{
@@ -324,6 +286,44 @@ const UpdateProduct = observer(({setShow})=>{
 
         </MiddleModal>
 
+
+        <MiniModal show={showAttrsV}
+        handleClose={()=>{setShowAttrsV(false)}}
+        header={"Атрибуты"}
+        text={<div className="modalGroupsBody">
+            {
+                AdminPanelStore.getProductsAttrs()!=undefined&&AdminPanelStore.getProductsAttrs().map((v)=>{
+                    return <span onClick={async ()=>{
+                        await panel.getAttributesValuesLimit(v.id, 0, 10000)
+                        setShowAttrsV(false)
+                        setShowAttrsValueV(true)
+                        setActualAttrV(v.attributeName)
+                        setActualAttrIdV(v.id)
+                    }}>{v.attributeName}</span>
+                })
+            }
+        </div>
+            }>
+        
+        </MiniModal>
+
+        
+        <MiniModal show={showAttrsValueV}
+        handleClose={()=>{setShowAttrsValueV(false)}}
+        header={"Значение атрибута"}
+        text={<div className="modalGroupsBody">
+            {
+                AdminPanelStore.getProductsAttrsValues()!=undefined&&AdminPanelStore.getProductsAttrsValues().map((v)=>{
+                    return <span className={AdminPanelStore.findActualAttrValuesVarsIds( v.id)? 'active': ''} onClick={ ()=>{
+                            AdminPanelStore.setActualAttrValuesVarsIds(actualAttrIdV, v.id,actualAttrV, v.attributeValue)
+                    }}>{v.attributeValue}</span>
+                })
+            }
+        </div>
+            }>
+        
+        </MiniModal>
+
         <h2>Редактирование товара</h2>
 
         <div className="basicInfo">
@@ -415,6 +415,34 @@ const UpdateProduct = observer(({setShow})=>{
                 }
                 
                
+            </div>
+        </div>
+
+
+        <div className="variations">
+            <div className="l">
+                <h3>Вариации</h3>
+                <p>Выберите атрибут, который будет характеризировать вариации товара</p>
+            </div>
+            <div className="r">
+            <div className="button" onClick={async ()=>{
+                    await panel.getAttributes(0,10000)
+                    setShowAttrsV(true)
+                    }}>
+                    Добавить
+                </div>
+                {AdminPanelStore.getAttrAttrsValuesVars()!=undefined&&<>
+                <div className="block"> <div className="atrs">
+                    <h4 onDoubleClick={()=>{AdminPanelStore.clearActualAttrValuesVarsIds()}}>{AdminPanelStore.getAttrAttrsValuesVars().aV} </h4>
+                    {AdminPanelStore.getAttrAttrsValuesVars().avVs.map((y,j)=>{
+                        return <span onClick={()=>{
+                            AdminPanelStore.setActualAttrValuesVarsIds(AdminPanelStore.getActualAttrValueVarsIds().aVid,AdminPanelStore.getActualAttrValueVarsIds().avVIds[j],AdminPanelStore.getAttrAttrsValuesVars().aV, AdminPanelStore.getAttrAttrsValuesVars().avVs[j])
+                        }}>{y}{(AdminPanelStore.getAttrAttrsValuesVars().avVs.length-1)>j&&','}</span>
+                    })}
+                </div>
+                </div>
+                </>
+                }
             </div>
         </div>
 

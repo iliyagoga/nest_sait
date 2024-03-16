@@ -550,6 +550,35 @@ body {
 .adminPanel .createProduct .variations .r {
   width: 60%;
 }
+.adminPanel .createProduct .variations .r .block {
+  display: flex;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  flex-direction: column;
+  border: 1px solid #E5E7EB;
+  margin-top: 1rem;
+}
+.adminPanel .createProduct .variations .r .block .atrs {
+  display: flex;
+  width: 100%;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #E5E7EB;
+  align-items: center;
+}
+.adminPanel .createProduct .variations .r .block .atrs:not(:last-child) {
+  border-bottom: 1px solid #E5E7EB;
+}
+.adminPanel .createProduct .variations .r .block .atrs h4 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #6d6d6d;
+}
+.adminPanel .createProduct .variations .r .block .atrs span {
+  font-size: 1.2rem;
+  color: #979797;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
 .adminPanel .createProduct .variations .r .button {
   padding: 1rem 5rem;
   border-radius: 8px;
@@ -567,7 +596,7 @@ body {
   margin-top: 3rem;
   display: flex;
   border-radius: 20px;
-  box-shadow: 0px 7px 22px rgba(68, 68, 68, 0.0196078431), 0px -5px 22px rgba(68, 68, 68, 0.0196078431);
+  box-shadow: 0px 7px 22px rgba(192, 114, 114, 0.0196078431), 0px -5px 22px rgba(68, 68, 68, 0.0196078431);
   padding: 2rem 1rem;
 }
 .adminPanel .createProduct .gallery .l {

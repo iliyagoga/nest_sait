@@ -70,6 +70,13 @@ export class Products{
                 }
                
             }
+            let atrsVarsIds: number[]=[]
+            const atrsV=AdminPanelStore.getActualAttrValueVarsIds()
+            if(atrsV!=undefined){
+                atrsVarsIds=atrsV.avVIds
+
+            }
+          
             formdata.append("productName", AdminPanelStore.getName())
             formdata.append("title",AdminPanelStore.getTitle())
             formdata.append("description", AdminPanelStore.getDescr())
@@ -78,6 +85,7 @@ export class Products{
             formdata.append("categories", JSON.stringify(AdminPanelStore.getActualCategories()))
             formdata.append("tags", JSON.stringify(AdminPanelStore.getActualTagsIds()))
             formdata.append("attributes", JSON.stringify(atrsIds))
+            formdata.append("vars", JSON.stringify(atrsVarsIds))
             if(AdminPanelStore.getImgFile()!=undefined){
                 formdata.append('img', AdminPanelStore.getImgFile())
             }
@@ -104,6 +112,54 @@ export class Products{
     async getProduct(id: number){
         const res = await products.get(apiMap.products.getProduct + '/' + id,{headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}})
         AdminPanelStore.setActualProduct(res.data)
+        const product=res.data
+        AdminPanelStore.setActualTags([])
+        AdminPanelStore.setActualTagsIds([])
+        if(product!=undefined){
+          
+            product['res'].productName!=undefined&&AdminPanelStore.setName(product['res'].productName)
+            product['res'].title!=undefined&&AdminPanelStore.setTitle(product['res'].title)
+            product['res'].description!=undefined&&AdminPanelStore.setDescr(product['res'].description)
+            product['res'].price!=undefined&&AdminPanelStore.setOldPrice(product['res'].price)
+            product['res']['sale_price']!=undefined&&AdminPanelStore.setNewPrice(product['res']['sale_price'])
+            for(let v of product['res']['variations']){
+                AdminPanelStore.setActualAttrValuesIdsVarsAuto(v['id'], v['attributeValue'][0]['id'],v['attributeName'], v['attributeValue'][0]['attributeValue'])
+            }
+            for(let v of product['res']['tag']){
+                let c=true
+                for(let g of AdminPanelStore.getActualTags()){
+                    if(g==v.id){
+                        c=false
+                    }
+                }
+                if(c){
+                    AdminPanelStore.addActualTags(v.tagTitle)
+                    AdminPanelStore.addActualTagsIds(v.id)
+                    
+                }
+            }
+
+            for(let v of product['cs']){
+                if(AdminPanelStore.getActualCategories().length==0){
+                    AdminPanelStore.addActualCategories(v.id)
+                    AdminPanelStore.addGroupCategories(v['group'].groupTitle, v.categoryName)
+                }
+                let c=true
+                for(let y of AdminPanelStore.getActualCategories()){
+                    if(y==v.id){
+                        c=false
+                    }
+                }
+                if(c){
+                    AdminPanelStore.addActualCategories(v.id)
+                    AdminPanelStore.addGroupCategories(v['group'].groupTitle, v.categoryName)
+                }
+            }
+            for(let v of product['ats']){
+                AdminPanelStore.setActualAttrValuesIdsAuto(v['id'], v['attributeValue'][0]['id'],v['attributeName'], v['attributeValue'][0]['attributeValue'])
+            }
+       
+        }
         for(let y of res.data['res']['gallery']){
             AdminPanelStore.setUploadImages(apiMap.host+':'+apiMap.port+'/'+y.title)
         }

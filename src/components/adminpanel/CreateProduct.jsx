@@ -263,8 +263,8 @@ const CreateProduct = observer(({setShow})=>{
         text={<div className="modalGroupsBody">
             {
                 AdminPanelStore.getProductsAttrsValues()!=undefined&&AdminPanelStore.getProductsAttrsValues().map((v)=>{
-                    return <span className={AdminPanelStore.findActualAttrValuesIds(actualAttrIdV, v.id)? 'active': ''} onClick={ ()=>{
-                            AdminPanelStore.setActualAttrValuesIds(actualAttrIdV, v.id,actualAttrV, v.attributeValue)
+                    return <span className={AdminPanelStore.findActualAttrValuesVarsIds( v.id)? 'active': ''} onClick={ ()=>{
+                            AdminPanelStore.setActualAttrValuesVarsIds(actualAttrIdV, v.id,actualAttrV, v.attributeValue)
                     }}>{v.attributeValue}</span>
                 })
             }
@@ -383,18 +383,15 @@ const CreateProduct = observer(({setShow})=>{
                     }}>
                     Добавить
                 </div>
-                {AdminPanelStore.getAttrAttrsValues().length>0&&<>
-                <div className="block">
-                    {AdminPanelStore.getAttrAttrsValues().map((v,i)=>{
-                        return <div className="atrs">
-                            <h4>{v.aV}: </h4>
-                            {v.avVs.map((y,j)=>{
-                                return <span onClick={()=>{
-                                    AdminPanelStore.setActualAttrValuesIds(AdminPanelStore.getActualAttrValuesIds()[i].aVid,AdminPanelStore.getActualAttrValuesIds()[i].avVIds[j])
-                                }}>{y}{(v.avVs.length-1)>j&&','}</span>
-                            })}
-                        </div>
+                {AdminPanelStore.getAttrAttrsValuesVars()!=undefined&&<>
+                <div className="block"> <div className="atrs">
+                    <h4 onDoubleClick={()=>{AdminPanelStore.clearActualAttrValuesVarsIds()}}>{AdminPanelStore.getAttrAttrsValuesVars().aV} </h4>
+                    {AdminPanelStore.getAttrAttrsValuesVars().avVs.map((y,j)=>{
+                        return <span onClick={()=>{
+                            AdminPanelStore.setActualAttrValuesVarsIds(AdminPanelStore.getActualAttrValueVarsIds().aVid,AdminPanelStore.getActualAttrValueVarsIds().avVIds[j],AdminPanelStore.getAttrAttrsValuesVars().aV, AdminPanelStore.getAttrAttrsValuesVars().avVs[j])
+                        }}>{y}{(AdminPanelStore.getAttrAttrsValuesVars().avVs.length-1)>j&&','}</span>
                     })}
+                </div>
                 </div>
                 </>
                 }
