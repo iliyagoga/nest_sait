@@ -20,6 +20,7 @@ import { Gallery } from './gallery.model';
 import { Previews } from './preview.model';
 import { Group } from 'src/filters/group.model';
 import { Where } from 'sequelize/types/utils';
+import { Variations } from './variations.model';
 
 @Injectable()
 export class ProductsService {
@@ -27,13 +28,12 @@ export class ProductsService {
     @InjectModel(Product) private product: typeof Product,
     @InjectModel(AttributeValue) private attrValue: typeof AttributeValue,
     @InjectModel(AttributeProduct) private attrProduct: typeof AttributeProduct,
+    @InjectModel(Variations) private vars: typeof Variations,
     @InjectModel(CategoryProduct) private cat_pr: typeof CategoryProduct,
     @InjectModel(TagProduct) private tagProduct: typeof TagProduct,
-    @InjectModel(Tag) private tag: typeof Tag,
     @InjectModel(Category) private cats: typeof Category,
     @InjectModel(Gallery) private gallery: typeof Gallery,
     @InjectModel(Previews) private preview: typeof Previews,
-    @InjectModel(Group) private group: typeof Group,
     private fileService: FilesService
 
      ){}
@@ -231,8 +231,11 @@ export class ProductsService {
                     await this.attrProduct.create({productId:product.id, attributeValueId: attr})
                 }
             }
-    
-
+            if(JSON.parse(dto.vars).length>0){
+                for(const v of JSON.parse(dto.vars)){
+                    await this.vars.create({productId:product.id, attributeValueId: v})
+                }
+            }
             if(JSON.parse(dto.tags).length>0){
                 for(const t of JSON.parse(dto.tags)){
                 await  this.tagProduct.create({tagId:t, productId: product.id})
@@ -553,7 +556,8 @@ export class ProductsService {
                 include:[
                     {model:Tag},
                     {model:Previews},
-                    {model: Gallery}
+                    {model: Gallery},
+                    {model: Variations}
                 ]
            
             })
@@ -587,6 +591,7 @@ export class ProductsService {
                     {model: AttributeValue}
                 ]
             }) 
+
             return {res,cs,ats};
         } catch (error) {
             throw error;

@@ -18,6 +18,8 @@ export class ProductDto{
 
     readonly attributes: string;
 
+    readonly vars: string;
+
 
 
 }
