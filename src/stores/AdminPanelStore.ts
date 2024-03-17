@@ -748,8 +748,14 @@ class AdminPanelStore{
 
     setActualAttrValuesIdsVarsAuto(idA:number, idAv: number,a: string, av:string){
 
-        this._AttrsAttrsValueVarsIds={aVid: idA, avVIds: [idAv]}
-        this._AttrsAttrsValueVars={aV:a, avVs: [av]}
+        if( this._AttrsAttrsValueVarsIds==undefined){
+            this._AttrsAttrsValueVarsIds={aVid: idA, avVIds: [idAv]}
+            this._AttrsAttrsValueVars={aV:a, avVs: [av]}
+        }
+        else{
+            this.setActualAttrValuesVarsIds(idA,idAv,a,av)
+        }
+        
       
        
     }

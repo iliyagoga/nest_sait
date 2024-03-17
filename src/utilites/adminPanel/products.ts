@@ -122,8 +122,9 @@ export class Products{
             product['res'].description!=undefined&&AdminPanelStore.setDescr(product['res'].description)
             product['res'].price!=undefined&&AdminPanelStore.setOldPrice(product['res'].price)
             product['res']['sale_price']!=undefined&&AdminPanelStore.setNewPrice(product['res']['sale_price'])
-            for(let v of product['res']['variations']){
-                AdminPanelStore.setActualAttrValuesIdsVarsAuto(v['id'], v['attributeValue'][0]['id'],v['attributeName'], v['attributeValue'][0]['attributeValue'])
+            if(product['variations']!=undefined)
+            for(let v of product['variations']['attributeValue']){
+                AdminPanelStore.setActualAttrValuesIdsVarsAuto( product['variations']['id'], v['id'], product['variations']['attributeName'], v['attributeValue'])
             }
             for(let v of product['res']['tag']){
                 let c=true
@@ -202,6 +203,14 @@ export class Products{
                 }
                
             }
+
+            let atrsVarsIds: number[]=[]
+            const atrsV=AdminPanelStore.getActualAttrValueVarsIds()
+            if(atrsV!=undefined){
+                atrsVarsIds=atrsV.avVIds
+
+            }
+          
             formdata.append("id", String(AdminPanelStore.getActualProductId()))
             formdata.append("productName", AdminPanelStore.getName())
             formdata.append("title",AdminPanelStore.getTitle())
@@ -211,6 +220,7 @@ export class Products{
             formdata.append("categories", JSON.stringify(AdminPanelStore.getActualCategories()))
             formdata.append("tags", JSON.stringify(AdminPanelStore.getActualTagsIds()))
             formdata.append("attributes", JSON.stringify(atrsIds))
+            formdata.append("vars", JSON.stringify(atrsVarsIds))
            
             if(AdminPanelStore.getImgFile()!=undefined){
                 formdata.append('previews',URL.createObjectURL(AdminPanelStore.getImgFile()))
