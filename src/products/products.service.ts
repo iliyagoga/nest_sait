@@ -299,6 +299,20 @@ export class ProductsService {
                   
                 }
             }
+            if(dto['vars']!=undefined){
+                await this.vars.destroy({where: {productId:product.id}})
+                for(const v of JSON.parse(dto['vars'])){
+                    try {
+                        
+                        await this.vars.create({productId:product.id, attributeValueId:v})
+                    } catch (error) {
+                        throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
+                        
+                    }
+                  
+                }
+            }
+
             if(dto['attributes']!=undefined){
                 await this.attrProduct.destroy({where: {productId:product.id}})
                 for(const attr of JSON.parse(dto['attributes'])){
@@ -407,6 +421,11 @@ export class ProductsService {
                 }
             })
             await this.preview.destroy({
+                where:{
+                    productId:id
+                }
+            })
+            await this.vars.destroy({
                 where:{
                     productId:id
                 }
@@ -556,8 +575,7 @@ export class ProductsService {
                 include:[
                     {model:Tag},
                     {model:Previews},
-                    {model: Gallery},
-                    {model: Variations}
+                    {model: Gallery}
                 ]
            
             })
@@ -591,8 +609,24 @@ export class ProductsService {
                     {model: AttributeValue}
                 ]
             }) 
+            const variations= await this.attr.findOne({
+                include:[
+                    {
+                    model: AttributeValue,
 
-            return {res,cs,ats};
+                    include: [{
+                        model: Variations,
+                        where: {
+                            productId:id
+                        }
+                    }]
+                }
+                    
+                     
+                ]
+            })
+
+            return {res,cs,ats,variations};
         } catch (error) {
             throw error;
         }
