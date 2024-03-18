@@ -20,6 +20,8 @@ export class ProductDto{
 
     readonly vars: string;
 
+    readonly recommendations: string;
+
 
 
 }

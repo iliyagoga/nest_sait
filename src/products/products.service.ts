@@ -21,6 +21,7 @@ import { Previews } from './preview.model';
 import { Group } from 'src/filters/group.model';
 import { Where } from 'sequelize/types/utils';
 import { Variations } from './variations.model';
+import { RecommendationProducts } from './recommendationProduct.model';
 
 @Injectable()
 export class ProductsService {
@@ -34,6 +35,7 @@ export class ProductsService {
     @InjectModel(Category) private cats: typeof Category,
     @InjectModel(Gallery) private gallery: typeof Gallery,
     @InjectModel(Previews) private preview: typeof Previews,
+    @InjectModel(RecommendationProducts) private recs: typeof RecommendationProducts,
     private fileService: FilesService
 
      ){}
@@ -241,8 +243,15 @@ export class ProductsService {
                 await  this.tagProduct.create({tagId:t, productId: product.id})
                 }
             }
+
+            if(JSON.parse(dto.recommendations).length>0){
+                for(const t of JSON.parse(dto.recommendations)){
+                await  this.recs.create({productRecId: product.id, productId: t})
+                }
+            }
             return product;
         } catch (error) {
+            console.log(error)
             throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
         }
        
@@ -330,6 +339,18 @@ export class ProductsService {
                 for(const t of JSON.parse(dto['tags'])){
                     try {
                         await this.tagProduct.create({tagId:t, productId: product.id})
+                    } catch (error) {
+                        throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
+                    }
+                  
+                }
+            }
+
+            if(dto['recommendations']!=undefined){
+                await this.recs.destroy({where: {productRecId:product.id}})
+                for(const t of JSON.parse(dto['recommendations'])){
+                    try {
+                        await this.recs.create({productId:t, productRecId: product.id})
                     } catch (error) {
                         throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
                     }
@@ -626,7 +647,18 @@ export class ProductsService {
                 ]
             })
 
-            return {res,cs,ats,variations};
+            const recommendations= await this.product.findAll({
+                include:[
+                    {
+                    model: RecommendationProducts,
+                    required: true,
+                    where:{productRecId: id}
+                    },
+                    {model: Previews}  
+                ]
+            })
+
+            return {res,cs,ats,variations,recommendations};
         } catch (error) {
             throw error;
         }
