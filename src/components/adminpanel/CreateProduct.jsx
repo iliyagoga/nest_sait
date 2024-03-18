@@ -7,8 +7,12 @@ import MiniModal from "../modals/modal.jsx";
 import del from '../../assets/imgs/Vector (5).svg'
 import back from '../../assets/imgs/Vector (6).svg'
 import info from '../../assets/imgs/Vector.svg'
+import plus from '../../assets/imgs/plus.svg'
 import PhotoCreateItem from "./PhotoCreateItem.jsx";
 import MiddleModal from "../modals/middleModal.jsx";
+import ProductsModal from "./modals/ProductsModal.jsx";
+import { apiMap } from "../../utilites/apiMap.ts";
+import def from '../../assets/imgs/def.png'
 
 const CreateProduct = observer(({setShow})=>{
     const panel = new Products();
@@ -38,6 +42,7 @@ const CreateProduct = observer(({setShow})=>{
     const [showAttrsValue, setShowAttrsValue]= useState(false)
     const [showAttrsV, setShowAttrsV]= useState(false)
     const [showAttrsValueV, setShowAttrsValueV]= useState(false)
+    const [showRec, setShowRec] = useState(false)
     const [move, setMove]= useState(false) 
     const [redo, setRedo]= useState(false)
     const [showImages, setShowImages] = useState(false)
@@ -272,7 +277,8 @@ const CreateProduct = observer(({setShow})=>{
             }>
         
         </MiniModal>
-        
+        <ProductsModal show={showRec} setShow={setShowRec}></ProductsModal>
+
         <div className="back" onClick={()=>setShow()}>
             <img src={back} alt="" />
             <p>Товары</p>
@@ -520,6 +526,33 @@ const CreateProduct = observer(({setShow})=>{
                     setShowTags(true)
                     }}>
                     Добавить
+                </div>
+            </div>
+        </div>
+
+        <div className="recommendations">
+            <h3>Связанные товары</h3>
+            <div className="container_c">
+                <div className="plus" onClick={()=>{setShowRec(true)}}>
+                    <img src={plus} alt="" />
+                </div>
+                <div className="prs">
+                    {AdminPanelStore.getProductsRec().length>0&&AdminPanelStore.getProductsRec().map(v=>{
+                        return <div className="b" onClick={ ()=>{
+                                AdminPanelStore.setProductsRec(v.id, v.productName, v.preview!=undefined?(apiMap.host+':'+ apiMap.port+'/'+v.preview):undefined)
+                            
+                            }} >
+                            <div className="under">
+                                <div className="img">
+                                    
+                                    <img src={v.preview!=undefined?(apiMap.host+':'+ apiMap.port+'/'+v.preview):def} alt="" />
+                                </div>
+                                <span>{v.productName}</span>
+                            </div>
+                        
+                        </div>
+                                
+                    })}
                 </div>
             </div>
         </div>

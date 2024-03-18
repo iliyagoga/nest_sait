@@ -99,6 +99,8 @@ class AdminPanelStore{
     private _uploadGallery: {title: string, file: Blob}[]=[]
     private _createGallery: {title: string, file: Blob}[]=[]
 
+    private _productsRec: {id: number, productName: string, preview: string}[] = [];
+
 
 
 
@@ -1030,7 +1032,40 @@ class AdminPanelStore{
         return this._filterDate;
     }
 
+    getProductsRec(){
+        return this._productsRec;
+    }
 
+    setProductsRec(id: number, productName: string, preview: string){
+        let c=false
+        for(let i= 0; i< this._productsRec.length; i++){
+            if(this._productsRec[i].id==id){
+                c=true;
+                if(i==0){
+                    this._productsRec.shift();
+                }
+                else
+                if(i==this._productsRec.length-1){
+                    this._productsRec.pop();
+                }
+                else
+                this._productsRec=[...this._productsRec.slice(0,i),...this._productsRec.slice(i+1)];
+                
+            }
+        }
+        if(!c){
+            this._productsRec.push({id, productName, preview})
+        }
+    }
+
+    findProductsRec(id: number ){
+        for(let p of this._productsRec){
+            if(p.id==id){
+                return true;
+            }
+        }
+        return false
+    }
 
 
 

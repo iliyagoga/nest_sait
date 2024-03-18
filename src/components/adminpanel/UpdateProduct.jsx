@@ -8,10 +8,12 @@ import del from '../../assets/imgs/Vector (5).svg'
 import def from '../../assets/imgs/def.png'
 import back from '../../assets/imgs/Vector (6).svg'
 import info from '../../assets/imgs/Vector.svg'
+import plus from '../../assets/imgs/plus.svg'
 import { apiMap } from "../../utilites/apiMap.ts";
 import MiddleModal from "../modals/middleModal.jsx";
 import PhotoItem from "./GalleryItem.jsx";
 import DeleteModal from "../modals/deleteModal.jsx";
+import ProductsModal from "./modals/ProductsModal.jsx";
 
 
 const UpdateProduct = observer(({setShow})=>{
@@ -47,6 +49,7 @@ const UpdateProduct = observer(({setShow})=>{
     const [showAttrs, setShowAttrs]= useState(false)
     const [showAttrsValue, setShowAttrsValue]= useState(false)
     const [showImages, SetShowImages] = useState(false)
+    const [showPrRec, setShowPrRec] = useState(false)
     const [actualGroup, setActualGroup] = useState(null)
     const [actualAttr, setActualAttr] = useState(null)
     const [actualAttrId, setActualAttrId] = useState(null)
@@ -323,6 +326,7 @@ const UpdateProduct = observer(({setShow})=>{
             }>
         
         </MiniModal>
+        <ProductsModal show={showPrRec} setShow={setShowPrRec}></ProductsModal>
 
         <h2>Редактирование товара</h2>
 
@@ -592,6 +596,34 @@ const UpdateProduct = observer(({setShow})=>{
                 </div>
             </div>
         </div>
+
+        <div className="recommendations">
+            <h3>Связанные товары</h3>
+            <div className="container_c">
+                <div className="plus" onClick={()=>{setShowPrRec(true)}}>
+                    <img src={plus} alt="" />
+                </div>
+                <div className="prs">
+                    {AdminPanelStore.getProductsRec().length>0&&AdminPanelStore.getProductsRec().map(v=>{
+                        return <div className="b" onClick={ ()=>{
+                                AdminPanelStore.setProductsRec(v.id, v.productName, v.preview!=undefined?(apiMap.host+':'+ apiMap.port+'/'+v.preview):undefined)
+                            
+                            }} >
+                            <div className="under">
+                                <div className="img">
+                                    
+                                    <img src={v.preview!=undefined?(apiMap.host+':'+ apiMap.port+'/'+v.preview):def} alt="" />
+                                </div>
+                                <span>{v.productName}</span>
+                            </div>
+                        
+                        </div>
+                                
+                    })}
+                </div>
+            </div>
+        </div>
+
         <div className="bts">
             <div className="create"  onClick={async ()=>{
                 await panel.updateProduct()

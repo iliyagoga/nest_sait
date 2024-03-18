@@ -836,10 +836,59 @@ body {
   width: max-content;
   margin-top: 2rem;
 }
-.adminPanel .createProduct .bts {
+.adminPanel .createProduct .recommendations {
+  margin-top: 3rem;
   display: flex;
+  border-radius: 20px;
+  box-shadow: 0px 7px 22px rgba(68, 68, 68, 0.0196078431), 0px -5px 22px rgba(68, 68, 68, 0.0196078431);
+  padding: 2rem 1rem;
+  flex-direction: column;
 }
-.adminPanel .createProduct .bts .create {
+.adminPanel .createProduct .recommendations .container_c {
+  display: flex;
+  margin-top: 2rem;
+  align-items: center;
+  width: 100%;
+}
+.adminPanel .createProduct .recommendations .container_c .plus {
+  cursor: pointer;
+  position: relative;
+  background: #1e1b46;
+  padding: 1rem 1rem;
+  border-radius: 8px;
+}
+.adminPanel .createProduct .recommendations .container_c .plus img {
+  width: 1.5rem;
+}
+.adminPanel .createProduct .recommendations .prs {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+.adminPanel .createProduct .recommendations .prs > *:not(:first-child) {
+  margin-left: 1rem;
+}
+.adminPanel .createProduct .recommendations .prs .b .under {
+  display: flex;
+  margin-left: 1rem;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+.adminPanel .createProduct .recommendations .prs .b .under .img {
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  position: relative;
+  border-radius: 8px;
+}
+.adminPanel .createProduct .recommendations .prs .b .under .img img {
+  position: absolute;
+  height: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.adminPanel .createProduct .create {
   padding: 1.5rem 3rem;
   border-radius: 8px;
   width: -moz-max-content;
@@ -849,6 +898,9 @@ body {
   font-size: 1.5rem;
   cursor: pointer;
   margin-top: 5rem;
+}
+.adminPanel .createProduct .bts {
+  display: flex;
 }
 .adminPanel .createProduct .bts .delete {
   padding: 1.5rem 3rem;
@@ -1274,4 +1326,132 @@ body {
   bottom: 0;
   z-index: 100;
   opacity: 0;
+}
+
+.productsRec {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+}
+.productsRec .body {
+  border-radius: 20px;
+  box-shadow: rgba(139, 139, 139, 0.1764705882) 0px 5px 22px 0;
+  padding: 1rem 0;
+  width: 97%;
+  margin: auto;
+  margin-top: 2rem;
+}
+.productsRec .body .search {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #F2F4F7;
+}
+.productsRec .body .search img {
+  margin-left: 1rem;
+  width: 2rem;
+}
+.productsRec .body .search input {
+  border: 0;
+  width: 100%;
+  outline: none;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  padding: 1rem 0;
+}
+.productsRec .body .filters {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+.productsRec .body .filters .fs {
+  display: flex;
+  margin-left: 1rem;
+}
+.productsRec .body .filters .fs > * {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+.productsRec .body .filters .fs > * h4 {
+  margin: 0;
+  color: #2F3746;
+  font-size: 1.1rem;
+}
+.productsRec .body .filters .fs select {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 1rem 0.5rem;
+  width: -moz-max-content;
+  width: max-content;
+  border: 0;
+  outline: none;
+  margin-left: 0.5rem;
+}
+.productsRec .body .filters .pag {
+  margin-left: auto;
+}
+.productsRec .body .table {
+  display: flex;
+}
+.productsRec .body .table .col1 {
+  width: 100%;
+  padding-left: 1rem;
+}
+.productsRec .body .table .col1 .name {
+  padding: 1rem 0 1rem 2.5rem;
+  background: #F8F9FA;
+  width: 100%;
+  color: #2F3746;
+}
+.productsRec .body .table .col1 .name h4 {
+  margin: 0;
+  background: #F8F9FA;
+}
+.productsRec .body .table .col1 .bl {
+  display: flex;
+  padding: 1rem 0;
+  height: 9rem;
+  width: 100%;
+  cursor: pointer;
+}
+.productsRec .body .table .col1 .bl:not(:first-child) {
+  border-top: 1px solid #F2F4F7;
+}
+.productsRec .body .table .col1 .bl .thr {
+  width: 2rem;
+}
+.productsRec .body .table .col1 .bl .under {
+  display: flex;
+  margin-left: 1rem;
+  align-items: center;
+  overflow: hidden;
+}
+.productsRec .body .table .col1 .bl .under .img {
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  position: relative;
+  border-radius: 8px;
+}
+.productsRec .body .table .col1 .bl .under .img img {
+  position: absolute;
+  height: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.productsRec .body .table .col1 .bl .under span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #acacac;
+  margin-left: 1rem;
+}
+.productsRec .body .table .col1 .bl .active {
+  background: #F2F4F7;
+  width: 100%;
+}
+.productsRec .body .table .col1 .bl .active span {
+  color: black;
 }/*# sourceMappingURL=adminPanel.css.map */

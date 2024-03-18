@@ -86,6 +86,7 @@ export class Products{
             formdata.append("tags", JSON.stringify(AdminPanelStore.getActualTagsIds()))
             formdata.append("attributes", JSON.stringify(atrsIds))
             formdata.append("vars", JSON.stringify(atrsVarsIds))
+            formdata.append("recommendations", JSON.stringify(AdminPanelStore.getProductsRec().map(v=>{return v.id})))
             if(AdminPanelStore.getImgFile()!=undefined){
                 formdata.append('img', AdminPanelStore.getImgFile())
             }
@@ -159,6 +160,10 @@ export class Products{
             for(let v of product['ats']){
                 AdminPanelStore.setActualAttrValuesIdsAuto(v['id'], v['attributeValue'][0]['id'],v['attributeName'], v['attributeValue'][0]['attributeValue'])
             }
+            for(let v of product['recommendations']){
+                AdminPanelStore.setProductsRec(v['id'], v['productName'], v['previews'].length>0?v['previews'][0]['title']:undefined)
+            }
+
        
         }
         for(let y of res.data['res']['gallery']){
@@ -221,7 +226,7 @@ export class Products{
             formdata.append("tags", JSON.stringify(AdminPanelStore.getActualTagsIds()))
             formdata.append("attributes", JSON.stringify(atrsIds))
             formdata.append("vars", JSON.stringify(atrsVarsIds))
-           
+            formdata.append("recommendations", JSON.stringify(AdminPanelStore.getProductsRec().map(v=>{return v.id})))
             if(AdminPanelStore.getImgFile()!=undefined){
                 formdata.append('previews',URL.createObjectURL(AdminPanelStore.getImgFile()))
                 formdata.append('img', AdminPanelStore.getImgFile())

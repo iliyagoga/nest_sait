@@ -315,6 +315,7 @@ body
         position: relative
         left: 15rem
         margin-top: 1rem
+        
         & .basicInfo
             display: flex
             border-radius: 20px
@@ -704,17 +705,61 @@ body
                     cursor: pointer
                     width: max-content
                     margin-top: 2rem
+        & .recommendations
+            margin-top: 3rem
+            display: flex
+            border-radius: 20px
+            box-shadow: 0px 7px 22px #44444405, 0px -5px 22px #44444405
+            padding: 2rem 1rem
+            flex-direction: column
+            & .container_c
+                display: flex
+                margin-top: 2rem
+                align-items: center
+                width: 100%
+                & .plus
+                    cursor: pointer
+                    position: relative
+                    background: #1e1b46
+                    padding: 1rem 1rem
+                    border-radius: 8px
+                    & img
+                        width: 1.5rem
+            & .prs
+                margin-left: 1rem
+                display: flex
+                align-items: center
+                &>*:not(:first-child)
+                    margin-left: 1rem
+                & .b
+                    & .under
+                        display: flex
+                        margin-left: 1rem
+                        align-items: center
+                        flex-direction: column
+                        overflow: hidden
+                        & .img
+                            width: 6rem
+                            height: 6rem
+                            display: flex
+                            position: relative
+                            border-radius: 8px
+                            & img
+                                position: absolute
+                                height: 100%
+                                left: 50%
+                                transform: translate(-50%,0)
+        & .create
+            padding: 1.5rem 3rem
+            border-radius: 8px
+            width: max-content
+            background: #1e1b46
+            color: white
+            font-size: 1.5rem
+            cursor: pointer
+            margin-top: 5rem
         & .bts
             display: flex
-            & .create
-                padding: 1.5rem 3rem
-                border-radius: 8px
-                width: max-content
-                background: #1e1b46
-                color: white
-                font-size: 1.5rem
-                cursor: pointer
-                margin-top: 5rem
             & .delete
                 padding: 1.5rem 3rem
                 border-radius: 8px
@@ -1076,20 +1121,109 @@ body
                     bottom: 0
                     z-index: 100
                     opacity: 0
+.productsRec
+    display: flex
+    position: relative
+    flex-direction: column
+    width: 100%
+    & .body
+        border-radius: 20px
+        box-shadow: #8b8b8b2d 0px 5px 22px 0  
+        padding: 1rem 0
+        width: 97%
+        margin: auto
+        margin-top: 2rem
+        & .search
+            width: 100%
+            display: flex
+            align-items: center
+            border-bottom: 1px solid #F2F4F7
+            & img
+                margin-left: 1rem
+                width: 2rem
+            & input
+                border: 0
+                width: 100%
+                outline: none
+                font-size: 1.5rem
+                margin-left: 1rem
+                padding: 1rem 0
+        & .filters
+            display: flex
+            align-items: center
+            flex-direction: column
+            margin: 1rem 0
+            & .fs
+                display: flex
+                margin-left: 1rem
+                &>*
+                    display: flex
+                    align-items: center
+                    margin-left: 1rem
+                    & h4
+                        margin: 0
+                        color: #2F3746
+                        font-size: 1.1rem
+                & select
+                    font-size: 1.2rem
+                    font-weight: 600
+                    padding: 1rem .5rem
+                    width: max-content
+                    border: 0
+                    outline: none
+                    margin-left: .5rem
+            & .pag
+                margin-left: auto
+        & .table
+            display: flex
+            & .col1
+                width: 100%
+                padding-left: 1rem
+                & .name
+                    padding: 1rem 0 1rem  2.5rem
+                    background: #F8F9FA
+                    width: 100%
+                    color: #2F3746
+                    & h4
+                        margin: 0
+                        background: #F8F9FA
+                
+                & .bl
+                    display: flex
+                    padding: 1rem 0
+                    height: 9rem
+                    width: 100%
+                    cursor: pointer
+                    &:not(:first-child)
+                        border-top: 1px solid #F2F4F7
+                    & .thr
+                        width: 2rem
+                    & .under
+                        display: flex
+                        margin-left: 1rem
+                        align-items: center
+                        overflow: hidden
+                        & .img
+                            width: 6rem
+                            height: 6rem
+                            display: flex
+                            position: relative
+                            border-radius: 8px
+                            & img
+                                position: absolute
+                                height: 100%
+                                left: 50%
+                                transform: translate(-50%,0)
+                        & span
+                            font-size: 1rem
+                            font-weight: 600
+                            color: #acacac
+                            margin-left: 1rem
+                    & .active
+                        background: #F2F4F7
+                        width: 100%
+                        & span
+                            color: black
 
+                            
         
-            
-          
-        
-                    
-
-
-                    
-                        
-
-
-
-                    
-
-            
-
