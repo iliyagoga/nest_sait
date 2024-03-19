@@ -4,9 +4,18 @@ import def from '../../assets/imgs/def.png'
 import elipse from '../../assets/imgs/Ellipse 2.svg'
 import elipse_2 from '../../assets/imgs/Ellipse 1.svg'
 import Client from "../../stores/Client.ts";
+import { useNavigate } from "react-router-dom";
+import { config } from "../../config.ts";
+import CatalogUtilite from "../../utilites/client/catalog.ts";
+import '../../assets/styles/css/product.css'
 const Product = observer(({product})=>{
-    console.log(product)
-    return <div className="product">
+    const nav= useNavigate()
+    const client = new CatalogUtilite()
+    return <div className="product" onClick={async ()=>{
+        await client.getProduct(product.id)
+        nav('/product/'+product.id)
+       
+        }}>
         <div className="preview">
             <div className="rating">
                 {product.ratingCount!=0?Array(Math.floor(product.rating/product.ratingCount)).map(v=>{return <img src={elipse}/>}): [1,2,3,4,5].map(v=>{return <img  className="rat" src={elipse_2}/>})}

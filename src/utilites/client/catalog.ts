@@ -43,5 +43,11 @@ class CatalogUtilite{
             throw error;
         }
     }
+
+    async getProduct(id: number){
+        const res = await products.get(apiMap.products.getProduct + '/' + id)
+        Client.setProduct(res.data)
+
+    }
     }
 export default CatalogUtilite;

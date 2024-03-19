@@ -13,6 +13,8 @@ class Client{
     private _orderFilter: string = "null";
     private _category: {idGroup: number, idCat: number} | undefined;
 
+    private _product: object;
+
 
     getGroups(){
         return this._groups;
@@ -70,6 +72,14 @@ class Client{
 
     clearCategory(){
         this._category=undefined;
+    }
+
+    getProduct(){
+        return this._product;
+    }
+
+    setProduct(product: object){
+        this._product=product;
     }
 }
 export default new Client()

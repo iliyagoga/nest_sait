@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { config } from "../../config.ts";
 const Header = observer(({theme=true})=>{
     const nav = useNavigate()
-    return <header className={theme?"":"black"}>
+    return <header className={theme?"":"black h"}>
         <div className={theme?"left": "left black"}>
             <span>
                 New

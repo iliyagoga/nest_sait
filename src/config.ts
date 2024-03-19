@@ -4,5 +4,6 @@ export const config={
     login:'/login',
     reg:'/reg',
     mean: '/mean',
-    catalog: '/catalog'
+    catalog: '/catalog',
+    product:'/product/:id'
 }

@@ -1,0 +1,122 @@
+@font-face {
+  font-family: "Raleway-Bold";
+  src: url("../static/Raleway-Bold.ttf");
+}
+@font-face {
+  font-family: "Raleway-ExtraBold";
+  src: url("../static/Raleway-ExtraBold.ttf");
+}
+@font-face {
+  font-family: "Raleway-Light";
+  src: url("../static/Raleway-Light.ttf");
+}
+@font-face {
+  font-family: "Raleway-Medium";
+  src: url("../static/Raleway-Medium.ttf");
+}
+@font-face {
+  font-family: "Raleway-Regular";
+  src: url("../static/Raleway-Regular.ttf");
+}
+@font-face {
+  font-family: "Raleway-Thin";
+  src: url("../static/Raleway-Thin.ttf");
+}
+.productpage .product {
+  width: 60%;
+  margin: auto;
+}
+.productpage .product .container {
+  height: 100%;
+  align-items: center;
+  display: flex;
+  margin-top: 5rem;
+}
+.productpage .product .container .gallery {
+  width: 50%;
+  height: 50vh;
+}
+.productpage .product .container .gallery .preview {
+  position: relative;
+  height: 100%;
+  width: 70%;
+}
+.productpage .product .container .gallery .preview img {
+  position: absolute;
+  height: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.productpage .product .container .info {
+  width: 50%;
+  padding: 0 2rem;
+}
+.productpage .product .container .info .name {
+  font-family: "Raleway-Regular";
+}
+.productpage .product .container .info .short {
+  font-family: "Raleway-Ligth";
+  margin-top: 1rem;
+}
+.productpage .product .container .info .price {
+  font-family: "Raleway-Bold";
+  margin: 0;
+  margin-top: 1rem;
+}
+.productpage .product .container .info select {
+  padding: 1rem 1.25rem;
+  width: 100%;
+  border: 0.5px solid #252525;
+  font-family: "Raleway-Ligth";
+  color: #252525;
+  margin-top: 1rem;
+}
+.productpage .product .container .info .incart {
+  padding: 1rem 0;
+  width: 100%;
+  background: #E0BEA2;
+  font-family: "Raleway-Regular";
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+.productpage .product .details {
+  margin-top: 5rem;
+}
+.productpage .product .details h4 {
+  font-family: "Raleway-Regular";
+  margin: 0;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(37, 37, 37, 0.3137254902);
+}
+.productpage .product .details p {
+  margin-top: 1rem;
+  font-family: "Raleway-Regular";
+}
+.productpage .product .details .attributes {
+  display: flex;
+  flex-direction: column;
+}
+.productpage .product .details .attributes span {
+  font-family: "Raleway-Regular";
+}
+.productpage .product .details .attributes li {
+  font-family: "Raleway-Light";
+}
+.productpage .product .recommendations {
+  margin-top: 5rem;
+}
+.productpage .product .recommendations h3 {
+  font-family: "Raleway-Regular";
+}
+.productpage .product .recommendations .cont {
+  display: flex;
+  flex-wrap: wrap;
+}
+.productpage .product .recommendations .cont .product {
+  width: -moz-max-content;
+  width: max-content;
+  transform: scale(0.9, 0.9);
+}/*# sourceMappingURL=productpage.css.map */

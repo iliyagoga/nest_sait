@@ -111,7 +111,7 @@ export class Products{
     }
 
     async getProduct(id: number){
-        const res = await products.get(apiMap.products.getProduct + '/' + id,{headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}})
+        const res = await products.get(apiMap.products.getProduct + '/' + id)
         AdminPanelStore.setActualProduct(res.data)
         const product=res.data
         AdminPanelStore.setActualTags([])
