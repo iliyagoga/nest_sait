@@ -94,7 +94,6 @@ export class ProductsController {
         return this.productService.getProducts(pars);
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get('/getProduct/:id')
     async getProduct(@Param('id') id: string){
         return this.productService.getProduct(Number(id));
