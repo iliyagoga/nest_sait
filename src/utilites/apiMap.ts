@@ -4,7 +4,8 @@ export const apiMap={
     auth: {
         way: '/user',
         reg: '/reg',
-        login: '/login'
+        login: '/login',
+        checkToken:'/checkToken'
     },
     role: {
         way: '/role',

@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MeanPage from './pages/MeanPage.jsx';
 import Catalog from './pages/Catalog.jsx';
 import ProductPage from './components/client/ProductPage.jsx';
+import Profile from './pages/Profile.jsx';
 function App() {
   return <>
   <Routes>
@@ -33,6 +34,10 @@ function App() {
     </Route>
     <Route path={ config.product} element={
             <ProductPage></ProductPage>
+          }>
+    </Route>
+    <Route path={ config.profile} element={
+            <Profile></Profile>
           }>
     </Route>
     <Route path={ '/*'} element={

@@ -75,4 +75,17 @@ export class Reg{
         }
             
     }
+
+    async checkToken(){
+        try {
+            const res = await auth.post(apiMap.auth.checkToken,{},{headers: {Authorization: 'Bearer '+localStorage.getItem('token')}})
+            if(res.data==true){
+                return true
+            }
+            return false
+        } catch (error) {
+            return false
+        }
+       
+    }
 }

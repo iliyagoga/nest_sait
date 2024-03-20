@@ -1,0 +1,133 @@
+@font-face 
+    font-family: 'Raleway-Bold'
+    src: url('../static/Raleway-Bold.ttf')
+@font-face 
+    font-family: 'Raleway-ExtraBold'
+    src: url('../static/Raleway-ExtraBold.ttf')
+@font-face
+    font-family: 'Raleway-Light'
+    src: url('../static/Raleway-Light.ttf')
+@font-face 
+    font-family: 'Raleway-Medium'
+    src:   url('../static/Raleway-Medium.ttf')
+@font-face 
+    font-family: 'Raleway-Regular'
+    src: url('../static/Raleway-Regular.ttf')
+@font-face 
+    font-family: 'Raleway-Thin'
+    src: url('../static/Raleway-Thin.ttf')
+    
+.profile
+    width: 90%
+    margin: auto
+    & .btns
+        margin-top: 2rem
+        display: flex
+        justify-content: center
+        width: 100%
+        border-top: 1px solid #0000006c
+        border-bottom: 1px solid #0000006c
+        & .btn
+            padding: 1rem
+            font-family: 'Raleway-Regular'
+            color: black
+            border-radius: 0
+            &:hover
+                transition-duration: .2s
+                transition-timing-function: ease-in-out
+                background: #E0BEA2
+                color: white
+    & .personal
+        display: flex
+        flex-direction: column
+        margin-top: 1rem
+        & .avatar
+            width: 100%
+            display: flex
+            justify-content: center
+            margin-top: 1rem
+            & .i
+                position: relative
+                padding: 1rem .5rem
+                & .info
+                    width: 1.5rem
+                    height: 1.5rem
+                    position: absolute
+                    z-index: 200
+                    right: .5rem
+                    top: .2rem
+                    cursor: pointer
+            & .menu
+                width: 9rem
+                display: flex
+                align-items: center
+                & .del
+                    width: 100%
+                    margin-top: 1rem
+                    display: flex
+                    flex-direction: column
+                    & .d
+                        padding: .5rem
+                        width: 100%
+                        background: #dba67b
+                        color: white
+                        text-align: center
+                        cursor: pointer
+                    & .back
+                        padding: .5rem
+                        width: 100%
+                        background: #e0bea281
+                        color: white
+                        text-align: center
+                        cursor: pointer
+            & .img
+                height: 10rem
+                position: relative
+                width: 10rem
+                & input
+                    opacity: 0
+                    position: absolute
+                    z-index: 10
+                    left: 0
+                    top: 0
+                    bottom: 0
+                    right: 0
+                & img
+                    position: absolute
+                    border-radius: 100%
+                    left: 50%
+                    height: 100%
+                    transform: translate(-50%,0)
+        h3
+            font-family: 'Raleway-Regular'
+            margin: 0
+            font-size: 1rem
+            margin-top: 2rem
+        & .line
+            margin-top: 1rem
+            display: flex
+            justify-content: space-between
+            & input
+                padding: 1rem
+        & .l1
+            & input
+                width: 32%
+        & .l2, & .l4
+            margin-top: 2rem
+            & input
+                width: 49%
+        & .l3
+            & input
+                width: 15%
+    & .meanbtn
+        width: 100%
+        padding: 1rem
+        font-family: 'Raleway-Regular'
+        color: white
+        text-align: center
+        background: #E0BEA2
+        margin-top: 2rem
+        cursor: pointer
+
+
+

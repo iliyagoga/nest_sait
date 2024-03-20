@@ -1,7 +1,7 @@
 .breadcrumbs {
   display: flex;
   position: relative;
-  margin-top: 7rem;
+  margin-top: 2rem;
 }
 .breadcrumbs > * {
   margin-right: 1rem;

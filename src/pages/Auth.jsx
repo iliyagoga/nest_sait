@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../assets/styles/css/login.css'
 import { config } from '../config.ts'
 import { observer } from "mobx-react-lite";
@@ -19,6 +19,7 @@ const Login = observer(({mode})=>{
     const [errorEmail, setErrorEmail] =useState("");
     const [errorNick, setErrorNick] =useState("");
     const [errorPass, setErrorPass] =useState("");
+    const nav= useNavigate();
 
     const regUtil= new Reg(AuthStore.getNick(), AuthStore.getEmail(), AuthStore.getPass(), AuthStore.getRePass())
 
@@ -81,6 +82,7 @@ const Login = observer(({mode})=>{
             if(mode){
                 try {
                    await regUtil.registration()
+                   nav(config.mean)
                 } catch (error) {
                     if(error["atten"]==undefined){
                         
@@ -138,6 +140,7 @@ const Login = observer(({mode})=>{
             else
             try {
                 await regUtil.login()
+                nav(config.mean)
             } catch (error) {
                 if(error.response.data.message!=undefined){
                     handleShow();
