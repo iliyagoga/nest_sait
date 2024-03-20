@@ -62,4 +62,8 @@ export class UserService {
         else
         throw new HttpException("Такого пользователя нет, пожалуйста, зарегистрируетесь", HttpStatus.BAD_REQUEST)
     }
+
+    async getUser(){
+        
+    }
 }
