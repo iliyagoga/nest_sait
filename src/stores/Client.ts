@@ -15,6 +15,8 @@ class Client{
 
     private _product: object;
 
+    private _user : object;
+
 
     getGroups(){
         return this._groups;
@@ -80,6 +82,13 @@ class Client{
 
     setProduct(product: object){
         this._product=product;
+    }
+
+    getUser(){
+        return this._user;
+    }
+    setUser(user: object){
+        this._user=user;
     }
 }
 export default new Client()
