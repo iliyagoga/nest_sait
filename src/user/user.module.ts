@@ -8,6 +8,7 @@ import { User } from './user.model';
 import { RolesUser } from 'src/role/RolesUser.model';
 import { JwtModule } from '@nestjs/jwt';
 import { RolesGuard } from '../role/roles.guard';
+import { FilesModule } from 'src/files/files.module';
 
 @Module({
   controllers: [UserController],
@@ -20,7 +21,7 @@ import { RolesGuard } from '../role/roles.guard';
       expiresIn: '24h'
     }
   }),
-    RoleModule],
+    RoleModule,FilesModule],
     exports:[UserModule]
 })
 export class UserModule {}

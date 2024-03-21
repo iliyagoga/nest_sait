@@ -8,6 +8,7 @@ import { RoleService } from 'src/role/role.service';
 import * as bcrypt from 'bcryptjs'
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
+import { FilesService } from 'src/files/files.service';
 
 @Injectable()
 export class UserService {
@@ -16,7 +17,8 @@ export class UserService {
         @InjectModel(RolesUser) private userRoleRepository: typeof RolesUser,
         @InjectModel (Role) private roleRepository: typeof Role,
         private roleService: RoleService,
-        private jwt: JwtService)
+        private jwt: JwtService,
+        private fileService: FilesService)
         {}
         
     async generateToken(user:User){
@@ -63,7 +65,83 @@ export class UserService {
         throw new HttpException("Такого пользователя нет, пожалуйста, зарегистрируетесь", HttpStatus.BAD_REQUEST)
     }
 
-    async getUser(){
+    async getUser(hs: string){
+        try {
+            const token = this.jwt.decode(hs.split(' ')[1])
+            const user = await this.userRepository.findOne({
+                where: {
+                    id: token.id
+                }
+            })
+            return user
+        } catch (error) {
+            return false
+        }
         
+      
+        
+    }
+
+    async updateUser(formdata: FormData, avatar: Blob,hs: string){
+        const token = this.jwt.decode(hs.split(' ')[1])
+        const us= await this.userRepository.findOne({where: {id: token.id}})
+        try {
+            const user = await this.userRepository.update({
+                firstName: String(formdata['firstName']),
+                secondName: String(formdata['secondName']),
+                fatherName: String(formdata['fatherName']),
+                email: String(formdata['email']),
+                phone: Number(formdata['phone']),
+                country: String(formdata['country']),
+                region: String(formdata['region']),
+                city: String(formdata['city']),
+                street: String(formdata['street']),
+                home: String(formdata['home']),
+                flat: String(formdata['flat']),
+
+            },{
+                where: {
+                    id: token.id
+                }
+            })
+            if(us.avatar==null && formdata['avatarTitle'].length>0){
+                const mean_img= await this.fileService.createFile(avatar);
+                const r = await this.userRepository.update({
+                    avatar: mean_img
+                },{
+                    where: {
+                        id: us.id
+                    }
+                })
+
+            } else{
+                if(us.avatar && formdata['avatarTitle'].length>0 && us.avatar!=formdata['avatarTitle']){
+                    const mean_img= await this.fileService.createFile(avatar);
+                    const r = await this.userRepository.update({
+                        avatar: mean_img
+                    },{
+                        where: {
+                            id: us.id
+                        }
+                    })
+                }
+                else{
+                    if(us.avatar!=null && formdata['avatarTitle'].length==0){
+                        const r = await this.userRepository.update({
+                            avatar: null
+                        },{
+                            where: {
+                                id: us.id
+                            }
+                        })
+                    }
+
+                }
+            }
+
+            return user
+        } catch (error) {
+            throw error;
+        }
     }
 }
