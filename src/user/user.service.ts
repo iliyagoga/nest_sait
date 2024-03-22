@@ -68,12 +68,25 @@ export class UserService {
     async getUser(hs: string){
         try {
             const token = this.jwt.decode(hs.split(' ')[1])
-            const user = await this.userRepository.findOne({
-                where: {
-                    id: token.id
-                }
-            })
-            return user
+            if(token.role!=undefined&&token.role[0].role=='ADMIN'){
+                const user = await this.userRepository.findOne({
+                    attributes:['firstName', 'secondName', 'fatherName','email', 'phone', 'country', 'region', 'city', 'street', 'home', 'flat','avatar','passportSeria', 'passportNumber'],
+                    where: {
+                        id: token.id
+                    }
+                })
+                return user
+            }
+            else{
+                const user = await this.userRepository.findOne({
+                    attributes:['firstName', 'secondName', 'fatherName','email', 'phone', 'country', 'region', 'city', 'street', 'home', 'flat','avatar'],
+                    where: {
+                        id: token.id
+                    }
+                })
+                return user
+            }
+       
         } catch (error) {
             return false
         }
@@ -86,24 +99,49 @@ export class UserService {
         const token = this.jwt.decode(hs.split(' ')[1])
         const us= await this.userRepository.findOne({where: {id: token.id}})
         try {
-            const user = await this.userRepository.update({
-                firstName: String(formdata['firstName']),
-                secondName: String(formdata['secondName']),
-                fatherName: String(formdata['fatherName']),
-                email: String(formdata['email']),
-                phone: Number(formdata['phone']),
-                country: String(formdata['country']),
-                region: String(formdata['region']),
-                city: String(formdata['city']),
-                street: String(formdata['street']),
-                home: String(formdata['home']),
-                flat: String(formdata['flat']),
-
-            },{
-                where: {
-                    id: token.id
-                }
-            })
+            if(token.role!=undefined&&token.role[0].role=='ADMIN'){
+                const user = await this.userRepository.update({
+                    firstName: String(formdata['firstName']),
+                    secondName: String(formdata['secondName']),
+                    fatherName: String(formdata['fatherName']),
+                    email: String(formdata['email']),
+                    phone: Number(formdata['phone']),
+                    country: String(formdata['country']),
+                    region: String(formdata['region']),
+                    city: String(formdata['city']),
+                    street: String(formdata['street']),
+                    home: String(formdata['home']),
+                    flat: String(formdata['flat']),
+                    passportSeria: Number(formdata['passportSeria']),
+                    passportNumber: Number(formdata['passportNumber'])
+    
+                },{
+                    where: {
+                        id: token.id
+                    }
+                })
+            }
+            else{
+                const user = await this.userRepository.update({
+                    firstName: String(formdata['firstName']),
+                    secondName: String(formdata['secondName']),
+                    fatherName: String(formdata['fatherName']),
+                    email: String(formdata['email']),
+                    phone: Number(formdata['phone']),
+                    country: String(formdata['country']),
+                    region: String(formdata['region']),
+                    city: String(formdata['city']),
+                    street: String(formdata['street']),
+                    home: String(formdata['home']),
+                    flat: String(formdata['flat'])
+    
+                },{
+                    where: {
+                        id: token.id
+                    }
+                })
+            }
+            
             if(us.avatar==null && formdata['avatarTitle'].length>0){
                 const mean_img= await this.fileService.createFile(avatar);
                 const r = await this.userRepository.update({
@@ -139,7 +177,7 @@ export class UserService {
                 }
             }
 
-            return user
+            return true
         } catch (error) {
             throw error;
         }

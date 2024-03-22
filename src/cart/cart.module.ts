@@ -5,13 +5,16 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { Cart } from './cart.model';
 import { ProductsModule } from 'src/products/products.module';
 import { Product } from 'src/products/product.model';
-import { JwtService } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { Variations } from 'src/products/variations.model';
+import { Attribute } from 'src/products/attributes.model';
 
 @Module({
   controllers: [CartController],
   providers: [CartService, JwtService],
   imports:[
-    SequelizeModule.forFeature([Cart, Product]),
+    SequelizeModule.forFeature([Cart, Product, Variations, Attribute]),
+    JwtModule
    
   ],
 
