@@ -2,18 +2,20 @@ import { useParams } from "react-router-dom";
 import BreadCrumbs from "./Breadcrumbs";
 import Header from "./Header";
 import Client from "../../stores/Client.ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CatalogUtilite from "../../utilites/client/catalog.ts";
 import '../../assets/styles/css/productpage.css'
 import def from '../../assets/imgs/def.png'
 import { apiMap } from "../../utilites/apiMap.ts";
 import Product from "./Product.jsx";
+import { CartUtilite } from "../../utilites/cart/cart.ts";
 const { observer } = require("mobx-react-lite");
 
 
 const ProductPage = observer(()=>{
     const fetchs= new CatalogUtilite()
     const pars= useParams()
+    const [select, setSelect]= useState("null")
     useEffect(()=>{
        
         fetchs.getProduct(pars['id'])
@@ -27,7 +29,7 @@ const ProductPage = observer(()=>{
             <div className="container">
                 <div className="gallery">
                     <div className="preview">
-                        <img src={Client.getProduct().previews!=undefined?(apiMap.host+":"+apiMap.port+"/"+Client.getProduct().previews.title):def} alt="" />
+                        <img src={Client.getProduct().res.previews[0]!=undefined?(apiMap.host+":"+apiMap.port+"/"+Client.getProduct().res.previews[0].title):def} alt="" />
                     </div>
                 </div>
                 <div className="info">
@@ -36,7 +38,7 @@ const ProductPage = observer(()=>{
                     <p className="price">{Client.getProduct().res.price} ₽</p>
                     {
                         Client.getProduct().variations&&<div className="variations">
-                        <select name="" id="">
+                        <select name="" onChange={(e)=>{setSelect(e.target.value)}}id="">
                             <option value="null">Выберите {Client.getProduct().variations.attributeName}</option>
                             {Client.getProduct().variations.attributeValue.map(v=>{
                                 return <option value={v.id}>{v.attributeValue}</option>
@@ -44,7 +46,10 @@ const ProductPage = observer(()=>{
                         </select>
                     </div>
                     }
-                    <div className="incart">
+                    <div className="incart" onClick={async ()=>{
+                        const cart = new CartUtilite()
+                        await cart.addToCart(Client.getProduct().res.id, Number(select), 1)
+                    }}>
                         <span>В корзину</span>
                     </div>
                  

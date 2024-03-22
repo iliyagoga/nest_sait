@@ -8,6 +8,7 @@ import MeanPage from './pages/MeanPage.jsx';
 import Catalog from './pages/Catalog.jsx';
 import ProductPage from './components/client/ProductPage.jsx';
 import Profile from './pages/Profile.jsx';
+import Cart from './pages/Cart.jsx';
 function App() {
   return <>
   <Routes>
@@ -38,6 +39,10 @@ function App() {
     </Route>
     <Route path={ config.profile} element={
             <Profile></Profile>
+          }>
+    </Route>
+    <Route path={ config.cart} element={
+            <Cart></Cart>
           }>
     </Route>
     <Route path={ '/*'} element={

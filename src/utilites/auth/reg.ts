@@ -91,7 +91,23 @@ export class Reg{
        
     }
 
-    async updateUser(name: string, sername: string, fathername: string, email: string, phone: number, country: string, region: string, city: string, street: string, home: string, flat: string, avatarFile: Blob,avatar: string){
+    async updateUser(
+        name: string, 
+        sername: string, 
+        fathername: string,
+        email: string, 
+        phone: number, 
+        country: string, 
+        region: string, 
+        city: string, 
+        street: string, 
+        home: string, 
+        flat: string, 
+        avatarFile: Blob,
+        avatar: string, 
+        passportSeria: string, 
+        passportNumber: string,
+        token: object){
         const formdata = new FormData()
         formdata.append('firstName',name&&name.length>0?name:'')
         formdata.append('secondName', sername&&sername.length>0?sername:'')
@@ -104,6 +120,10 @@ export class Reg{
         formdata.append('city',city&&city.length>0?city:'')
         formdata.append('home',home&&home.length>0?home:'')
         formdata.append('flat',flat&&flat.length>0?flat:'')
+        if(token['role']!=undefined && token['role'][0].role=='ADMIN'){
+            formdata.append('passportSeria', passportSeria)
+            formdata.append('passportNumber', passportNumber)
+        }
         formdata.append('avatarTitle', avatar?avatar.split('/')[3]:'')
         formdata.append('avatar', avatarFile)
         const res = await auth.post(apiMap.auth.updateUser, formdata, {headers:{Authorization: 'Bearer '+localStorage.getItem('token')}})

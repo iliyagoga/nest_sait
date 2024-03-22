@@ -60,5 +60,11 @@ export const apiMap={
         getProductsClientCats: '/getProductsClientCats',
         getProductsClient: '/getProductsClient'
 
+    },
+
+    cart:{
+        way: '/cart',
+        addToCart: '/addToCart',
+        getCart:'/getCart'
     }
 }

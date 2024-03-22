@@ -6,5 +6,6 @@ export const config={
     mean: '/mean',
     catalog: '/catalog',
     product:'/product/:id',
-    profile: '/profile'
+    profile: '/profile',
+    cart:'/cart'
 }

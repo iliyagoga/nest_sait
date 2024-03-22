@@ -29,13 +29,13 @@ const Header = observer(({theme=true})=>{
         {theme?   <>
             <img src={search} alt="" />
             <img onClick={()=>{nav(config.profile)}} src={accaunt} alt="" />
-            <img src={cart} alt="" />
+            <img onClick={()=>{nav(config.cart)}}src={cart} alt="" />
            </> 
             :
            <>
            <img src={b_search} alt="" />
             <img onClick={()=>{nav(config.profile)}} src={b_accaunt} alt="" />
-            <img src={b_cart} alt="" />
+            <img onClick={()=>{nav(config.cart)}} src={b_cart} alt="" />
            </>
         }
 

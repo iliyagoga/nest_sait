@@ -6,11 +6,28 @@ body
 
 @keyframes but 
     0%
-        background: #6366F1
+        background: #E0BEA2
     100%
-        background: #3437f1
+        background: #da9761
 
-
+@font-face 
+    font-family: 'Raleway-Bold'
+    src: url('../static/Raleway-Bold.ttf')
+@font-face 
+    font-family: 'Raleway-ExtraBold'
+    src: url('../static/Raleway-ExtraBold.ttf')
+@font-face
+    font-family: 'Raleway-Light'
+    src: url('../static/Raleway-Light.ttf')
+@font-face 
+    font-family: 'Raleway-Medium'
+    src:   url('../static/Raleway-Medium.ttf')
+@font-face 
+    font-family: 'Raleway-Regular'
+    src: url('../static/Raleway-Regular.ttf')
+@font-face 
+    font-family: 'Raleway-Thin'
+    src: url('../static/Raleway-Thin.ttf')
 .login
     display: flex
     align-items: center
@@ -29,19 +46,21 @@ body
         & div
             & span
                 color: #6C737F
+                font-family: 'Raleway-Regular'
                 font-size: 1rem
             & a
                 font-size: 1rem
                 text-decoration: 0
-                color: #6366F1
+                font-family: 'Raleway-Regular'
+                color: #E0BEA2
                 margin-left: .5rem
         & .input
             margin-top: 2rem
             & input
-                border-radius: 8px
                 color: #6C737F
                 border: 1px solid #E5E7EB
-                padding: 1.0625rem .75rem
+                padding: 1rem
+                font-family: 'Raleway-Regular'
                 width: 100%
         & .attention 
             color: red
@@ -51,13 +70,13 @@ body
                 margin: 0
         & .button
             color: white
-            background: #6366F1
-            border-radius: 8px
             width: 100% 
+            background: #E0BEA2
             padding: .875rem 0
             text-align: center
             margin-top: 1rem
             cursor: pointer
+            font-family: 'Raleway-Regular'
 
             &:hover
                 animation-name: but

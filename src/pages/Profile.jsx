@@ -56,10 +56,8 @@ const Profile = observer(()=>{
             setStreet(Client.getUser().street)
             setHome(Client.getUser().home)
             setFlat(Client.getUser().flat)
-            if(decodedToken&&(decodedToken.role!=undefined&&decodedToken.role[0].role=='ADMIN')){
-                setSer(Client.getUser().passportSeria)
-                setNum(Client.getUser().passportNumber)
-            }
+            setSer(Client.getUser().passportSeria)
+            setNum(Client.getUser().passportNumber)
           
         })
     },[])
@@ -143,6 +141,10 @@ return <div className="profile">
             </>}
         </div>
         <div className="meanbtn" onClick={()=>{
+            if(decodedToken.role!=undefined && decodedToken.role[0].role=='ADMIN'){
+                reg.updateUser(name,sername,fathername,email,phone,country,region,city,street,home,flat,avatarFile,avatar,ser, num, decodedToken)
+            }
+            else
             reg.updateUser(name,sername,fathername,email,phone,country,region,city,street,home,flat,avatarFile,avatar)
         }}>
             Обновить данные
