@@ -52,7 +52,28 @@ header
         width: 30%
         display: flex
         justify-content: space-evenly
-        & img
+        & .cartimg
+            position: relative
+            width: max-content
+            & .count
+                position: absolute
+                background: #E0BEA2
+                width: 1rem
+                height: 1rem
+                border-radius: 100%
+                top: 1rem
+                right: 0
+                & p
+                    position: absolute
+                    left: 50%
+                    top: 50%
+                    font-size: .7rem
+                    transform: translate(-45%,-60%)
+                    overflow: hidden
+                    margin: 0
+                    width: max-content
+                    height: 100%
+            & img
             cursor: pointer
             padding: 2rem 0
 .h

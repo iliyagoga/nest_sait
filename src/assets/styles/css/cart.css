@@ -104,8 +104,158 @@
   color: #E0BEA2;
   cursor: pointer;
 }
+.cart .container_c .cont .productCart .col4 {
+  display: flex;
+  align-items: center;
+}
+.cart .container_c .cont .productCart .col4 select {
+  padding: 1rem;
+  border: 1px solid rgba(37, 37, 37, 0.4117647059);
+  align-items: center;
+  font-size: 20px;
+  font-family: "Raleway-Regular";
+}
 .cart .container_c .cont .productCart .col5 {
   display: flex;
   align-items: center;
   cursor: pointer;
+}
+.cart .summa {
+  display: flex;
+  width: -moz-max-content;
+  width: max-content;
+  margin-left: auto;
+  align-items: center;
+}
+.cart .summa span {
+  font-family: "Raleway-Regular";
+}
+.cart .summa p {
+  font-family: "Raleway-Bold";
+  margin: 0;
+  margin-left: 0.5rem;
+}
+.cart .order {
+  display: flex;
+  flex-direction: column;
+}
+.cart .order h3 {
+  line-height: 23.48px;
+  font-family: "Raleway-Regular";
+  font-size: 1.5rem;
+  overflow: hidden;
+}
+.cart .order h4 {
+  line-height: 18.78px;
+  font-family: "Raleway-Regular";
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+.cart .order span {
+  padding: 0.1rem 0;
+  font-family: "Raleway-Regular";
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-bottom: 1px solid black;
+  width: -moz-max-content;
+  width: max-content;
+  margin-top: 1rem;
+}
+.cart .order .line {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.cart .order .line input {
+  width: 49%;
+  padding: 1rem;
+}
+.cart .order .delivery {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.cart .order .delivery > * {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.cart .order .delivery > * input {
+  overflow: hidden;
+}
+.cart .order .delivery > * input:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -3px;
+  left: -1px;
+  position: relative;
+  background-color: #E0BEA2;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 5px solid white;
+}
+.cart .order .delivery > * label {
+  margin-left: 0.5rem;
+  font-family: "Raleway-Regular";
+}
+.cart .order .mail {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.cart .order .mail input {
+  width: 49%;
+  padding: 1rem;
+}
+.cart .order .d_block {
+  margin-top: 1rem;
+}
+.cart .order .d_block .deliv {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.cart .order .d_block .deliv input {
+  width: 49%;
+  margin-top: 0.5rem;
+  padding: 1rem;
+}
+.cart .order .payment .pay {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.cart .order .payment .pay > * {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.cart .order .payment .pay > * input {
+  overflow: hidden;
+}
+.cart .order .payment .pay > * input:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -3px;
+  left: -1px;
+  position: relative;
+  background-color: #E0BEA2;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 5px solid white;
+}
+.cart .order .payment .pay > * label {
+  margin-left: 0.5rem;
+  font-family: "Raleway-Regular";
+}
+.cart .order .coupons input {
+  padding: 1rem;
+  width: 100%;
 }/*# sourceMappingURL=cart.css.map */

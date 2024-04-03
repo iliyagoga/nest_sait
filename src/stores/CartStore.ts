@@ -6,6 +6,9 @@ class CartStore{
     }
 
     private _cart: any[] = []
+    private _attrs: any[] = []
+    private _summa: number =0
+    private _count: number =0;
 
     getCart(){
         return this._cart;
@@ -17,6 +20,43 @@ class CartStore{
 
     addCart(product: object){
         this._cart.push(product);
+    }
+
+    getAttrs(){
+        return this._attrs;
+    }
+
+    setAttrs(attrs: any[]){
+        this._attrs=attrs;
+    }
+
+    addAttrs(attr: object){
+        this._attrs.push(attr);
+    }
+
+    getSum(){
+        return this._summa;
+    }
+    
+    setSumma(v: object){
+        if(Number(v['sale_price'])>0){
+            this._summa+=v['sale_price']*v['cart'][0]['count'];
+        }
+        else{
+            this._summa+=v['price']*v['cart'][0]['count'];
+        }
+    }
+
+    clearSumma(){
+        this._summa=0;
+    }
+
+    getCount(){
+        return this._count;
+    }
+
+    setCount(count: number){
+        this._count=count;
     }
 }
 

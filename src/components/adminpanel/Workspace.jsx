@@ -3,6 +3,7 @@ import TagsView from "./TagsView";
 import AttributeView from "./AttributeView";
 import CategoryView from "./CategoryView";
 import ProductView from "./ProductView";
+import Coupons from "./Coupons";
 
 
 const Workspace = observer(({m})=>{

@@ -63,6 +63,33 @@ body {
   cursor: pointer;
   font-weight: 600;
 }
+.adminPanel .sidebar .couponBlock {
+  margin-top: 2rem;
+}
+.adminPanel .sidebar .couponBlock h2 {
+  color: #9DA4AE;
+  padding: 0.5rem 0;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #9DA4AE;
+}
+.adminPanel .sidebar .couponBlock .coupon div {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+}
+.adminPanel .sidebar .couponBlock .coupon div:hover {
+  background: rgba(255, 255, 255, 0.1215686275);
+  border-radius: 8px;
+}
+.adminPanel .sidebar .couponBlock .coupon div p {
+  margin: 0;
+  margin-left: 1rem;
+  color: #9DA4AE;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
 .adminPanel .workspace {
   width: 100%;
   padding-top: 15rem;

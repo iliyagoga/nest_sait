@@ -8,6 +8,7 @@ import b_cart from '../../assets/imgs/b_cart.svg'
 import '../../assets/styles/css/header.css'
 import { useNavigate } from "react-router-dom";
 import { config } from "../../config.ts";
+import CartStore from "../../stores/CartStore.ts";
 const Header = observer(({theme=true})=>{
     const nav = useNavigate()
     return <header className={theme?"":"black h"}>
@@ -35,7 +36,13 @@ const Header = observer(({theme=true})=>{
            <>
            <img src={b_search} alt="" />
             <img onClick={()=>{nav(config.profile)}} src={b_accaunt} alt="" />
-            <img onClick={()=>{nav(config.cart)}} src={b_cart} alt="" />
+            <div className="cartimg">
+                <div className="count">
+                    <p>{CartStore.getCount()}</p>
+                </div>
+                <img onClick={()=>{nav(config.cart)}} src={b_cart} alt="" />
+            </div>
+         
            </>
         }
 

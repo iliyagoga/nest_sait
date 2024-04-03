@@ -3,10 +3,16 @@ import def from '../../assets/imgs/def.png'
 import { apiMap } from "../../utilites/apiMap.ts";
 import SliderNumber from "./SliderNumber.jsx";
 import del from '../../assets/imgs/DeleteCart.svg'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CartUtilite } from "../../utilites/cart/cart.ts";
+import CartStore from "../../stores/CartStore.ts";
 
 const Product = observer(({product})=>{
-    const  [value, setValue] =useState(1)
+    const cart = new CartUtilite()
+    const {res, ac}=cart.filter(product.id)
+   
+    const [sValue, setSValue]= useState(ac?ac['id']:"")
+    const  [value, setValue] =useState(Number(product.cart[0].count))
     return <div className="productCart">
         <div className="col1">
             <div className="img">
@@ -19,10 +25,24 @@ const Product = observer(({product})=>{
             {product.sale_price>0&&<span className="sale_price">{product.sale_price} ₽</span>}
         </div>
         <div className="col3">
-            <SliderNumber value={value} setValue={setValue}></SliderNumber>
+            <SliderNumber value={value} setValue={setValue} productId={product.id}></SliderNumber>
+        </div>
+        <div className="col4">
+            <select disabled={res[0]==undefined?true:false}name="" value={sValue} onChange={(e)=>{setSValue(e.target.value)}} id="">
+                <option value="null">Нет</option>
+                {res[0]!=undefined&&res[0].attributeValue.map(v=>{
+                    return <option value={v.id}>{v.attributeValue}</option>
+                })}
+            </select>
         </div>
         <div className="col5">
-            <img src={del} alt="" />
+            <img src={del} onClick={async ()=>{
+                const copy = Object.assign(CartStore.getCart())
+                CartStore.setCart([...copy.slice(0,copy.indexOf(product)),...copy.slice(copy.indexOf(product)+1)])
+                await cart.removeProduct(product.id)
+               
+                
+            }}alt="" />
         </div>
     </div>
 })

@@ -67,6 +67,10 @@ return <div className="profile">
         <Header theme={false}></Header>
         <BreadCrumbs names={['Главная','Личный кабинет']} links={[config.mean,config.profile]}></BreadCrumbs>
         <div className="btns">
+       { (decodedToken.role!=undefined && decodedToken.role[0].role=='ADMIN')&&<>
+        <div className="btn" onClick={()=>{nav(config.adminPanel)}}>Панель администратора</div>
+       </>
+       }
             <div className="btn">Личные данные</div>
             <div className="btn" onClick={()=>{localStorage.removeItem('token'); nav(config.mean)}}>Выйти</div>
         </div>

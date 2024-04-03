@@ -2,6 +2,7 @@ import pr from '../assets/imgs/product.svg'
 import ct from '../assets/imgs/category.svg'
 import at from '../assets/imgs/attributes.svg'
 import tag from '../assets/imgs/tags.svg'
+import cp from '../assets/imgs/Nav → List → Item → Button → SVG.svg'
 import '../assets/styles/css/adminPanel.css'
 import { apiMap } from '../utilites/apiMap.ts'
 import { role } from '../utilites/axiosConfig.ts'
@@ -40,6 +41,16 @@ export default function AdminPanel(){
                     </div>
                 </div>
             </div>
+            {/* <div className="couponBlock block">
+                <h2>Купоны</h2>
+                <div className="coupon child_block">
+                    <div>
+                        <img src={cp} alt="coupon" />
+                        <p onClick={()=>{setM(5)}}>Купоны</p>
+                    </div>
+                </div>
+                
+            </div> */}
         </div>
         <Workspace m= {m}></Workspace>
     </div>

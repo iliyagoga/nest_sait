@@ -65,6 +65,17 @@ export const apiMap={
     cart:{
         way: '/cart',
         addToCart: '/addToCart',
-        getCart:'/getCart'
+        getCart:'/getCart',
+        minusProduct: '/minusCount',
+        plusProduct: '/plusCount',
+        deleteProduct: '/removeFromCart',
+        countAll: '/countAll'
+    },
+    coupons:{
+        way: '/coupon',
+        createCoupon: '/createCoupon',
+        deleteCoupon: '/deleteCoupon',
+        redactCoupon: '/createCoupon',
+        getCoupons: '/getCoupons'
     }
 }
