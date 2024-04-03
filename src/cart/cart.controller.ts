@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, Post, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, Header, Headers, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { AddToCartDto } from './dto/addToCart.dto';
 import { RemoveFromCartDto } from './dto/removeFromCart.dto';
@@ -31,19 +31,19 @@ export class CartController {
 
     @UseGuards(JwtAuthGuard)
     @Post('/plusCount')
-    plusCount(@Body() dto:RemoveFromCartDto){
-        return this.cartService.plusCount(dto);
+    plusCount(@Headers('authorization') hs: string,@Body() dto:RemoveFromCartDto){
+        return this.cartService.plusCount(dto,hs);
     }
 
     @UseGuards(JwtAuthGuard)
     @Post('/minusCount')
-    minusCount(@Body() dto:RemoveFromCartDto){
-        return this.cartService.minusCount(dto);
+    minusCount(@Headers('authorization') hs: string, @Body() dto:RemoveFromCartDto){
+        return this.cartService.minusCount(dto,hs);
     }
 
     @UseGuards(JwtAuthGuard)
-    @Post('/countAll')
-    countAll(@Body() data: object){
-        return this.cartService.countAll(data["userId"])
+    @Get('/countAll')
+    countAll(@Headers('authorization') hs: string){
+        return this.cartService.countAll(hs)
     }
 }

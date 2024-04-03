@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
-import { Column, Model, Table } from "sequelize-typescript";
+import { Column, HasMany, Model, Table } from "sequelize-typescript";
+import { Order } from "src/order/order.model";
 
 
 @Table({tableName:"Coupons"})
@@ -15,4 +16,7 @@ export class Coupon extends Model<Coupon>{
 
     @Column({type:DataTypes.INTEGER,allowNull:false})
     couponTimelife: number;
+
+    @HasMany(()=>Order)
+    Order: Order[]
 }

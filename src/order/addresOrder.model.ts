@@ -30,6 +30,7 @@ export class AddresOrder extends Model<AddresOrder>{
     @Column({type: DataTypes.TEXT, allowNull:false})
 
     flat: string;
+    
 
     @ForeignKey(()=>Order)
     @Column({type:DataTypes.INTEGER})

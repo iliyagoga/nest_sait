@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Previews } from 'src/products/preview.model';
 import { Variations } from 'src/products/variations.model';
 import { Attribute } from 'src/products/attributes.model';
+import { AttributeValue } from 'src/products/AttributeValuea.model';
 
 @Injectable()
 export class CartService {
@@ -32,9 +33,29 @@ export class CartService {
                 },
                 {
                     model: Previews
+                },
+                {
+                    model: Variations
                 }]
             });
-            return res;
+            const ids=res.map(v=>{return v.id})
+            const attrs=await this.attrRepository.findAll({
+                include:[
+                    {
+                    model: AttributeValue,
+
+                    include: [{
+                        model: Variations,
+                        where: {
+                            productId:ids
+                        }
+                    }]
+                }
+                    
+                     
+                ]
+            })
+            return {res,attrs};
         } catch (error) {
             throw error;
         }
@@ -84,11 +105,13 @@ export class CartService {
 
     }
 
-    async plusCount(dto:RemoveFromCartDto){
+    async plusCount(dto:RemoveFromCartDto, hs: string){
         try {
+            const token = this.jwt.decode(hs.split(' ')[1])
             const product= await this.cartRepository.findOne({
                 where:{
-                    productId:dto.productId
+                    productId:dto.productId,
+                    userId: token['id']
                 }
             })
             return await this.cartRepository.update({count:product.count+1},{where:{productId:dto.productId}})
@@ -99,11 +122,13 @@ export class CartService {
     }
 
     
-    async minusCount(dto:RemoveFromCartDto){
+    async minusCount(dto:RemoveFromCartDto, hs: string){
     try {
+        const token = this.jwt.decode(hs.split(' ')[1])
         const product= await this.cartRepository.findOne({
             where:{
-                productId:dto.productId
+                productId:dto.productId,
+                userId: token['id']
             }
         })
         if(product.count>1){
@@ -118,33 +143,21 @@ export class CartService {
     
     }
 
-    async countAll(userId: number){
+    async countAll(hs: string){
         try {
+            const token = this.jwt.decode(hs.split(' ')[1])
             let sum=0;
-            let cart= await this.productRepositury.findAll(
+            let cart= await this.productRepositury.count(
                 {
-                    attributes:['price','sale_price'],
                     include:{
                         model: Cart,
                         
-                        where:{userId}
+                        where:{userId: token['id']}
         
                     }
             })
-            if(cart.length>0)
-            {
-                for(let el of cart){
-                    if(el.sale_price!=null){
-                        sum+=el.sale_price;
-            
-                    }
-                    else{
-                        sum+=el.price;
-                    }
-                }
-            }
-            
-        return sum;
+          
+         return cart;
         } catch (error) {
             throw error;
         }
