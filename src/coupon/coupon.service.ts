@@ -42,6 +42,18 @@ export class CouponService {
         return await this.couponRepository.findAll()
     }
 
+    async getCoupon(coupon){
+        const res = await this.couponRepository.findOne({
+            where:{
+                couponTitle: coupon
+            }
+        })
+        if (res){
+            return res.couponValue
+        }
+        return  0
+    }
+
 
 
 }
