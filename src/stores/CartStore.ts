@@ -9,6 +9,7 @@ class CartStore{
     private _attrs: any[] = []
     private _summa: number =0
     private _count: number =0;
+    private _couponValue: number = 0;
 
     getCart(){
         return this._cart;
@@ -57,6 +58,13 @@ class CartStore{
 
     setCount(count: number){
         this._count=count;
+    }
+
+    getCouponValue(){
+        return this._couponValue;
+    }
+    setCouponValue(coupon: string){
+        this._couponValue =  Number(coupon);
     }
 }
 

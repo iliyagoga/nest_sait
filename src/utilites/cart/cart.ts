@@ -1,6 +1,6 @@
 import CartStore from "../../stores/CartStore.ts";
 import { apiMap } from "../apiMap.ts";
-import { cart } from "../axiosConfig.ts";
+import { cart, coupons, orders } from "../axiosConfig.ts";
 
 export class CartUtilite{
     constructor(){}
@@ -69,7 +69,7 @@ export class CartUtilite{
     async removeProduct(productId: number){
         try {
             const res = await cart.post(apiMap.cart.deleteProduct,{productId}, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
-            this.getCart()
+            // this.getCart()
             this.countAll()
             return true
         } catch (error) {
@@ -79,5 +79,36 @@ export class CartUtilite{
     async countAll(){
         const res = await cart.get(apiMap.cart.countAll, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
         CartStore.setCount(res.data)
+    }
+
+    async getCoupon(coupon: string){
+        const res = await coupons.get(apiMap.coupons.getCoupon+'/'+coupon)
+        CartStore.setCouponValue(res.data)
+        return true
+    }
+
+    async createOrder(comment: string, deliv: boolean, payment: boolean, country: string, region: string, city: string, street: string, home: string, flat: string){
+        if(CartStore.getCart().length==0){
+            throw new Error("Корзина пуста");
+        }
+        const body={
+            comment,
+            deliv,
+            payment,
+            country,
+            region,
+            city,
+            street,
+            home, 
+            flat
+        };
+        try {
+            const res = await orders.post(apiMap.orders.createOrder, body, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}});
+            this.getCart();
+            this.countAll();
+        } catch (error) {
+            throw error;
+        }
+      
     }
 }

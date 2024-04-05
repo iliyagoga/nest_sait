@@ -109,78 +109,34 @@
             margin-left: .5rem
     .order
         display: flex
-        flex-direction: column
-        h3
-            line-height: 23.48px
-            font-family: 'Raleway-Regular'
-            font-size: 1.5rem
-            overflow: hidden
-        h4
-            line-height: 18.78px
-            font-family: 'Raleway-Regular'
-            font-size: 1.1rem
-            margin-top: 2rem
-        & span
-            padding: .1rem 0
-            font-family: 'Raleway-Regular'
-            font-size: .8rem
-            cursor: pointer
-            border-bottom: 1px solid black
-            width: max-content
-            margin-top: 1rem
-        & .line
-            margin-top: .5rem
-            display: flex
-            justify-content: space-between
-            & input
-                width: 49%
-                padding: 1rem
-        & .delivery
-            margin-top: 1rem
-            display: flex
-            flex-wrap: wrap
-            &>*
-                width: 50%
-                display: flex
-                align-items: center
-                margin-top: .5rem
-                & input
-                    overflow: hidden
-                & input:checked:after 
-                    width: 15px
-                    height: 15px
-                    border-radius: 15px
-                    top: -3px
-                    left: -1px
-                    position: relative
-                    background-color: #E0BEA2
-                    content: ''
-                    display: inline-block
-                    visibility: visible
-                    border: 5px solid white
-                & label
-                    margin-left: .5rem
-                    font-family: 'Raleway-Regular'
-        & .mail
-            margin-top: 1rem
-            display: flex
-            justify-content: space-between
-            & input
-                width: 49%
-                padding: 1rem
-        & .d_block
-            margin-top: 1rem
-            & .deliv
+        & .left
+            width: 70%
+            h3
+                line-height: 23.48px
+                font-family: 'Raleway-Regular'
+                font-size: 1.5rem
+                overflow: hidden
+            h4
+                line-height: 18.78px
+                font-family: 'Raleway-Regular'
+                font-size: 1.1rem
+                margin-top: 2rem
+            & span
+                padding: .1rem 0
+                font-family: 'Raleway-Regular'
+                font-size: .8rem
+                cursor: pointer
+                border-bottom: 1px solid black
+                width: max-content
                 margin-top: 1rem
+            & .line
+                margin-top: .5rem
                 display: flex
                 justify-content: space-between
-                flex-wrap: wrap 
                 & input
                     width: 49%
-                    margin-top: .5rem
                     padding: 1rem
-        & .payment
-            & .pay
+            & .delivery
                 margin-top: 1rem
                 display: flex
                 flex-wrap: wrap
@@ -206,9 +162,104 @@
                     & label
                         margin-left: .5rem
                         font-family: 'Raleway-Regular'
-        & .coupons
-            & input
-                padding: 1rem
-                width: 100%
+            & .mail
+                margin-top: 1rem
+                display: flex
+                justify-content: space-between
+                & input
+                    width: 49%
+                    padding: 1rem
+            & .d_block
+                margin-top: 1rem
+                & .deliv
+                    margin-top: 1rem
+                    display: flex
+                    justify-content: space-between
+                    flex-wrap: wrap 
+                    & input
+                        width: 49%
+                        margin-top: .5rem
+                        padding: 1rem
+            & .payment
+                & .pay
+                    margin-top: 1rem
+                    display: flex
+                    flex-wrap: wrap
+                    &>*
+                        width: 50%
+                        display: flex
+                        align-items: center
+                        margin-top: .5rem
+                        & input
+                            overflow: hidden
+                        & input:checked:after 
+                            width: 15px
+                            height: 15px
+                            border-radius: 15px
+                            top: -3px
+                            left: -1px
+                            position: relative
+                            background-color: #E0BEA2
+                            content: ''
+                            display: inline-block
+                            visibility: visible
+                            border: 5px solid white
+                        & label
+                            margin-left: .5rem
+                            font-family: 'Raleway-Regular'
+            & .coupons
+                & input
+                    padding: 1rem
+                    width: 100%
+            & .comment
+                & h4
+                    font-family: 'Raleway-Regular'
+                & textarea
+                    padding: 1rem
+                    width: 100%
+                    height: 10rem
 
-                        
+        & .right
+            display: flex
+            flex-direction: column
+            width: 30%
+            margin-top: 7rem
+            margin-left: 2rem
+            & span
+                font-family: 'Raleway-Regular'
+                border-bottom: 1px solid black
+                width: max-content
+                margin-bottom: 1rem
+                cursor: pointer
+            & .fin
+                display: flex
+                flex-direction: column
+                & .l
+                    display: flex
+                    align-items: center
+                    margin-top: .5rem
+                    width: 100%
+                    & h4
+                        margin: 0
+                        font-family: 'Raleway-Regular'
+                        font-size: 1rem
+                    & p
+                        margin: 0
+                        font-family: 'Raleway-Bold'
+                        margin-left: auto
+            & .btn
+                background: #E0BEA2
+                color: white
+                font-family: 'Raleway-Regular'
+                padding: 1rem
+                border-radius: 0
+                width: 100%
+                margin-top: 2rem
+                text-transform: uppercase
+            & .awn
+                font-family: 'Raleway-Regular'
+                margin-top: 1rem
+                & u
+                    cursor: pointer
+
+                            

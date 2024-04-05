@@ -137,21 +137,23 @@
 }
 .cart .order {
   display: flex;
-  flex-direction: column;
 }
-.cart .order h3 {
+.cart .order .left {
+  width: 70%;
+}
+.cart .order .left h3 {
   line-height: 23.48px;
   font-family: "Raleway-Regular";
   font-size: 1.5rem;
   overflow: hidden;
 }
-.cart .order h4 {
+.cart .order .left h4 {
   line-height: 18.78px;
   font-family: "Raleway-Regular";
   font-size: 1.1rem;
   margin-top: 2rem;
 }
-.cart .order span {
+.cart .order .left span {
   padding: 0.1rem 0;
   font-family: "Raleway-Regular";
   font-size: 0.8rem;
@@ -161,30 +163,30 @@
   width: max-content;
   margin-top: 1rem;
 }
-.cart .order .line {
+.cart .order .left .line {
   margin-top: 0.5rem;
   display: flex;
   justify-content: space-between;
 }
-.cart .order .line input {
+.cart .order .left .line input {
   width: 49%;
   padding: 1rem;
 }
-.cart .order .delivery {
+.cart .order .left .delivery {
   margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
 }
-.cart .order .delivery > * {
+.cart .order .left .delivery > * {
   width: 50%;
   display: flex;
   align-items: center;
   margin-top: 0.5rem;
 }
-.cart .order .delivery > * input {
+.cart .order .left .delivery > * input {
   overflow: hidden;
 }
-.cart .order .delivery > * input:checked:after {
+.cart .order .left .delivery > * input:checked:after {
   width: 15px;
   height: 15px;
   border-radius: 15px;
@@ -197,48 +199,48 @@
   visibility: visible;
   border: 5px solid white;
 }
-.cart .order .delivery > * label {
+.cart .order .left .delivery > * label {
   margin-left: 0.5rem;
   font-family: "Raleway-Regular";
 }
-.cart .order .mail {
+.cart .order .left .mail {
   margin-top: 1rem;
   display: flex;
   justify-content: space-between;
 }
-.cart .order .mail input {
+.cart .order .left .mail input {
   width: 49%;
   padding: 1rem;
 }
-.cart .order .d_block {
+.cart .order .left .d_block {
   margin-top: 1rem;
 }
-.cart .order .d_block .deliv {
+.cart .order .left .d_block .deliv {
   margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.cart .order .d_block .deliv input {
+.cart .order .left .d_block .deliv input {
   width: 49%;
   margin-top: 0.5rem;
   padding: 1rem;
 }
-.cart .order .payment .pay {
+.cart .order .left .payment .pay {
   margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
 }
-.cart .order .payment .pay > * {
+.cart .order .left .payment .pay > * {
   width: 50%;
   display: flex;
   align-items: center;
   margin-top: 0.5rem;
 }
-.cart .order .payment .pay > * input {
+.cart .order .left .payment .pay > * input {
   overflow: hidden;
 }
-.cart .order .payment .pay > * input:checked:after {
+.cart .order .left .payment .pay > * input:checked:after {
   width: 15px;
   height: 15px;
   border-radius: 15px;
@@ -251,11 +253,71 @@
   visibility: visible;
   border: 5px solid white;
 }
-.cart .order .payment .pay > * label {
+.cart .order .left .payment .pay > * label {
   margin-left: 0.5rem;
   font-family: "Raleway-Regular";
 }
-.cart .order .coupons input {
+.cart .order .left .coupons input {
   padding: 1rem;
   width: 100%;
+}
+.cart .order .left .comment h4 {
+  font-family: "Raleway-Regular";
+}
+.cart .order .left .comment textarea {
+  padding: 1rem;
+  width: 100%;
+  height: 10rem;
+}
+.cart .order .right {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin-top: 7rem;
+  margin-left: 2rem;
+}
+.cart .order .right span {
+  font-family: "Raleway-Regular";
+  border-bottom: 1px solid black;
+  width: -moz-max-content;
+  width: max-content;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+.cart .order .right .fin {
+  display: flex;
+  flex-direction: column;
+}
+.cart .order .right .fin .l {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+.cart .order .right .fin .l h4 {
+  margin: 0;
+  font-family: "Raleway-Regular";
+  font-size: 1rem;
+}
+.cart .order .right .fin .l p {
+  margin: 0;
+  font-family: "Raleway-Bold";
+  margin-left: auto;
+}
+.cart .order .right .btn {
+  background: #E0BEA2;
+  color: white;
+  font-family: "Raleway-Regular";
+  padding: 1rem;
+  border-radius: 0;
+  width: 100%;
+  margin-top: 2rem;
+  text-transform: uppercase;
+}
+.cart .order .right .awn {
+  font-family: "Raleway-Regular";
+  margin-top: 1rem;
+}
+.cart .order .right .awn u {
+  cursor: pointer;
 }/*# sourceMappingURL=cart.css.map */
