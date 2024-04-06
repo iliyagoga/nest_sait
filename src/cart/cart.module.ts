@@ -17,6 +17,7 @@ import { Attribute } from 'src/products/attributes.model';
     JwtModule
    
   ],
+  exports: [CartModule]
 
 })
 export class CartModule {}

@@ -7,27 +7,27 @@ export class AddresOrder extends Model<AddresOrder>{
     @Column({type: DataTypes.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
     id: number;
 
-    @Column({type: DataTypes.TEXT, allowNull:false})
+    @Column({type: DataTypes.TEXT})
 
     country: string;
 
-    @Column({type: DataTypes.TEXT, allowNull:false})
+    @Column({type: DataTypes.TEXT})
 
     region: string;
 
-    @Column({type: DataTypes.TEXT, allowNull:false})
+    @Column({type: DataTypes.TEXT})
 
     city: string;
 
-    @Column({type: DataTypes.TEXT, allowNull:false})
+    @Column({type: DataTypes.TEXT})
 
     street: string;
 
-    @Column({type: DataTypes.TEXT, allowNull:false})
+    @Column({type: DataTypes.TEXT})
 
     home: string;
 
-    @Column({type: DataTypes.TEXT, allowNull:false})
+    @Column({type: DataTypes.TEXT})
 
     flat: string;
     
