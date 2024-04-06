@@ -61,7 +61,7 @@ const Cart = observer(()=>{
                     setName(Client.getUser().firstName)
                     setSername(Client.getUser().secondName)
                     setEmail(Client.getUser().email)
-                    setPhone(Client.getUser().phone)
+                    setPhone(String(Client.getUser().phone))
                 }}>Подставить из профиля</span>
                 <div className="info">
                     <div className="line">
@@ -167,7 +167,13 @@ const Cart = observer(()=>{
                         <p>{CartStore.getSum()-CartStore.getCouponValue()} ₽</p>
                     </div>
                 </div>
-                <div className="btn">
+                <div className="btn" onClick={async()=>{
+                    try {
+                    await cart.createOrder(name, sername, String(phone), email, comment,dMode,payMode,country,region,city,street,home,flat,otd)
+                    } catch (error) {
+                        console.log(error)
+                    } 
+                }}>
                     Оформить заказ
                 </div>
                 <p className="awn">

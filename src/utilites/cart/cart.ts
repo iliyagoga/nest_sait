@@ -87,11 +87,33 @@ export class CartUtilite{
         return true
     }
 
-    async createOrder(comment: string, deliv: boolean, payment: boolean, country: string, region: string, city: string, street: string, home: string, flat: string){
+    async createOrder(firstName: string, secondName: string, phone: string, email: string, comment: string, deliv: boolean, payment: boolean, country: string, region: string, city: string, street: string, home: string, flat: string, otd: string){
         if(CartStore.getCart().length==0){
             throw new Error("Корзина пуста");
         }
+        if(firstName.length==0 || secondName.length==0 || phone.length==0 || email.length==0){
+            throw new Error('Заполните персональные данные')
+        }
+        if(deliv==true){
+            if(!country ||
+                !region||
+                !city||
+                !street||
+                !home ||
+                !flat){
+                    throw new Error('Заполните адрес доставки')
+                }
+        }
+        if(deliv==false){
+            if(!city || ! otd){
+                throw new Error('ЗАполните поля доставки')
+            }
+        }
         const body={
+            firstName,
+            secondName,
+            email,
+            phone,
             comment,
             deliv,
             payment,
@@ -100,7 +122,8 @@ export class CartUtilite{
             city,
             street,
             home, 
-            flat
+            flat,
+            otd
         };
         try {
             const res = await orders.post(apiMap.orders.createOrder, body, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}});
