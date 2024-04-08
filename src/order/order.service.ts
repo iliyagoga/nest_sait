@@ -7,7 +7,7 @@ import { OrderProduct } from './orderProduct.model';
 import { Cart } from 'src/cart/cart.model';
 import { JwtService } from '@nestjs/jwt';
 import { CartService } from 'src/cart/cart.service';
-import { OrderUser } from './userOrder.model';
+import { OrderUser } from './orderUser.model'
 
 @Injectable()
 export class OrderService {
@@ -143,4 +143,63 @@ export class OrderService {
           throw error;  
         }
     }
+
+    async getOrders(page: number, limit: number = 6, vars: number){
+        try {
+            if(vars==0){
+                const res = await this.orders.findAll({
+                    limit,
+                    offset: page* limit,
+                    where:{
+                        orderStatus: 'new'
+                    },
+                    order:[['id','desc']]
+                })
+                return res;
+            }
+            if(vars==1){
+                const res = await this.orders.findAll({
+                    limit,
+                    offset: page* limit,
+                    where:{
+                        orderStatus: 'work'
+                    },
+                    order:[['id','desc']]
+                })
+                return res;
+            }
+            if(vars==3){
+                const res = await this.orders.findAll({
+                    limit,
+                    offset: page* limit,
+                    where:{
+                        orderStatus: 'new'
+                    },
+                    order:[['id','desc']]
+                })
+                return res;
+            }
+            const res = await this.orders.findAll({
+                limit,
+                offset: page* limit,
+                order:[['id','desc']]
+            })
+            return res;
+           
+            
+        } catch (error) {
+            throw error;
+        }
+
+    }
+
+    async getCountPages(limit: number){
+        try {
+            const res = await this.orders.count()
+            return Math.floor(res/limit)+1;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }

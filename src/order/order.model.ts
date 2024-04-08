@@ -4,6 +4,7 @@ import { User } from "src/user/user.model";
 import { AddresOrder } from "./addresOrder.model";
 import { OrderProduct } from "./orderProduct.model";
 import { Coupon } from "src/coupon/coupon.model";
+import { OrderUser } from "./orderUser.model";
 
 
 @Table({tableName:"Orders"})
@@ -39,6 +40,9 @@ export class Order extends Model<Order>{
     
     @HasMany(()=>OrderProduct)
     orderProduct: OrderProduct[]
+
+    @HasMany(()=>OrderUser)
+    orderUser: OrderUser[]
 
 
 

@@ -33,6 +33,7 @@ import * as path from 'path'
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { Variations } from './products/variations.model';
 import { RecommendationProducts } from './products/recommendationProduct.model';
+import { OrderUser } from './order/orderUser.model';
 
 @Module({
   imports: [
@@ -44,7 +45,7 @@ import { RecommendationProducts } from './products/recommendationProduct.model';
       username: 'postgres',
       password: 'admin',
       database: 'Shop',
-      models: [Cart,Coupon,Category, CategoryProduct, Colors, Group, Tag, TagProduct, AddresOrder, Order,OrderProduct, Attribute, AttributeValue, AttributeProduct,
+      models: [Cart,Coupon,Category, CategoryProduct, Colors, Group, Tag, TagProduct, AddresOrder, Order,OrderProduct, OrderUser, Attribute, AttributeValue, AttributeProduct,
       Product, Role, RolesUser, User, Previews, Gallery, Variations, RecommendationProducts],
       autoLoadModels:true
     }),
