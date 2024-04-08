@@ -81,6 +81,8 @@ export const apiMap={
     },
     orders:{
         way: '/order',
-        createOrder: '/createOrder'
+        createOrder: '/createOrder',
+        getOrders: '/getOrders',
+        getCountPages: '/getCountPages'
     }
 }

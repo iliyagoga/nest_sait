@@ -4,6 +4,7 @@ import AttributeView from "./AttributeView";
 import CategoryView from "./CategoryView";
 import ProductView from "./ProductView";
 import Coupons from "./Coupons";
+import OrdersViews from "./OrdersViews";
 
 
 const Workspace = observer(({m})=>{
@@ -29,6 +30,12 @@ const Workspace = observer(({m})=>{
             return (<>
             <div className='workspace'>
                 <TagsView></TagsView>
+            </div>
+            </>)
+        case 5:
+            return (<>
+            <div className='workspace'>
+                <OrdersViews></OrdersViews>
             </div>
             </>)
     

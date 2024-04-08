@@ -102,6 +102,19 @@ class AdminPanelStore{
     private _productsRec: {id: number, productName: string, preview: string}[] = [];
 
 
+    private _orders: any[]
+    private _countOrderPages: number;
+    private _deletesOrder: {id:number|null, mode: boolean}[]=[
+        {id: null,mode: false},
+        {id: null,mode: false},
+        {id: null,mode: false},
+        {id: null,mode: false},
+        {id: null,mode: false},
+        {id: null,mode: false},
+    ];
+    private _orderPage: number=0;
+    private _orderId: number;
+
 
 
 
@@ -1066,6 +1079,65 @@ class AdminPanelStore{
         }
         return false
     }
+
+    getOrders(){
+        return this._orders;
+    }
+
+    setOrders(orders){
+        this._orders= orders;
+    }
+
+    getOrderPage(){
+        return this._orderPage;
+    }
+
+    setOrderPage(page: number){
+        this._orderPage= page;
+    }
+
+    getCountOrderPages(){
+        return this._countOrderPages;
+    }
+
+    setCountOrdersPages(pages){
+        this._countOrderPages= pages;
+    }
+
+    getOrderId(){
+        return this._orderId;
+    }
+
+    setOrderId(id: number){
+        this._orderId=id;
+    }
+
+    getDeleteOrder(id:number){
+        return this._deletesOrder[id];
+    }
+    getDeleteOrders(){
+        return this._deletesOrder;
+    }
+    setDeleteOrders(id:number, idOrder: number){
+        this._deletesOrder[id].mode=!this._deletesOrder[id].mode;
+        this._deletesOrder[id].id=idOrder;
+    }
+    setAllDeleteOrders(){
+        this._deletesOrder=this._deletesOrder.map((v,i)=>{
+            v.mode=true
+            if(this._orders[i]!=undefined)
+                v.id=this._orders[i].id
+            return v;
+        })
+    }
+    clearDeleteOrders(){
+        this._deletesOrder=this._deletesOrder.map(v=>{
+            v.mode=false;
+            v.id=null;
+            return v;
+        })
+    }
+
 
 
 

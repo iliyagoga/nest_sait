@@ -32,15 +32,16 @@ body
         & .block, & .child_block
             display: flex
             flex-direction: column
-        & .productBlock
-         
-            
+        & .orderBlock
+            margin-top: 2rem
+        & .productBlock, & .orderBlock
             h2
                 color: #9DA4AE
                 padding: .5rem 0
                 font-size: 1.5rem
                 border-bottom: 1px solid #9DA4AE
-            & .product
+            & .product,
+            & .orders
                 & div
                     display: flex
                     align-items: center
@@ -57,6 +58,7 @@ body
                         font-size: 1rem
                         cursor: pointer
                         font-weight: 600
+                        
         & .couponBlock
             margin-top: 2rem
             h2
@@ -167,7 +169,8 @@ body
                             padding: 1rem 2rem
                             cursor: pointer
         
-        & .attributeView
+        & .attributeView,
+        & .orderView
             width: 100%
             & .container
                 margin: auto
@@ -235,6 +238,10 @@ body
                             & p
                                 margin: 0
                                 margin-left: 3rem
+                        & h4
+                            margin: 0
+                            margin-left: 2rem
+                            font-size: 1.2rem
                     & .col4
                         width: 30%
                         display: flex
@@ -334,6 +341,7 @@ body
 
                         & .col_header
                             justify-content: center
+
     & .createProduct
         width: 100%
         padding: 1rem

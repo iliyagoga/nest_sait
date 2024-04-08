@@ -39,23 +39,26 @@ body {
   display: flex;
   flex-direction: column;
 }
-.adminPanel .sidebar .productBlock h2 {
+.adminPanel .sidebar .orderBlock {
+  margin-top: 2rem;
+}
+.adminPanel .sidebar .productBlock h2, .adminPanel .sidebar .orderBlock h2 {
   color: #9DA4AE;
   padding: 0.5rem 0;
   font-size: 1.5rem;
   border-bottom: 1px solid #9DA4AE;
 }
-.adminPanel .sidebar .productBlock .product div {
+.adminPanel .sidebar .productBlock .product div, .adminPanel .sidebar .productBlock .orders div, .adminPanel .sidebar .orderBlock .product div, .adminPanel .sidebar .orderBlock .orders div {
   display: flex;
   align-items: center;
   margin-top: 1rem;
   padding: 0.5rem 1rem;
 }
-.adminPanel .sidebar .productBlock .product div:hover {
+.adminPanel .sidebar .productBlock .product div:hover, .adminPanel .sidebar .productBlock .orders div:hover, .adminPanel .sidebar .orderBlock .product div:hover, .adminPanel .sidebar .orderBlock .orders div:hover {
   background: rgba(255, 255, 255, 0.1215686275);
   border-radius: 8px;
 }
-.adminPanel .sidebar .productBlock .product div p {
+.adminPanel .sidebar .productBlock .product div p, .adminPanel .sidebar .productBlock .orders div p, .adminPanel .sidebar .orderBlock .product div p, .adminPanel .sidebar .orderBlock .orders div p {
   margin: 0;
   margin-left: 1rem;
   color: #9DA4AE;
@@ -193,50 +196,50 @@ body {
   padding: 1rem 2rem;
   cursor: pointer;
 }
-.adminPanel .workspace .attributeView {
+.adminPanel .workspace .attributeView, .adminPanel .workspace .orderView {
   width: 100%;
 }
-.adminPanel .workspace .attributeView .container {
+.adminPanel .workspace .attributeView .container, .adminPanel .workspace .orderView .container {
   margin: auto;
   padding: 1rem 2rem;
   border-radius: 20px;
   box-shadow: rgba(68, 68, 68, 0.0666666667) 0px 5px 22px 0;
 }
-.adminPanel .workspace .attributeView .container_header {
+.adminPanel .workspace .attributeView .container_header, .adminPanel .workspace .orderView .container_header {
   padding: 0 0 0.5rem 0;
   border-bottom: 1px solid rgba(68, 68, 68, 0.0470588235);
 }
-.adminPanel .workspace .attributeView .container_header span {
+.adminPanel .workspace .attributeView .container_header span, .adminPanel .workspace .orderView .container_header span {
   color: #6C737F;
   line-height: 1.4375rem;
   margin-right: 1rem;
   cursor: pointer;
   font-size: 1.5rem;
 }
-.adminPanel .workspace .attributeView .container_header span:hover {
+.adminPanel .workspace .attributeView .container_header span:hover, .adminPanel .workspace .orderView .container_header span:hover {
   color: #6366F1;
   border-bottom: 1px solid #6366F1;
   padding-bottom: 0.5rem;
 }
-.adminPanel .workspace .attributeView .container_header .r:hover {
+.adminPanel .workspace .attributeView .container_header .r:hover, .adminPanel .workspace .orderView .container_header .r:hover {
   color: red;
   border-bottom: 1px solid red;
   padding-bottom: 0.5rem;
 }
-.adminPanel .workspace .attributeView .container .container_table {
+.adminPanel .workspace .attributeView .container .container_table, .adminPanel .workspace .orderView .container .container_table {
   display: flex;
   width: 100%;
   margin-top: 2rem;
 }
-.adminPanel .workspace .attributeView .container .container_table .col0 {
+.adminPanel .workspace .attributeView .container .container_table .col0, .adminPanel .workspace .orderView .container .container_table .col0 {
   display: flex;
   flex-direction: column;
 }
-.adminPanel .workspace .attributeView .container .container_table .col0 h3 {
+.adminPanel .workspace .attributeView .container .container_table .col0 h3, .adminPanel .workspace .orderView .container .container_table .col0 h3 {
   font-size: 1.2rem;
   margin: 0;
 }
-.adminPanel .workspace .attributeView .container .container_table .col_header {
+.adminPanel .workspace .attributeView .container .container_table .col_header, .adminPanel .workspace .orderView .container .container_table .col_header {
   background: #F8F9FA;
   padding: 1rem 2rem;
   box-sizing: border-box;
@@ -245,10 +248,10 @@ body {
   display: flex;
   align-items: center;
 }
-.adminPanel .workspace .attributeView .container .container_table .col1 {
+.adminPanel .workspace .attributeView .container .container_table .col1, .adminPanel .workspace .orderView .container .container_table .col1 {
   width: 10%;
 }
-.adminPanel .workspace .attributeView .container .container_table .col1 .rem {
+.adminPanel .workspace .attributeView .container .container_table .col1 .rem, .adminPanel .workspace .orderView .container .container_table .col1 .rem {
   padding: 1rem 2rem;
   box-sizing: border-box;
   width: 100%;
@@ -256,31 +259,36 @@ body {
   display: flex;
   align-items: center;
 }
-.adminPanel .workspace .attributeView .container .container_table .col2 {
+.adminPanel .workspace .attributeView .container .container_table .col2, .adminPanel .workspace .orderView .container .container_table .col2 {
   width: 60%;
 }
-.adminPanel .workspace .attributeView .container .container_table .col2 .title {
+.adminPanel .workspace .attributeView .container .container_table .col2 .title, .adminPanel .workspace .orderView .container .container_table .col2 .title {
   padding: 1rem 2rem;
   height: 5rem;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
-.adminPanel .workspace .attributeView .container .container_table .col2 .title:hover {
+.adminPanel .workspace .attributeView .container .container_table .col2 .title:hover, .adminPanel .workspace .orderView .container .container_table .col2 .title:hover {
   background: rgba(248, 249, 250, 0.4666666667);
   border-radius: 10px;
 }
-.adminPanel .workspace .attributeView .container .container_table .col2 .title p {
+.adminPanel .workspace .attributeView .container .container_table .col2 .title p, .adminPanel .workspace .orderView .container .container_table .col2 .title p {
   margin: 0;
   margin-left: 3rem;
 }
-.adminPanel .workspace .attributeView .container .container_table .col4 {
+.adminPanel .workspace .attributeView .container .container_table .col2 h4, .adminPanel .workspace .orderView .container .container_table .col2 h4 {
+  margin: 0;
+  margin-left: 2rem;
+  font-size: 1.2rem;
+}
+.adminPanel .workspace .attributeView .container .container_table .col4, .adminPanel .workspace .orderView .container .container_table .col4 {
   width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.adminPanel .workspace .attributeView .container .container_table .col4 .redact {
+.adminPanel .workspace .attributeView .container .container_table .col4 .redact, .adminPanel .workspace .orderView .container .container_table .col4 .redact {
   display: flex;
   align-items: center;
   height: 5rem;
@@ -289,7 +297,7 @@ body {
   padding: 1rem 2rem;
   cursor: pointer;
 }
-.adminPanel .workspace .attributeView .container .container_table .col4 .col_header {
+.adminPanel .workspace .attributeView .container .container_table .col4 .col_header, .adminPanel .workspace .orderView .container .container_table .col4 .col_header {
   justify-content: center;
 }
 .adminPanel .workspace .categoryView {

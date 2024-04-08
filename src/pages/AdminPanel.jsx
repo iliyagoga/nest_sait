@@ -3,6 +3,7 @@ import ct from '../assets/imgs/category.svg'
 import at from '../assets/imgs/attributes.svg'
 import tag from '../assets/imgs/tags.svg'
 import cp from '../assets/imgs/Nav → List → Item → Button → SVG.svg'
+import or from '../assets/imgs/orders.svg'
 import '../assets/styles/css/adminPanel.css'
 import { apiMap } from '../utilites/apiMap.ts'
 import { role } from '../utilites/axiosConfig.ts'
@@ -38,6 +39,15 @@ export default function AdminPanel(){
                     <div>
                         <img src={tag} alt="tag_icon" />
                         <p onClick={()=>{setM(4)}}>Теги</p>
+                    </div>
+                </div>
+            </div>
+            <div className='orderBlock block'>
+                <h2>Заказы</h2>
+                <div className='orders child_block'>
+                    <div> 
+                        <img src={or} alt="product_icon" />
+                        <p onClick={()=>{setM(5)}}>Заказы</p>
                     </div>
                 </div>
             </div>
