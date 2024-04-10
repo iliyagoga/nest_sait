@@ -202,4 +202,49 @@ export class OrderService {
         }
     }
 
+    async updateStatus(id: number, orderStatus: number){
+        try {
+            if(orderStatus==0){
+                const res = await this.orders.update({orderStatus: "new"},{
+                    where: {
+                        id
+                    }
+                })
+                return true
+            }
+            if(orderStatus==1){
+                const res = await this.orders.update({orderStatus: "process"},{
+                    where: {
+                        id
+                    }
+                })
+                return true
+            }
+            if(orderStatus==2){
+                const res = await this.orders.update({orderStatus: "closed"},{
+                    where: {
+                        id
+                    }
+                })
+                return true
+            }
+            return false
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getOrder(id: number){
+        try {
+            const order = await this.orders.findOne({where: {id}})
+            const user = await this.orderUser.findOne({where: {orderId: order.id}})
+            const addres= await this.addresOrder.findOne({where: {orderId: order.id}})
+            const products= await this.orderProduct.findAll({where: {orderId: order.id}})
+            return {order, user, addres, products}
+        } catch (error) {
+            throw error;
+        }
+
+    }
+
 }

@@ -35,5 +35,22 @@ export class OrderController {
         return this.orderRepository.getCountPages(limit);
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Roles('ADMIN')
+    @UseGuards(RolesGuard)
+    @Post('/updateStatus')
+    updateStatus(@Body('id') id: number, @Body('orderStatus') orderStatus: number){
+        return this.orderRepository.updateStatus(id,orderStatus)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Roles('ADMIN')
+    @UseGuards(RolesGuard)
+    @Get('/getOrder/:id')
+    getOrder(@Param('id') id: number){
+        return this.orderRepository.getOrder(id)
+    }
+
+
     
 }
