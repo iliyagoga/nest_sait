@@ -1,0 +1,96 @@
+@font-face {
+  font-family: "Raleway-Bold";
+  src: url("../static/Raleway-Bold.ttf");
+}
+@font-face {
+  font-family: "Raleway-ExtraBold";
+  src: url("../static/Raleway-ExtraBold.ttf");
+}
+@font-face {
+  font-family: "Raleway-Light";
+  src: url("../static/Raleway-Light.ttf");
+}
+@font-face {
+  font-family: "Raleway-Medium";
+  src: url("../static/Raleway-Medium.ttf");
+}
+@font-face {
+  font-family: "Raleway-Regular";
+  src: url("../static/Raleway-Regular.ttf");
+}
+@font-face {
+  font-family: "Raleway-Thin";
+  src: url("../static/Raleway-Thin.ttf");
+}
+.order {
+  margin-left: 17rem;
+}
+.order .o_header {
+  display: flex;
+  margin-left: 2rem;
+  flex-direction: column;
+}
+.order .o_header .l .date {
+  display: flex;
+  align-items: center;
+}
+.order .o_header .l .date img {
+  margin-left: 0.5rem;
+}
+.order .o_header .l .date h4 {
+  margin: 0;
+  margin-left: 0.5rem;
+}
+.order .o_basicInfo {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: rgba(68, 68, 68, 0.0666666667) 0px 5px 22px 0;
+  width: 95%;
+  margin: auto;
+  margin-top: 1rem;
+}
+.order .o_basicInfo_h {
+  padding: 2rem 1.5rem 0 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1294117647);
+}
+.order .o_basicInfo_h h4 {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0;
+}
+.order .o_basicInfo_c > *:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1294117647);
+}
+.order .o_basicInfo_c > * {
+  padding: 2rem 1.5rem 0 1.5rem;
+  padding-bottom: 1rem;
+  display: flex;
+}
+.order .o_basicInfo_c .l {
+  width: 30%;
+}
+.order .o_basicInfo_c .l span {
+  font-size: 1rem;
+  color: #111927;
+  font-weight: 600;
+}
+.order .o_basicInfo_c .r {
+  width: 70%;
+}
+.order .o_basicInfo_c .r p {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #6C737F;
+}
+.order .o_basicInfo_c .r .cont {
+  display: flex;
+  flex-direction: column;
+  color: #6C737F;
+}
+.order .o_basicInfo_c .r select {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #6C737F;
+}/*# sourceMappingURL=order.css.map */

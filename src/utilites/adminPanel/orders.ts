@@ -23,4 +23,22 @@ export class Orders{
             throw error;
         }
     }
+
+    async updateStatus(id: number, orderStatus: number){
+        try {
+            const res = await orders.post(apiMap.orders.updateStatus, {id, orderStatus}, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}});
+            this.getOrders(AdminPanelStore.getOrderPage(), 6, 4)
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getOrder(id: number){
+        try {
+            const res = await orders.get(apiMap.orders.getOrder+'/'+id, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}});
+            AdminPanelStore.setOrder(res.data)
+        } catch (error) {
+            throw error;
+        }
+    }
 }

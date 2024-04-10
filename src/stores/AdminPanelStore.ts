@@ -114,6 +114,7 @@ class AdminPanelStore{
     ];
     private _orderPage: number=0;
     private _orderId: number;
+    private _order: any;
 
 
 
@@ -1136,6 +1137,38 @@ class AdminPanelStore{
             v.id=null;
             return v;
         })
+    }
+    
+    getStatus(id:number){
+        for(let el of this._orders){
+            if(el.id==id){
+                if(el.orderStatus=='new'){
+                    return 0
+                }
+                if(el.orderStatus=='process'){
+                    return 1
+                }
+                return 2
+            }
+        }
+        return ""
+    }
+    getOneStatus(status: string){
+        if(status=='new'){
+            return 0
+        }
+        if(status=='process'){
+            return 1
+        }
+        return 2
+    }
+
+    setOrder(order: any){
+        this._order= order;
+    }
+
+    getOrder(){
+        return this._order;
     }
 
 

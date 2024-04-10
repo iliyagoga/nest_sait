@@ -1489,4 +1489,10 @@ body {
 }
 .productsRec .body .table .col1 .bl .active span {
   color: black;
+}
+
+.m_status select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  width: 100%;
 }/*# sourceMappingURL=adminPanel.css.map */
