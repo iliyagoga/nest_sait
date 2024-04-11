@@ -13,6 +13,7 @@ import { Previews } from "./preview.model";
 import { Gallery } from "./gallery.model";
 import { Variations } from "./variations.model";
 import { RecommendationProducts } from "./recommendationProduct.model";
+import { Order } from "src/order/order.model";
 
 
 @Table({tableName:"Products"})
@@ -84,6 +85,10 @@ export class Product extends Model<Product>{
 
     @HasMany(()=>RecommendationProducts)
     recommendationProducts: RecommendationProducts[];
+
+    
+    @BelongsToMany(()=>Order, ()=>OrderProduct)
+    orders: Order[]
 
 
 

@@ -8,6 +8,7 @@ import { Cart } from 'src/cart/cart.model';
 import { JwtService } from '@nestjs/jwt';
 import { CartService } from 'src/cart/cart.service';
 import { OrderUser } from './orderUser.model'
+import { Product } from 'src/products/product.model';
 
 @Injectable()
 export class OrderService {
@@ -17,6 +18,7 @@ export class OrderService {
         @InjectModel(Order) private orders: typeof Order,
         @InjectModel(AddresOrder) private addresOrder: typeof AddresOrder,
         @InjectModel(OrderProduct) private orderProduct: typeof OrderProduct,
+        @InjectModel(Product) private productRepository: typeof Product,
         @InjectModel(Cart) private cart: typeof Cart,
         @InjectModel(OrderUser) private orderUser: typeof OrderUser
     ){}
@@ -162,18 +164,18 @@ export class OrderService {
                     limit,
                     offset: page* limit,
                     where:{
-                        orderStatus: 'work'
+                        orderStatus: 'process'
                     },
                     order:[['id','desc']]
                 })
                 return res;
             }
-            if(vars==3){
+            if(vars==2){
                 const res = await this.orders.findAll({
                     limit,
                     offset: page* limit,
                     where:{
-                        orderStatus: 'new'
+                        orderStatus: 'closed'
                     },
                     order:[['id','desc']]
                 })
@@ -239,12 +241,33 @@ export class OrderService {
             const order = await this.orders.findOne({where: {id}})
             const user = await this.orderUser.findOne({where: {orderId: order.id}})
             const addres= await this.addresOrder.findOne({where: {orderId: order.id}})
-            const products= await this.orderProduct.findAll({where: {orderId: order.id}})
-            return {order, user, addres, products}
+            const products= await this.orders.findOne({
+                where: {id},
+                attributes: [],
+                include:{
+                    model: Product
+                }})
+            let sum =0;
+            products['products'].map(v=>{
+                sum+=(v.sale_price==0?v.price:v.sale_price)*v['OrderProduct']['count']
+            })
+            return {order, user, addres, products,sum}
         } catch (error) {
             throw error;
         }
 
+    }
+
+    async deleteOrders(ids: number[]){
+        try {
+            await this.orders.destroy({where: {id:ids}})
+            await this.orderUser.destroy({where: {orderId: ids}})
+            await this.addresOrder.destroy({where: {orderId: ids}})
+            await this.orderProduct.destroy({where:{orderId:ids}})
+            return true
+        } catch (error) {
+            throw error;
+        }
     }
 
 }

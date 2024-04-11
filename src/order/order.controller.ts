@@ -51,6 +51,14 @@ export class OrderController {
         return this.orderRepository.getOrder(id)
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Roles('ADMIN')
+    @UseGuards(RolesGuard)
+    @Post('/removeOrders')
+    removeOrders(@Body('ids') ids: number[]){
+        return this.orderRepository.deleteOrders(ids)
+    }
+
 
     
 }

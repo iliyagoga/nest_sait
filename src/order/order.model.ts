@@ -1,10 +1,11 @@
 import { DataTypes } from "sequelize";
-import { Column, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 import { User } from "src/user/user.model";
 import { AddresOrder } from "./addresOrder.model";
 import { OrderProduct } from "./orderProduct.model";
 import { Coupon } from "src/coupon/coupon.model";
 import { OrderUser } from "./orderUser.model";
+import { Product } from "src/products/product.model";
 
 
 @Table({tableName:"Orders"})
@@ -43,6 +44,9 @@ export class Order extends Model<Order>{
 
     @HasMany(()=>OrderUser)
     orderUser: OrderUser[]
+
+    @BelongsToMany(()=>Product, ()=>OrderProduct)
+    products: Product[]
 
 
 
