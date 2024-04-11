@@ -226,20 +226,34 @@ body {
   border-bottom: 1px solid red;
   padding-bottom: 0.5rem;
 }
-.adminPanel .workspace .attributeView .container .container_table, .adminPanel .workspace .orderView .container .container_table {
+.adminPanel .workspace .attributeView .container .sort, .adminPanel .workspace .orderView .container .sort {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+}
+.adminPanel .workspace .attributeView .container .sort span, .adminPanel .workspace .orderView .container .sort span {
+  font-size: 1rem;
+}
+.adminPanel .workspace .attributeView .container .sort select, .adminPanel .workspace .orderView .container .sort select {
+  margin-left: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #6C737F;
+}
+.adminPanel .workspace .attributeView .container_table, .adminPanel .workspace .orderView .container_table {
   display: flex;
   width: 100%;
   margin-top: 2rem;
 }
-.adminPanel .workspace .attributeView .container .container_table .col0, .adminPanel .workspace .orderView .container .container_table .col0 {
+.adminPanel .workspace .attributeView .container_table .col0, .adminPanel .workspace .orderView .container_table .col0 {
   display: flex;
   flex-direction: column;
 }
-.adminPanel .workspace .attributeView .container .container_table .col0 h3, .adminPanel .workspace .orderView .container .container_table .col0 h3 {
+.adminPanel .workspace .attributeView .container_table .col0 h3, .adminPanel .workspace .orderView .container_table .col0 h3 {
   font-size: 1.2rem;
   margin: 0;
 }
-.adminPanel .workspace .attributeView .container .container_table .col_header, .adminPanel .workspace .orderView .container .container_table .col_header {
+.adminPanel .workspace .attributeView .container_table .col_header, .adminPanel .workspace .orderView .container_table .col_header {
   background: #F8F9FA;
   padding: 1rem 2rem;
   box-sizing: border-box;
@@ -248,10 +262,10 @@ body {
   display: flex;
   align-items: center;
 }
-.adminPanel .workspace .attributeView .container .container_table .col1, .adminPanel .workspace .orderView .container .container_table .col1 {
+.adminPanel .workspace .attributeView .container_table .col1, .adminPanel .workspace .orderView .container_table .col1 {
   width: 10%;
 }
-.adminPanel .workspace .attributeView .container .container_table .col1 .rem, .adminPanel .workspace .orderView .container .container_table .col1 .rem {
+.adminPanel .workspace .attributeView .container_table .col1 .rem, .adminPanel .workspace .orderView .container_table .col1 .rem {
   padding: 1rem 2rem;
   box-sizing: border-box;
   width: 100%;
@@ -259,36 +273,36 @@ body {
   display: flex;
   align-items: center;
 }
-.adminPanel .workspace .attributeView .container .container_table .col2, .adminPanel .workspace .orderView .container .container_table .col2 {
+.adminPanel .workspace .attributeView .container_table .col2, .adminPanel .workspace .orderView .container_table .col2 {
   width: 60%;
 }
-.adminPanel .workspace .attributeView .container .container_table .col2 .title, .adminPanel .workspace .orderView .container .container_table .col2 .title {
+.adminPanel .workspace .attributeView .container_table .col2 .title, .adminPanel .workspace .orderView .container_table .col2 .title {
   padding: 1rem 2rem;
   height: 5rem;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
-.adminPanel .workspace .attributeView .container .container_table .col2 .title:hover, .adminPanel .workspace .orderView .container .container_table .col2 .title:hover {
+.adminPanel .workspace .attributeView .container_table .col2 .title:hover, .adminPanel .workspace .orderView .container_table .col2 .title:hover {
   background: rgba(248, 249, 250, 0.4666666667);
   border-radius: 10px;
 }
-.adminPanel .workspace .attributeView .container .container_table .col2 .title p, .adminPanel .workspace .orderView .container .container_table .col2 .title p {
+.adminPanel .workspace .attributeView .container_table .col2 .title p, .adminPanel .workspace .orderView .container_table .col2 .title p {
   margin: 0;
   margin-left: 3rem;
 }
-.adminPanel .workspace .attributeView .container .container_table .col2 h4, .adminPanel .workspace .orderView .container .container_table .col2 h4 {
+.adminPanel .workspace .attributeView .container_table .col2 h4, .adminPanel .workspace .orderView .container_table .col2 h4 {
   margin: 0;
   margin-left: 2rem;
   font-size: 1.2rem;
 }
-.adminPanel .workspace .attributeView .container .container_table .col4, .adminPanel .workspace .orderView .container .container_table .col4 {
+.adminPanel .workspace .attributeView .container_table .col4, .adminPanel .workspace .orderView .container_table .col4 {
   width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.adminPanel .workspace .attributeView .container .container_table .col4 .redact, .adminPanel .workspace .orderView .container .container_table .col4 .redact {
+.adminPanel .workspace .attributeView .container_table .col4 .redact, .adminPanel .workspace .orderView .container_table .col4 .redact {
   display: flex;
   align-items: center;
   height: 5rem;
@@ -297,7 +311,7 @@ body {
   padding: 1rem 2rem;
   cursor: pointer;
 }
-.adminPanel .workspace .attributeView .container .container_table .col4 .col_header, .adminPanel .workspace .orderView .container .container_table .col4 .col_header {
+.adminPanel .workspace .attributeView .container_table .col4 .col_header, .adminPanel .workspace .orderView .container_table .col4 .col_header {
   justify-content: center;
 }
 .adminPanel .workspace .categoryView {
@@ -330,20 +344,20 @@ body {
   border-bottom: 1px solid red;
   padding-bottom: 0.5rem;
 }
-.adminPanel .workspace .categoryView .container .container_table {
+.adminPanel .workspace .categoryView .container_table {
   display: flex;
   width: 100%;
   margin-top: 2rem;
 }
-.adminPanel .workspace .categoryView .container .container_table .col0 {
+.adminPanel .workspace .categoryView .container_table .col0 {
   display: flex;
   flex-direction: column;
 }
-.adminPanel .workspace .categoryView .container .container_table .col0 h3 {
+.adminPanel .workspace .categoryView .container_table .col0 h3 {
   font-size: 1.2rem;
   margin: 0;
 }
-.adminPanel .workspace .categoryView .container .container_table .col_header {
+.adminPanel .workspace .categoryView .container_table .col_header {
   background: #F8F9FA;
   padding: 1rem 2rem;
   box-sizing: border-box;
@@ -352,10 +366,10 @@ body {
   display: flex;
   align-items: center;
 }
-.adminPanel .workspace .categoryView .container .container_table .col1 {
+.adminPanel .workspace .categoryView .container_table .col1 {
   width: 10%;
 }
-.adminPanel .workspace .categoryView .container .container_table .col1 .rem {
+.adminPanel .workspace .categoryView .container_table .col1 .rem {
   padding: 1rem 2rem;
   box-sizing: border-box;
   width: 100%;
@@ -363,31 +377,31 @@ body {
   display: flex;
   align-items: center;
 }
-.adminPanel .workspace .categoryView .container .container_table .col2 {
+.adminPanel .workspace .categoryView .container_table .col2 {
   width: 60%;
 }
-.adminPanel .workspace .categoryView .container .container_table .col2 .title {
+.adminPanel .workspace .categoryView .container_table .col2 .title {
   padding: 1rem 2rem;
   height: 5rem;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
-.adminPanel .workspace .categoryView .container .container_table .col2 .title:hover {
+.adminPanel .workspace .categoryView .container_table .col2 .title:hover {
   background: rgba(248, 249, 250, 0.4666666667);
   border-radius: 10px;
 }
-.adminPanel .workspace .categoryView .container .container_table .col2 .title p {
+.adminPanel .workspace .categoryView .container_table .col2 .title p {
   margin: 0;
   margin-left: 3rem;
 }
-.adminPanel .workspace .categoryView .container .container_table .col4 {
+.adminPanel .workspace .categoryView .container_table .col4 {
   width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.adminPanel .workspace .categoryView .container .container_table .col4 .redact {
+.adminPanel .workspace .categoryView .container_table .col4 .redact {
   display: flex;
   align-items: center;
   height: 5rem;
@@ -396,7 +410,7 @@ body {
   padding: 1rem 2rem;
   cursor: pointer;
 }
-.adminPanel .workspace .categoryView .container .container_table .col4 .col_header {
+.adminPanel .workspace .categoryView .container_table .col4 .col_header {
   justify-content: center;
 }
 .adminPanel .createProduct {

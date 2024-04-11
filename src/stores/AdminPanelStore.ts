@@ -1119,6 +1119,15 @@ class AdminPanelStore{
     getDeleteOrders(){
         return this._deletesOrder;
     }
+    getDeleteOrdersIds(){
+        let arr: number[]=[]
+        for(let el of this._deletesOrder){
+            if(el.id){
+                arr.push(el.id)
+            }
+        }
+        return arr;
+    }
     setDeleteOrders(id:number, idOrder: number){
         this._deletesOrder[id].mode=!this._deletesOrder[id].mode;
         this._deletesOrder[id].id=idOrder;

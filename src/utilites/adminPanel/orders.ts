@@ -41,4 +41,14 @@ export class Orders{
             throw error;
         }
     }
+
+    async deleteOrders(){
+        try {
+            const res = await orders.post(apiMap.orders.deleteOrders, {ids: AdminPanelStore.getDeleteOrdersIds()}, {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}});
+            this.getOrders(0,6,4)
+            this.getCountPages(6)
+        } catch (error) {
+            throw error;
+        }
+    }
 }

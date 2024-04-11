@@ -85,6 +85,7 @@ export const apiMap={
         getOrders: '/getOrders',
         getCountPages: '/getCountPages',
         updateStatus: '/updateStatus',
-        getOrder: '/getOrder'
+        getOrder: '/getOrder',
+        deleteOrders: '/removeOrders'
     }
 }

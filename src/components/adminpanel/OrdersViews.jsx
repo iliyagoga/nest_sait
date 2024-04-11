@@ -7,15 +7,18 @@ import pen from'../../assets/imgs/Frame (3).svg'
 import th from '../../assets/imgs/Vector (4).svg'
 import RedactModal from "../modals/redactModal.jsx";
 import Order from "./Order.jsx";
+import DeleteModal from "../modals/deleteModal.jsx";
 const OrdersViews = observer(()=>{
 
     const [show, setShow] = useState(false);
     const [remAll, setRemAll]= useState(false);
     const [o,sO]= useState(false)
+    const [removeOrders, setRemoveOrders] = useState(false)
 
     const [reStatusOrderId, setReStatusOrderId] = useState(null);
 
     const [status, setStatus]= useState("")
+    const [statusSort, setStatusSort]= useState("")
     const panel = new Orders();
     useEffect(()=>{
         panel.getOrders(0,6);
@@ -23,9 +26,27 @@ const OrdersViews = observer(()=>{
     },[])
 
     const handleClose = () => setShow(false);
+    
+    const handleClose2 = () => setRemoveOrders(false);
     return <>
     {!o?
         <div className="orderView">
+            <DeleteModal
+            handleClose={handleClose2}
+            show={removeOrders}
+            he={'Удаление'}
+            body={
+                'Удалить?'
+            }
+            func={async ()=>{await panel.deleteOrders();
+                AdminPanelStore.clearDeleteOrders();
+                setRemAll(false)
+                setRemoveOrders(false)
+            
+            }}
+            >
+
+            </DeleteModal>
             <RedactModal
             handleClose={handleClose}
             show={show}
@@ -33,7 +54,7 @@ const OrdersViews = observer(()=>{
             body={
                 <>
                 <div className="m_status">
-                    <select value={status}  onChange={e=>{
+                    <select value={status}  onChange={(e)=>{
                         setStatus(e.target.value);
                         }} name="" id="">
                         <option value="0">Новый</option>
@@ -50,20 +71,30 @@ const OrdersViews = observer(()=>{
 
             </RedactModal>
             <div className="container">
-
                     <div className="container_header">
-                        <span onClick={async ()=>{ await panel.getOrders(AdminPanelStore.getOrderPage());}}>Все заказы</span>
+                        <span onClick={async ()=>{ await panel.getOrders(0,6,4)}}>Все заказы</span>
                         { <span className="r" onClick={
-                            async()=>{
-                                await panel.deleteOrders();
-                                AdminPanelStore.clearDeleteOrders();
-                                setRemAll(false)
+                            ()=>{
+                                setRemoveOrders(true)
                                 }
                             }>Удалить</span> }
                     </div>
+                    <div className="sort">
+                        <span>Статус: </span>
+                        <select value={statusSort}  onChange={async(e)=>{
+                            setStatusSort(e.target.value);
+                            await panel.getOrders(0,6,e.target.value);
+                            }} name="" id="">
+                            <option value="4">Нет</option>
+                            <option value="0">Новый</option>
+                            <option value="1">В процессе</option>
+                            <option value="2">Завершенный</option>
+                            
+                        </select>
+                    </div>
                     <div className="container_table">
                         <div className="col0 col2">
-                            <h3 className="name col_header" >Статус</h3>
+                            <h3 className="name col_header" >Заказ</h3>
                             {AdminPanelStore.getOrders()!=undefined&&AdminPanelStore.getOrders().map(v=>{
                                 return <div className="title" onClick={async ()=>{
                                     AdminPanelStore.setOrderId(v.id);
@@ -104,17 +135,17 @@ const OrdersViews = observer(()=>{
                                     </div>
                             </div>
                 
-                            {AdminPanelStore.getOrders()!=undefined&&AdminPanelStore.getOrders().map((v,i)=>{
-                                return <div className="rem">
-                                            <div className={"checkbox "} 
-                                            onClick={()=>{
-                                                AdminPanelStore.setDeleteOrders(i,v.id)
+                        {AdminPanelStore.getOrders()!=undefined&&AdminPanelStore.getOrders().map((v,i)=>{
+                            return <div className="rem">
+                                        <div className={"checkbox "} 
+                                        onClick={()=>{
+                                            AdminPanelStore.setDeleteOrders(i,v.id)
+                                        }
                                             }
-                                                }
-                                                >
-                                                <div className={"bhh "+ (AdminPanelStore.getDeleteOrder(i).mode&&'checkbox_active')}></div>
-                                            </div>
-                                        </div>
+                                            >
+                                    <div className={"bhh "+ (AdminPanelStore.getDeleteOrder(i).mode&&'checkbox_active')}></div>
+                                </div>
+                            </div>
                             })}
                         </div>
                     </div>

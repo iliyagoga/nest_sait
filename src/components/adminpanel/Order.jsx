@@ -55,6 +55,14 @@ const Order= observer(({sO})=>{
                         <p>{ new Date(AdminPanelStore.getOrder().order.createdAt).getDate()}-{ new Date(AdminPanelStore.getOrder().order.createdAt).getMonth()+1}-{ new Date(AdminPanelStore.getOrder().order.createdAt).getFullYear()} { new Date(AdminPanelStore.getOrder().order.createdAt).getHours()}:{ new Date(AdminPanelStore.getOrder().order.createdAt).getMinutes()}</p>  
                     </div>
                 </div>
+                <div className="sum">
+                    <div className="l">
+                        <span>Сумма</span>
+                    </div>
+                    <div className="r">
+                        <p>{AdminPanelStore.getOrder().sum} ₽</p>
+                    </div>
+                </div>
                 <div className="payment">
                     <div className="l">
                         <span>Вид оплаты</span>
@@ -91,12 +99,32 @@ const Order= observer(({sO})=>{
                     <div className="r">
                         <select value={status}  onChange={e=>{
                             setStatus(e.target.value);
+                            panel.updateStatus(AdminPanelStore.getOrder().order.id,e.target.value)
                             }} name="" id="">
                             <option value="0">Новый</option>
                             <option value="1">В процессе</option>
                             <option value="2">Завершенный</option>
                         </select>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div className="o_orders">
+            <div className="o_orders_h">
+                <h4>Товары</h4>
+            </div>
+            <div className="o_orders_c">
+                <div className="o_orders_c__h">
+                    <h3>Описание</h3>
+                    <h3>Цена</h3>
+                </div>
+                <div className="o_orders_c__b">
+                    {AdminPanelStore.getOrder().products.products.map(v=>{
+                        return <div className="product">
+                            <span>{v.productName} x {v.OrderProduct.count}</span>
+                            <span>₽ {v.price==0?v.price: v.sale_price}</span>
+                        </div>
+                    })}
                 </div>
             </div>
         </div>
