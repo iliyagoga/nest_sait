@@ -14,7 +14,7 @@ export class Coupon extends Model<Coupon>{
     @Column({type:DataTypes.TEXT,allowNull:false, unique:true})
     couponValue: string;
 
-    @Column({type:DataTypes.INTEGER,allowNull:false})
+    @Column({type:DataTypes.BIGINT,allowNull:false})
     couponTimelife: number;
 
     @HasMany(()=>Order)

@@ -14,12 +14,12 @@ export class CouponService {
         return await this.couponRepository.create(dto)
     }
 
-    async removeCoupon(id: number){
+    async removeCoupon(ids: number[]){
         return await this.couponRepository.destroy(
         {
                 where:
                 {
-                    id
+                    id: ids
                 }
             }
         )
@@ -27,8 +27,10 @@ export class CouponService {
 
     async redactCoupon(dto: RedactCouponDto){
         return await this.couponRepository.update(
-           
-            dto,
+            {couponTitle: dto.couponTitle,
+            couponValue: dto.couponValue,
+            couponTimelife: dto.couponTimelife
+            },
             {
                 where:{
                     id: dto.id
@@ -42,6 +44,42 @@ export class CouponService {
         return await this.couponRepository.findAll()
     }
 
+    async getCouponsLimit(page: number, limit: number, order: string ){
+        let o: boolean
+        if(order=='true'){
+            o=true
+        }
+        if(order=='false'){
+            o=false
+        }
+            
+        if(o===true){
+            const res = await this.couponRepository.findAll({
+                offset: limit* page,
+                limit,
+                order: [['couponTimelife','desc']]
+            })
+            return res;
+        }
+        if(o===false){
+            const res = await this.couponRepository.findAll({
+                offset: limit* page,
+                limit,
+                order: [['couponTimelife','asc']]
+            })
+            return res;
+        }
+        const res = await this.couponRepository.findAll({
+            offset: limit* page,
+            limit,
+            order: [['id','desc']]
+        })
+        return res;
+
+
+      
+    }
+
     async getCoupon(coupon){
         const res = await this.couponRepository.findOne({
             where:{
@@ -52,6 +90,10 @@ export class CouponService {
             return res.couponValue
         }
         return  0
+    }
+
+    async getCouponsPages(limit: number){
+        return Math.floor(await this.couponRepository.count()/limit)+1
     }
 
 

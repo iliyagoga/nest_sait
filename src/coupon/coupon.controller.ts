@@ -18,8 +18,8 @@ export class CouponController {
 
     @UseGuards(JwtAuthGuard)
     @Post('/deleteCoupon')
-    deleteCoupon(@Body() data: object){
-        return this.couponService.removeCoupon(data["id"])
+    deleteCoupon(@Body('ids') ids: number[]){
+        return this.couponService.removeCoupon(ids)
     }
     @UseGuards(JwtAuthGuard)
     @Post('/redactCoupon')
@@ -31,6 +31,18 @@ export class CouponController {
     @Get('/getCoupons')
     getCoupons(){
         return this.couponService.getCoupons()
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('/getCouponsPages/:limit')
+    getCouponsPages(@Param('limit') limit: number){
+        return this.couponService.getCouponsPages(limit)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('/getCoupons/:page/:limit/:order')
+    getCouponsLimit(@Param('page') page: number, @Param('limit') limit: number, @Param('order') order: string){
+        return this.couponService.getCouponsLimit(page,limit, order)
     }
 
     @Get('/getCoupon/:coupon')
