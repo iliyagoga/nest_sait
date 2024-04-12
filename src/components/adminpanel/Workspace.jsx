@@ -38,6 +38,12 @@ const Workspace = observer(({m})=>{
                 <OrdersViews></OrdersViews>
             </div>
             </>)
+        case 6:
+            return (<>
+            <div className='workspace'>
+                <Coupons></Coupons>
+            </div>
+            </>)
     
         default:
             break;

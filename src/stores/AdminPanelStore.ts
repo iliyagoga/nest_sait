@@ -116,6 +116,17 @@ class AdminPanelStore{
     private _orderId: number;
     private _order: any;
 
+    private _coupons: any[];
+    private _couponsPages: number = 0;
+    private _couponsPage: number = 0;
+    private _deletesCoupons: {id:number|null, mode: boolean}[]=[
+        {id: null,mode: false},
+        {id: null,mode: false},
+        {id: null,mode: false},
+        {id: null,mode: false},
+        {id: null,mode: false},
+        {id: null,mode: false},
+    ];
 
 
 
@@ -1178,6 +1189,65 @@ class AdminPanelStore{
 
     getOrder(){
         return this._order;
+    }
+
+    setCoupons(coupons: any[]){
+        this._coupons=coupons;
+    }
+    
+    getCoupons(){
+        return this._coupons;
+    }
+
+    setCouponsPages(pages: number){
+        this._couponsPages=pages;
+    }
+
+    getCouponsPages(){
+        return this._couponsPages;
+    }
+
+    setCouponsPage(page: number){
+        this._couponsPage=page;
+    }
+
+    getCouponsPage(){
+        return this._couponsPage;
+    }
+
+    getDeleteCoupon(id:number){
+        return this._deletesCoupons[id];
+    }
+    getDeleteCoupons(){
+        return this._deletesCoupons;
+    }
+    getDeleteCouponsIds(){
+        let arr: number[]=[]
+        for(let el of this._deletesCoupons){
+            if(el.id){
+                arr.push(el.id)
+            }
+        }
+        return arr;
+    }
+    setDeleteCoupons(id:number, idCoupon: number){
+        this._deletesCoupons[id].mode=!this._deletesCoupons[id].mode;
+        this._deletesCoupons[id].id=idCoupon;
+    }
+    setAllDeleteCoupons(){
+        this._deletesCoupons=this._deletesCoupons.map((v,i)=>{
+            v.mode=true
+            if(this._coupons[i]!=undefined)
+                v.id=this._coupons[i].id
+            return v;
+        })
+    }
+    clearDeleteCoupons(){
+        this._deletesCoupons=this._deletesCoupons.map(v=>{
+            v.mode=false;
+            v.id=null;
+            return v;
+        })
     }
 
 

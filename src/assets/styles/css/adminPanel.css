@@ -129,6 +129,18 @@ body {
   border-bottom: 1px solid red;
   padding-bottom: 0.5rem;
 }
+.adminPanel .workspace .tagVIew .container .c_sort {
+  margin-top: 1rem;
+}
+.adminPanel .workspace .tagVIew .container .c_sort span {
+  font-size: 1.2rem;
+}
+.adminPanel .workspace .tagVIew .container .c_sort select {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #acacac;
+  margin-left: 1rem;
+}
 .adminPanel .workspace .tagVIew .container .container_table {
   display: flex;
   width: 100%;
@@ -1509,4 +1521,17 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 8px;
   width: 100%;
+}
+
+.m_coupons {
+  display: flex;
+  flex-direction: column;
+}
+.m_coupons input {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #acacac;
+}
+.m_coupons > *:not(:first-child) {
+  margin-top: 1rem;
 }/*# sourceMappingURL=adminPanel.css.map */

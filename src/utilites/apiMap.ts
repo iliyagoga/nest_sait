@@ -75,9 +75,10 @@ export const apiMap={
         way: '/coupon',
         createCoupon: '/createCoupon',
         deleteCoupon: '/deleteCoupon',
-        redactCoupon: '/createCoupon',
+        redactCoupon: '/redactCoupon',
         getCoupons: '/getCoupons',
-        getCoupon: '/getCoupon'
+        getCoupon: '/getCoupon',
+        getCouponsPages: '/getCouponsPages'
     },
     orders:{
         way: '/order',

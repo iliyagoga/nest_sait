@@ -51,16 +51,16 @@ export default function AdminPanel(){
                     </div>
                 </div>
             </div>
-            {/* <div className="couponBlock block">
+            <div className="couponBlock block">
                 <h2>Купоны</h2>
                 <div className="coupon child_block">
                     <div>
                         <img src={cp} alt="coupon" />
-                        <p onClick={()=>{setM(5)}}>Купоны</p>
+                        <p onClick={()=>{setM(6)}}>Купоны</p>
                     </div>
                 </div>
                 
-            </div> */}
+            </div>
         </div>
         <Workspace m= {m}></Workspace>
     </div>
