@@ -92,6 +92,23 @@ const Order= observer(({sO})=>{
                         </>}
                     </div>
                 </div>
+                {AdminPanelStore.getOrder().coupon&&<div className="coupons">
+                    <div className="l">
+                        <span>Скидка</span>
+                    </div>
+                    <div className="r">
+                        <p>{AdminPanelStore.getOrder().coupon.couponValue} ₽ / Купон: {AdminPanelStore.getOrder().coupon.couponTitle}</p>
+                    </div>
+                </div>
+                }      
+                <div className="endsum">
+                    <div className="l">
+                        <span>Итого:</span>
+                    </div>
+                    <div className="r">
+                        <p>{AdminPanelStore.getOrder().sum - (AdminPanelStore.getOrder().coupon?AdminPanelStore.getOrder().coupon.couponValue: 0)} ₽</p>
+                    </div>
+                </div>
                 <div className="status">
                     <div className="l">
                         <span>Статус заказа</span>

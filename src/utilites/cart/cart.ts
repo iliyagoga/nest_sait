@@ -82,8 +82,9 @@ export class CartUtilite{
     }
 
     async getCoupon(coupon: string){
-        const res = await coupons.get(apiMap.coupons.getCoupon+'/'+coupon)
-        CartStore.setCouponValue(res.data)
+        const res = await cart.get(apiMap.coupons.getCoupon+'/'+coupon, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
+        CartStore.setCouponValue(res.data.value)
+        CartStore.setCouponID(res.data.id)
         return true
     }
 
@@ -123,7 +124,8 @@ export class CartUtilite{
             street,
             home, 
             flat,
-            otd
+            otd,
+            couponId: CartStore.getCouponId()
         };
         try {
             const res = await orders.post(apiMap.orders.createOrder, body, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}});
