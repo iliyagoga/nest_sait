@@ -9,18 +9,22 @@ import { JwtService } from '@nestjs/jwt';
 import { CartService } from 'src/cart/cart.service';
 import { OrderUser } from './orderUser.model'
 import { Product } from 'src/products/product.model';
+import { CouponService } from 'src/coupon/coupon.service';
+import { Coupon } from 'src/coupon/coupon.model';
 
 @Injectable()
 export class OrderService {
     constructor(
         private jwt: JwtService,
         private cartService: CartService,
+        private couponService: CouponService,
         @InjectModel(Order) private orders: typeof Order,
         @InjectModel(AddresOrder) private addresOrder: typeof AddresOrder,
         @InjectModel(OrderProduct) private orderProduct: typeof OrderProduct,
         @InjectModel(Product) private productRepository: typeof Product,
         @InjectModel(Cart) private cart: typeof Cart,
-        @InjectModel(OrderUser) private orderUser: typeof OrderUser
+        @InjectModel(OrderUser) private orderUser: typeof OrderUser,
+        @InjectModel(Coupon) private couponRepository: typeof Coupon
     ){}
 
     async createOrder(auth: string, order: OrderDto){
@@ -32,6 +36,8 @@ export class OrderService {
                     userId: token.id
                 }
             })
+            const coupon= await this.couponService.checkCoupon(order.couponId)
+
             const deliv = order.deliv;
             if(deliv==null){
                 const r1 = await this.orders.create({
@@ -39,7 +45,8 @@ export class OrderService {
                     comment: order.comment,
                     deliv: null,
                     payment: order.payment,
-                    userId: token.id
+                    userId: token.id,
+                    couponId: coupon
                 })
                 for( const el of cart){
                     const r2 = await this.orderProduct.create({
@@ -74,7 +81,8 @@ export class OrderService {
                     comment: order.comment,
                     deliv: true,
                     payment: order.payment,
-                    userId: token.id
+                    userId: token.id,
+                    couponId: coupon
                 })
                 for( const el of cart){
                     const r2 = await this.orderProduct.create({
@@ -115,7 +123,8 @@ export class OrderService {
                     comment: order.comment,
                     deliv: true,
                     payment: order.payment,
-                    userId: token.id
+                    userId: token.id,
+                    couponId: coupon
                 })
                 for( const el of cart){
                     const r2 = await this.orderProduct.create({
@@ -241,6 +250,14 @@ export class OrderService {
             const order = await this.orders.findOne({where: {id}})
             const user = await this.orderUser.findOne({where: {orderId: order.id}})
             const addres= await this.addresOrder.findOne({where: {orderId: order.id}})
+            const coupon= await this.couponRepository.findOne({
+                include:{
+                    model: Order,
+                    where: {
+                        id
+                    }
+                }
+            })
             const products= await this.orders.findOne({
                 where: {id},
                 attributes: [],
@@ -251,7 +268,7 @@ export class OrderService {
             products['products'].map(v=>{
                 sum+=(v.sale_price==0?v.price:v.sale_price)*v['OrderProduct']['count']
             })
-            return {order, user, addres, products,sum}
+            return {order, user, addres, products,sum, coupon}
         } catch (error) {
             throw error;
         }

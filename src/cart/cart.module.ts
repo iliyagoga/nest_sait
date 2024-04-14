@@ -8,12 +8,13 @@ import { Product } from 'src/products/product.model';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { Variations } from 'src/products/variations.model';
 import { Attribute } from 'src/products/attributes.model';
+import { Coupon } from 'src/coupon/coupon.model';
 
 @Module({
   controllers: [CartController],
   providers: [CartService, JwtService],
   imports:[
-    SequelizeModule.forFeature([Cart, Product, Variations, Attribute]),
+    SequelizeModule.forFeature([Cart, Product, Variations, Attribute, Coupon]),
     JwtModule
    
   ],

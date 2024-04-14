@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Header, Headers, Post, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, Header, Headers, Param, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { AddToCartDto } from './dto/addToCart.dto';
 import { RemoveFromCartDto } from './dto/removeFromCart.dto';
@@ -46,4 +46,11 @@ export class CartController {
     countAll(@Headers('authorization') hs: string){
         return this.cartService.countAll(hs)
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('/getCoupon/:coupon')
+    getCoupon(@Param('coupon') coupon: string, @Headers('authorization') auth: string){
+        return this.cartService.getCoupon(coupon,auth)
+    }
+
 }

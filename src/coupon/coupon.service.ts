@@ -7,7 +7,7 @@ import { RedactCouponDto } from './dto/redactCoupon.dto';
 @Injectable()
 export class CouponService {
     constructor(
-        @InjectModel(Coupon) private couponRepository: typeof Coupon
+        @InjectModel(Coupon) private couponRepository: typeof Coupon,
     ){}
 
     async createCoupon(dto: CreateCouponDto){
@@ -80,20 +80,16 @@ export class CouponService {
       
     }
 
-    async getCoupon(coupon){
-        const res = await this.couponRepository.findOne({
-            where:{
-                couponTitle: coupon
-            }
-        })
-        if (res){
-            return res.couponValue
-        }
-        return  0
-    }
-
     async getCouponsPages(limit: number){
         return Math.floor(await this.couponRepository.count()/limit)+1
+    }
+
+    async checkCoupon(id: number){
+        const c = await this.couponRepository.findOne({where: {id}})
+        if(c){
+            return c.id
+        }
+        return null
     }
 
 

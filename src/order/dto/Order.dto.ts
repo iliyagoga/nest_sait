@@ -32,5 +32,7 @@ export class OrderDto{
     flat: string;
 
     otd: string;
+
+    couponId: number;
     
 }

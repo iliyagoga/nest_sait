@@ -10,6 +10,7 @@ import { Previews } from 'src/products/preview.model';
 import { Variations } from 'src/products/variations.model';
 import { Attribute } from 'src/products/attributes.model';
 import { AttributeValue } from 'src/products/AttributeValuea.model';
+import { Coupon } from 'src/coupon/coupon.model';
 
 @Injectable()
 export class CartService {
@@ -18,6 +19,7 @@ export class CartService {
         @InjectModel( Product) private productRepositury: typeof Product,
         @InjectModel( Variations) private varsRepositury: typeof Variations,
         @InjectModel(Attribute)  private attrRepository: typeof Attribute,
+        @InjectModel(Coupon)  private couponRepository: typeof Coupon,
         private jwt: JwtService,
 
         ){}
@@ -164,5 +166,38 @@ export class CartService {
     
 
         
+    }
+
+    async sum(auth: string){
+        let sum=0;
+        const {res,attrs} = await this.getCart(auth)
+        res.map(v=>{
+            if(Number(v.sale_price>0)){
+                sum+=v.sale_price*v.cart[0].count;
+            }
+            else{
+                sum+=v.price*v.cart[0].count;
+            }
+        })
+        return sum;
+
+
+    }
+
+    async getCoupon(coupon: string, auth: string){
+        const res = await this.couponRepository.findOne({
+            where:{
+                couponTitle: coupon
+            }
+        })
+      
+        if (res){
+            if(await this.sum(auth)>=Number(res.couponValue)){
+                return {value: res.couponValue, id: res.id}
+            }
+            return  {value:0, id: null}
+            
+        }
+        return  {value:0, id: null}
     }
 }

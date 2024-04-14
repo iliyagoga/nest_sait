@@ -6,6 +6,8 @@ import { Coupon } from './coupon.model';
 import { JwtService } from '@nestjs/jwt';
 import { RoleModule } from 'src/role/role.module';
 import { Order } from 'src/order/order.model';
+import { ProductsService } from 'src/products/products.service';
+
 
 @Module({
     providers:[CouponService, JwtService],
