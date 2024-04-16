@@ -5,6 +5,7 @@ import CategoryView from "./CategoryView";
 import ProductView from "./ProductView";
 import Coupons from "./Coupons";
 import OrdersViews from "./OrdersViews";
+import Analitycs from "./Analtics";
 
 
 const Workspace = observer(({m})=>{
@@ -44,6 +45,12 @@ const Workspace = observer(({m})=>{
                 <Coupons></Coupons>
             </div>
             </>)
+        case 7:
+            return (<>
+            <div className='workspace'>
+                <Analitycs></Analitycs>
+            </div>
+        </>)
     
         default:
             break;

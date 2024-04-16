@@ -1,0 +1,146 @@
+.analitycs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 17rem;
+}
+.analitycs h3 {
+  font-size: 1.2rem;
+}
+.analitycs .orders {
+  margin-left: 2rem;
+  margin-top: 1rem;
+  width: 40%;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  box-shadow: rgba(68, 68, 68, 0.0666666667) 0px 5px 22px 0;
+}
+.analitycs .orders canvas {
+  margin-top: 1rem;
+}
+.analitycs .orders .sbar {
+  display: flex;
+  justify-content: space-evenly;
+}
+.analitycs .orders .sbar p {
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid black;
+}
+.analitycs .countUsers {
+  margin-left: 2rem;
+  margin-top: 1rem;
+  width: 40%;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  box-shadow: rgba(68, 68, 68, 0.0666666667) 0px 5px 22px 0;
+}
+.analitycs .countUsers p {
+  margin: 1rem auto 0;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  background: #F2F4F7;
+  width: -moz-max-content;
+  width: max-content;
+  border: 1px solid #acacac;
+}
+.analitycs .topProducts {
+  margin-left: 2rem;
+  margin-top: 1rem;
+  width: -moz-max-content;
+  width: max-content;
+  max-height: 40rem;
+  position: relative;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  box-shadow: rgba(68, 68, 68, 0.0666666667) 0px 5px 22px 0;
+}
+.analitycs .topProducts h3 {
+  margin-bottom: 1rem;
+}
+.analitycs .topProducts .topProduct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+}
+.analitycs .topProducts .topProduct .img {
+  width: 100%;
+  position: relative;
+  height: 5rem;
+}
+.analitycs .topProducts .topProduct .img img {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.analitycs .topProducts .topProduct span {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+.analitycs .topProducts > .topProduct:not(:last-child) {
+  border-bottom: 1px solid #acacac;
+}
+.analitycs .topProducts .more {
+  text-align: center;
+  margin: 0;
+  margin-top: 2rem;
+  cursor: pointer;
+  color: #acacac;
+}
+.analitycs .topCategories {
+  margin-left: 2rem;
+  margin-top: 1rem;
+  width: -moz-max-content;
+  width: max-content;
+  max-height: 20rem;
+  position: relative;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  box-shadow: rgba(68, 68, 68, 0.0666666667) 0px 5px 22px 0;
+}
+.analitycs .topCategories .topCategory {
+  padding: 0.5rem;
+}
+.analitycs .topCategories > .topCategory:not(:last-child) {
+  border-bottom: 1px solid black;
+}
+.analitycs .topCategories .more {
+  text-align: center;
+  margin: 0;
+  margin-top: 2rem;
+  cursor: pointer;
+  color: #acacac;
+}
+.analitycs .topCoupons {
+  margin-left: 2rem;
+  margin-top: 1rem;
+  width: -moz-max-content;
+  width: max-content;
+  max-height: 20rem;
+  position: relative;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  box-shadow: rgba(68, 68, 68, 0.0666666667) 0px 5px 22px 0;
+}
+.analitycs .topCoupons .topCoupon {
+  padding: 0.5rem;
+}
+.analitycs .topCoupons > .topCoupon:not(:last-child) {
+  border-bottom: 1px solid black;
+}
+.analitycs .topCoupons .more {
+  text-align: center;
+  margin: 0;
+  margin-top: 2rem;
+  cursor: pointer;
+  color: #acacac;
+}/*# sourceMappingURL=analitycs.css.map */

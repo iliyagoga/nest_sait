@@ -1,5 +1,5 @@
 export const apiMap={
-    host: 'http://192.168.1.117',
+    host: 'http://192.168.1.116',
     port: '5000',
     auth: {
         way: '/user',
@@ -88,5 +88,15 @@ export const apiMap={
         updateStatus: '/updateStatus',
         getOrder: '/getOrder',
         deleteOrders: '/removeOrders'
+    },
+    analitycs: {
+        way: '/analitycs',
+        getOrderByWeek: '/getOrdersByWeek',
+        getOrderByMounth: '/getOrdersByMounth',
+        getOrderByYear: '/getOrdersByYear',
+        getCountUsers: '/getCountUsers',
+        getTopProoduct: '/getTopProduct',
+        getTopCategory: '/getTopCategory',
+        getTopCoupons: '/getTopCoupons'
     }
 }

@@ -23,10 +23,15 @@ const cart = axios.create({
 const coupons = axios.create({
     baseURL: apiMap.host+":"+apiMap.port+ apiMap.coupons.way
 })
+
 const orders = axios.create({
     baseURL: apiMap.host+":"+apiMap.port+ apiMap.orders.way
 })
 
+const analitycs = axios.create({
+    baseURL: apiMap.host+":"+apiMap.port+ apiMap.analitycs.way
+})
 
 
-export {auth, role, filters, products, cart, coupons, orders} 
+
+export {auth, role, filters, products, cart, coupons, orders, analitycs} 
