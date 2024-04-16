@@ -34,6 +34,7 @@ import { ServeStaticModule } from "@nestjs/serve-static";
 import { Variations } from './products/variations.model';
 import { RecommendationProducts } from './products/recommendationProduct.model';
 import { OrderUser } from './order/orderUser.model';
+import { AnalitycsModule } from './analitycs/analitycs.module';
 
 @Module({
   imports: [
@@ -51,7 +52,9 @@ import { OrderUser } from './order/orderUser.model';
     }),
     RoleModule, FiltersModule, ProductsModule, CartModule, OrderModule, UserModule, CouponModule, FilesModule,
     
-    ServeStaticModule.forRoot({rootPath: path.resolve(__dirname,'..', 'static')})]
+    ServeStaticModule.forRoot({rootPath: path.resolve(__dirname,'..', 'static')}),
+    
+    AnalitycsModule]
 
 })
 export class AppModule {}
