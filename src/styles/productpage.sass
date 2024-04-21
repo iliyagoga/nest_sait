@@ -30,9 +30,81 @@
             & .gallery
                 width: 50%
                 height: 50vh
+                display: flex
+                overflow: hidden
+                & .contGallery
+                    width: 30%
+                    display: flex
+                    margin-right: .5rem
+                    height: 100%
+                    overflow: hidden
+                    flex-direction: column
+                    position: relative
+                    & .btnd
+                        position: absolute
+                        bottom: 0
+                        background: #00000025
+                        width: 100%
+                        display: flex
+                        justify-content: center
+                        cursor: pointer
+                        height: 1.5rem
+                        & img
+                            height: 50%
+                            position: relative
+                            top: 25%
+                        &:hover
+                            background: #00000049
+                    & .btnu
+                        position: absolute
+                        top: 0
+                        background: #00000025
+                        width: 100%
+                        display: flex
+                        justify-content: center
+                        cursor: pointer
+                        height: 1.5rem
+                        z-index: 200
+                        transform: rotateZ(180deg)
+                        & img
+                            height: 50%
+                            position: relative
+                            top: 25%
+                        &:hover
+                            background: #00000049
+                       
+                        
+                        
+                    & ul
+                        display: flex
+                        flex-direction: column
+                        width: 100%
+                        padding: 0
+                        height: max-content
+                        position: absolute
+                        & li
+                            position: relative
+                            background: #00000010
+                            width: 100%
+                            height: 10rem
+                            padding: 0
+                            position: relative
+                            transition-duration: .4s
+                            transition-timing-function: easy-in-out
+                            & img
+                                cursor: pointer
+                                position: absolute
+                                height: 100%
+                                left: 50%
+                                transform: translate(-50%,0)
+                            &:hover
+                                background: #0000001a
+                                
+
+
                 & .preview
                     position: relative
-                    height: 100%
+                    height: 30rem
                     width: 70%
                     & img
                         position: absolute

@@ -8,15 +8,31 @@ import Product from "../components/cart/Product.jsx";
 import '../assets/styles/css/cart.css'
 import { Reg } from "../utilites/auth/reg.ts";
 import Client from "../stores/Client.ts";
+import { useNavigate } from "react-router-dom";
+import MiniModal from "../components/modals/modal.jsx";
+import ErrorsStore from "../stores/ErrorsStore.ts";
+import Footer from "../components/client/Footer.jsx";
 const { observer } = require("mobx-react-lite");
 
 const Cart = observer(()=>{
     const cart = new CartUtilite()
+    const nav = useNavigate()
+    const reg = new Reg()
     useEffect(()=>{
+        reg.checkToken().then(async (e)=>{
+            try {
+                setMode(true)
+                await cart.getCart()
+                await cart.countAll()
+              
+            } catch (error) {
+                console.log(error)
+            }
+           
+        }).catch(e=>{setMode(false)})
        
-        cart.getCart()
-        cart.countAll()
     },[])
+    const [mode, setMode]=useState(null)
     const [mail,setMail] = useState(false)
     const [del,setDel] = useState(false)
     const [name, setName]= useState("")
@@ -34,16 +50,26 @@ const Cart = observer(()=>{
     const [payMode, setPayMode] = useState(null)
     const [coupon, setCoupon] = useState("")
     const [comment, setComment] = useState("")
-    return <>
+    const [eMode, setEMode] = useState(false)
+    const handleClose = ()=>{setEMode(false)}
+    return  mode===true?<>
+        <MiniModal
+        header={"Уведомление"}
+        handleClose={handleClose}
+        show={eMode}
+        text={ErrorsStore.getErrorText()}
+        >
+
+        </MiniModal>
         <Header theme={false}></Header>
         <div className="cart">
         <BreadCrumbs names={['Главная', 'Корзина']} links={[config.mean, config.cart]}></BreadCrumbs>
         <div className="container_c">
             <h3>Ваш заказ</h3>
             <div className="cont">
-                {CartStore.getCart().map(v=>{
-                    return <Product product={v}></Product>
-                })}
+                
+                {CartStore.getCart().map(v=>{return <Product product={v}></Product>})}
+                
             </div>
 
         </div>
@@ -171,7 +197,8 @@ const Cart = observer(()=>{
                     try {
                     await cart.createOrder(name, sername, String(phone), email, comment,dMode,payMode,country,region,city,street,home,flat,otd)
                     } catch (error) {
-                        console.log(error)
+                        setEMode(true)
+                        ErrorsStore.setErrorText(error.message)
                     } 
                 }}>
                     Оформить заказ
@@ -182,8 +209,9 @@ const Cart = observer(()=>{
 
             </div>
         </div>
+        <Footer></Footer>
     </div>
-    </>
-})
+    </>: nav(config.login)
+    })
 
 export default Cart

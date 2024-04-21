@@ -4,11 +4,24 @@ import del from '../../assets/imgs/Vector (5).svg'
 import { useState } from "react";
 import RedactModal from "../modals/redactModal.jsx";
 import Form from 'react-bootstrap/Form';
+import ErrorsStore from "../../stores/ErrorsStore.ts";
+import MiniModal from "../modals/modal.jsx";
 
 const ElemCategory=observer(({panel,v})=>{
     const [input, setInput]= useState("")
     const [check, setCheck]= useState(false)
+    const [eMode, setEMode] = useState(false)
+    const handleClose = ()=>{setEMode(false)}
+    
     return <div className="elem">
+
+        
+        <MiniModal
+            header={"Уведомление"}
+            handleClose={handleClose}
+            show={eMode}
+            text={ErrorsStore.getErrorText()}
+        ></MiniModal>
         <RedactModal 
             handleClose={()=>{setCheck(false)}}
             show={check}
@@ -21,8 +34,14 @@ const ElemCategory=observer(({panel,v})=>{
                 </Form.Control>
             }
             func={async ()=>{
-                await panel.renameCategory(v.id, input);
-                await panel.getCategoriesByGroup(AdminPanelStore.getGroupId(),AdminPanelStore.getCategoryPage())
+                try {
+                    await panel.renameCategory(v.id, input);
+                    await panel.getCategoriesByGroup(AdminPanelStore.getGroupId(),AdminPanelStore.getCategoryPage())
+                } catch (error) {
+                    ErrorsStore.setErrorText(error.response.data.message)
+                    setEMode(true)
+                }
+               
             }}
         >
 

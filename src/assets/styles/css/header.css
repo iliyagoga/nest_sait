@@ -68,8 +68,6 @@ header .icons .cartimg {
   position: relative;
   width: -moz-max-content;
   width: max-content;
-  cursor: pointer;
-  padding: 2rem 0;
 }
 header .icons .cartimg .count {
   position: absolute;
@@ -92,6 +90,11 @@ header .icons .cartimg .count p {
   width: max-content;
   height: 100%;
 }
+header .icons img {
+  cursor: pointer;
+  padding: 2rem 0;
+}
+
 .h {
   position: relative;
 }/*# sourceMappingURL=header.css.map */

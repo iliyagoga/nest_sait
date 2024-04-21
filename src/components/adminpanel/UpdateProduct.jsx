@@ -14,6 +14,7 @@ import MiddleModal from "../modals/middleModal.jsx";
 import PhotoItem from "./GalleryItem.jsx";
 import DeleteModal from "../modals/deleteModal.jsx";
 import ProductsModal from "./modals/ProductsModal.jsx";
+import ErrorsStore from "../../stores/ErrorsStore.ts";
 
 
 const UpdateProduct = observer(({setShow})=>{
@@ -31,16 +32,11 @@ const UpdateProduct = observer(({setShow})=>{
     
     useEffect(()=>{
         const product= AdminPanelStore.getActualProduct()
-  
-            
         try {
             setFileImg(product['res']['previews']==undefined?def:(apiMap.host+':'+apiMap.port+'/'+product['res']['previews'][0].title))
         } catch (error) {
         }
         panel.getPhotos()
-
-  
-  
     },[])
 
     const [showGroups, setShowGroups]= useState(false)
@@ -60,6 +56,10 @@ const UpdateProduct = observer(({setShow})=>{
     const [actualAttrV, setActualAttrV] = useState(null)
     const [actualAttrIdV, setActualAttrIdV] = useState(null)
 
+    const [eMode, setEMode] = useState(false)
+    const handleClose = ()=>{setEMode(false)}
+    const [sMode, setSMode] = useState(false)
+    const handleClose2 = ()=>{setSMode(false);  setShow()}
 
     const deleteFunction =  (copy,values,i)=>{
         if(copy.length==1){
@@ -88,6 +88,19 @@ const UpdateProduct = observer(({setShow})=>{
             <p>Товары</p>
         </div>
 
+        <MiniModal
+        header={"Уведомление"}
+        handleClose={handleClose}
+        show={eMode}
+        text={ErrorsStore.getErrorText()}
+        ></MiniModal>
+
+        <MiniModal
+        header={"Уведомление"}
+        handleClose={handleClose2}
+        show={sMode}
+        text={ErrorsStore.getSuccessText()}
+        ></MiniModal>
 
         <DeleteModal
         show={deleteMode}
@@ -243,7 +256,7 @@ const UpdateProduct = observer(({setShow})=>{
         body={
             <div className="gals">
                 <div className="head">
-                    <h4 onClick={()=>{setTrigMModal(true)}} className={trigMModal?'active':''}>Все фотографии</h4>
+                   
                     <h4 onClick={()=>{setTrigMModal(false)}} className={!trigMModal?'active':''}>Фотографии товара</h4>
                 </div>
                {!trigMModal&& <div className="body def">
@@ -626,7 +639,15 @@ const UpdateProduct = observer(({setShow})=>{
 
         <div className="bts">
             <div className="create"  onClick={async ()=>{
-                await panel.updateProduct()
+                try {
+                    await panel.updateProduct()
+                    setSMode(true)
+                    ErrorsStore.setSuccessText("Информация о товаре обновлена")
+                } catch (error) {
+                    setEMode(true)
+                    ErrorsStore.setErrorText(error.response.data.message)
+                }
+               
             }}>
                 <span>Готово</span>
             </div>

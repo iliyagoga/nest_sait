@@ -9,6 +9,10 @@ const Category = observer(({title,categories})=>{
     return <div className="ul">
     <span className={mode?'active':''} onClick={()=>{
         setMode(!mode)
+        if(mode){
+            const catalog = new CatalogUtilite()
+            catalog.getProducts('null', 'null', Client.getOrderFilter(), 12, 0)
+        }
     }}>{title.groupTitle}</span>
     <ul  className={mode?'activeUl':''}>
         {categories.map(v=>{
@@ -16,6 +20,7 @@ const Category = observer(({title,categories})=>{
                 if(Client.getCategory()!=undefined){
                     if(Client.getCategory().idCat==v.id){
                         Client.clearCategory()
+                        
                     }
                     else{
                         Client.setCategory(title.id, v.id)

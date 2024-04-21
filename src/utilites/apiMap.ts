@@ -69,7 +69,8 @@ export const apiMap={
         minusProduct: '/minusCount',
         plusProduct: '/plusCount',
         deleteProduct: '/removeFromCart',
-        countAll: '/countAll'
+        countAll: '/countAll',
+        changeVars: '/changeVars'
     },
     coupons:{
         way: '/coupon',

@@ -9,32 +9,43 @@ import '../../assets/styles/css/header.css'
 import { useNavigate } from "react-router-dom";
 import { config } from "../../config.ts";
 import CartStore from "../../stores/CartStore.ts";
+import Client from "../../stores/Client.ts";
+import { useEffect, useState } from "react";
+import { CartUtilite } from "../../utilites/cart/cart.ts";
+import Search from "./Search.jsx";
 const Header = observer(({theme=true})=>{
     const nav = useNavigate()
-    return <header className={theme?"":"black h"}>
+    const [click, setClick]= useState(true)
+    useEffect(()=>{
+        const cart = new CartUtilite();
+        cart.countAll()
+    },[])
+    return <>
+    <header className={theme?"":"black h"}>
         <div className={theme?"left": "left black"}>
-            <span>
+            <span onClick={()=>{nav(config.mean);}}>
+                Главная
+            </span>
+            <span onClick={()=>{Client.setOrderFilter('asc');nav(config.catalog);}}>
                 New
             </span>
-            <span onClick={()=>{nav(config.catalog)}}>
+            <span onClick={()=>{Client.setOrderFilter('null');nav(config.catalog)}}>
                 Каталог
             </span>
-            <span>
-                Категории
-            </span>
+           
         </div>
         <div className="logo">
 
         </div>
         <div className={theme?"icons": "icons black"}>
         {theme?   <>
-            <img src={search} alt="" />
+            <img onClick={()=>{setClick(!click)}} src={search} alt="" />
             <img onClick={()=>{nav(config.profile)}} src={accaunt} alt="" />
             <img onClick={()=>{nav(config.cart)}}src={cart} alt="" />
            </> 
             :
            <>
-           <img src={b_search} alt="" />
+           <img onClick={()=>{setClick(!click)}} src={b_search} alt="" />
             <img onClick={()=>{nav(config.profile)}} src={b_accaunt} alt="" />
             <div className="cartimg">
                 <div className="count">
@@ -49,5 +60,7 @@ const Header = observer(({theme=true})=>{
            
         </div>
     </header>
+    <Search click={click}></Search>
+    </>
 })
 export default Header

@@ -13,9 +13,14 @@ import MiddleModal from "../modals/middleModal.jsx";
 import ProductsModal from "./modals/ProductsModal.jsx";
 import { apiMap } from "../../utilites/apiMap.ts";
 import def from '../../assets/imgs/def.png'
+import ErrorsStore from "../../stores/ErrorsStore.ts";
+import CartStore from "../../stores/CartStore.ts";
+import { config } from "../../config.ts";
+import { useNavigate } from "react-router-dom";
 
 const CreateProduct = observer(({setShow})=>{
     const panel = new Products();
+    const nav = useNavigate()
     const reader= new FileReader()
     const [fileImg, setFileImg]= useState("")
     useState(()=>{
@@ -25,8 +30,6 @@ const CreateProduct = observer(({setShow})=>{
         AdminPanelStore.setImgFile(null)
     },[])
     useEffect(()=>{
-     
-
         if(AdminPanelStore.getImgFile()!=undefined){
             setFileImg(URL.createObjectURL(AdminPanelStore.getImgFile()))
         }  
@@ -52,7 +55,10 @@ const CreateProduct = observer(({setShow})=>{
     const [actualAttrId, setActualAttrId] = useState(null)
     const [actualAttrV, setActualAttrV] = useState(null)
     const [actualAttrIdV, setActualAttrIdV] = useState(null)
-
+    const [eMode, setEMode] = useState(false)
+    const handleClose = ()=>{setEMode(false)}
+    const [sMode, setSMode] = useState(false)
+    const handleClose2 = ()=>{setSMode(false);  setShow()}
 
     const deleteFunction =  (copy,values,i)=>{
         if(copy.length==1){
@@ -76,6 +82,20 @@ const CreateProduct = observer(({setShow})=>{
         return {copy,values}
     }
     return <div className="createProduct">
+
+        <MiniModal
+        header={"Уведомление"}
+        handleClose={handleClose}
+        show={eMode}
+        text={ErrorsStore.getErrorText()}
+        ></MiniModal>
+
+        <MiniModal
+        header={"Уведомление"}
+        handleClose={handleClose2}
+        show={sMode}
+        text={ErrorsStore.getSuccessText()}
+        ></MiniModal>
 
         <MiniModal show={showGroups}
         handleClose={()=>{setShowGroups(false)}}
@@ -436,26 +456,18 @@ const CreateProduct = observer(({setShow})=>{
                 <div className="y">
                     <label htmlFor="old">Обычная цена</label>
                     <input type="text"  id="old" value={AdminPanelStore.getOldPrice()} onChange={(e)=>{
-                         try {
-                            const res= Number(e.target.value)
-                            AdminPanelStore.setOldPrice(res)
-
-                         } catch (error) {
-                            
-                         }
+                        if(Number.isInteger(Number(e.target.value))){
+                            AdminPanelStore.setOldPrice(Number(e.target.value))   
+                        }
                         }}  placeholder="Цена" />
                 </div>
 
                 <div className="y">
                     <label htmlFor="new">Акционная цена</label>
                     <input id="new" value={AdminPanelStore.getNewPrice()} onChange={(e)=>{
-                         try {
-                            const res= Number(e.target.value)
-                            AdminPanelStore.setNewPrice(res)
-
-                         } catch (error) {
-                            
-                         }
+                           if(Number.isInteger(Number(e.target.value))){
+                            AdminPanelStore.setNewPrice(Number(e.target.value))   
+                        }
                         }} placeholder="Акционная цена"/>
                 </div>
             </div>
@@ -557,7 +569,15 @@ const CreateProduct = observer(({setShow})=>{
             </div>
         </div>
         <div className="create"  onClick={async ()=>{
-            await panel.createProduct()
+            try {
+                await panel.createProduct()
+                setSMode(true)
+                ErrorsStore.setSuccessText("Товар создан")
+            } catch (error) {
+                setEMode(true)
+                ErrorsStore.setErrorText(error.response.data.message)
+            }
+            
         }}>
             <span>Готово</span>
         </div>

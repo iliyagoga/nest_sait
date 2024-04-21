@@ -17,9 +17,9 @@ const Product = observer(({product})=>{
        
         }}>
         <div className="preview">
-            <div className="rating">
+            {/* <div className="rating">
                 {product.ratingCount!=0?Array(Math.floor(product.rating/product.ratingCount)).map(v=>{return <img src={elipse}/>}): [1,2,3,4,5].map(v=>{return <img  className="rat" src={elipse_2}/>})}
-            </div>
+            </div> */}
             {( (new Date()-new Date(432000))>new Date(product.createdAt))&&<div className="new">
                 <span>New</span>
             </div>}

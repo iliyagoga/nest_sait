@@ -76,7 +76,7 @@ class AdminPanelStore{
     private _AttrsAttrsValue: {aV: string, avVs: string[]}[]=[];
     private _AttrsAttrsValueVarsIds:  {aVid: number, avVIds: number[]} | undefined = undefined;
     private _AttrsAttrsValueVars: {aV: string, avVs: string[]} | undefined=undefined;
-    private _imgFile: File;
+    private _imgFile: File | undefined;
     private _galleryFiles: Blob[] = [];
     private _name: string;
     private _title: string;
@@ -127,6 +127,8 @@ class AdminPanelStore{
         {id: null,mode: false},
         {id: null,mode: false},
     ];
+
+    private _pageMode: number | null=null;
 
 
 
@@ -180,7 +182,13 @@ class AdminPanelStore{
     }
     setDeletes(id:number, idTag: number){
         this._deletes[id].mode=!this._deletes[id].mode;
-        this._deletes[id].id=idTag;
+        if(this._deletes[id].mode){
+            this._deletes[id].id=idTag;
+        }
+        else{
+            this._deletes[id].id=null;
+        }
+        
     }
     setAllDeletes(){
         this._deletes=this._deletes.map((v,i)=>{
@@ -281,7 +289,13 @@ class AdminPanelStore{
     }
     setDeleteAttrs(id:number, idTag: number){
         this._deletesAttrs[id].mode=!this._deletesAttrs[id].mode;
-        this._deletesAttrs[id].id=idTag;
+        if(this._deletesAttrs[id].mode){
+            this._deletesAttrs[id].id=idTag;
+        }
+        else{
+            this._deletesAttrs[id].id=null;
+        }
+       
     }
     setAllDeleteAttrs(){
         this._deletesAttrs=this._deletesAttrs.map((v,i)=>{
@@ -371,7 +385,13 @@ class AdminPanelStore{
     }
     setDeletesGroup(id:number, idGroup: number){
         this._deletesGroup[id].mode=!this._deletesGroup[id].mode;
-        this._deletesGroup[id].id=idGroup;
+        if(this._deletesGroup[id].mode){
+            this._deletesGroup[id].id=idGroup;
+        }
+        else{
+            this._deletesGroup[id].id=null;
+        }
+        
     }
     setAllDeletesGroup(){
         this._deletesGroup=this._deletesGroup.map((v,i)=>{
@@ -682,14 +702,6 @@ class AdminPanelStore{
         return this._AttrsAttrsValue;
     }
 
-
-
-
-
-
-
-
-
     getActualAttrValueVarsIds(){
         return this._AttrsAttrsValueVarsIds;
     }
@@ -795,19 +807,6 @@ class AdminPanelStore{
     getAttrAttrsValuesVars(){
         return this._AttrsAttrsValueVars;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     setImgFile(file: any){
         this._imgFile=file;
@@ -1141,7 +1140,13 @@ class AdminPanelStore{
     }
     setDeleteOrders(id:number, idOrder: number){
         this._deletesOrder[id].mode=!this._deletesOrder[id].mode;
-        this._deletesOrder[id].id=idOrder;
+        if(this._deletesOrder[id].id){
+            this._deletesOrder[id].id=idOrder;
+        }
+        else{
+            this._deletesOrder[id].id=null;
+        }
+      
     }
     setAllDeleteOrders(){
         this._deletesOrder=this._deletesOrder.map((v,i)=>{
@@ -1232,7 +1237,13 @@ class AdminPanelStore{
     }
     setDeleteCoupons(id:number, idCoupon: number){
         this._deletesCoupons[id].mode=!this._deletesCoupons[id].mode;
-        this._deletesCoupons[id].id=idCoupon;
+        if(this._deletesCoupons[id].mode){
+            this._deletesCoupons[id].id=idCoupon;
+        }
+        else{
+            this._deletesCoupons[id].id=null;
+        }
+        
     }
     setAllDeleteCoupons(){
         this._deletesCoupons=this._deletesCoupons.map((v,i)=>{
@@ -1248,6 +1259,41 @@ class AdminPanelStore{
             v.id=null;
             return v;
         })
+    }
+
+    clearStoreProduct(){
+         this._productsGroups = [];
+         this._productsCategories = [];
+        this._actualCategories =[];
+        this._GroupCategories = [];
+        this._productsTags = [];
+        this._actualTags=[];
+        this._actualTagsIds=[];
+        this._productsAttrs = [];
+        this._productsAttrsValue = [];
+        this._AttrsAttrsValueIds=[];
+        this._AttrsAttrsValue=[];
+        this._imgFile =  undefined;
+        this._galleryFiles = [];
+        this._name = "";
+        this._title = "";
+        this._descr = "";
+        this._old_price = 0;
+        this._new_price = 0;
+        this._productPage =0;
+        this._productCountPages= 1;
+        this._seacrh = "";
+        this._filterPrice = 'null';
+        this._filterDate = 'null';
+        this.clearActualAttrValuesVarsIds()
+    }
+
+    setPageMode(n: number){
+        this._pageMode=n;
+    }
+
+    getPageMode(){
+        return this._pageMode;
     }
 
 

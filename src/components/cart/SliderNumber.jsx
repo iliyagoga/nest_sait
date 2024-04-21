@@ -1,23 +1,29 @@
 import { observer } from "mobx-react-lite";
 import { CartUtilite } from "../../utilites/cart/cart.ts";
 import { useState } from "react";
+import CartStore from "../../stores/CartStore.ts";
+import Product from "./Product.jsx";
 
 const SliderNumber= observer(({product})=>{
     const cart = new CartUtilite()
     return <div className="cartSlider">
         <div className="lB" onClick={async()=>{
-            if(product.cart[0].count>1){
-                const res= await cart.minusProduct(product.id)
+            if(product.count>1){
+                CartStore.clearProduct()
+                const res= await cart.minusProduct(product.productId, product.cartVarId);
             }
         }}>
             <span>-</span>
         
         </div>
         <div className="value">
-            <p>{product.cart[0].count}</p>
+            <p>{product.count}</p>
         </div>
         <div className="rB" onClick={async()=>{
-            const res = await cart.plusProduct(product.id)}}>
+            CartStore.clearProduct()
+            const res = await cart.plusProduct(product.productId, product.cartVarId);
+            }}>
+                
             <span>+</span>
         </div>
     </div>

@@ -11,6 +11,7 @@ class CartStore{
     private _count: number =0;
     private _couponValue: number = 0;
     private _couponId: number | null = null;
+    private _products: any[] = [];
 
     getCart(){
         return this._cart;
@@ -41,11 +42,11 @@ class CartStore{
     }
     
     setSumma(v: object){
-        if(Number(v['sale_price'])>0){
-            this._summa+=v['sale_price']*v['cart'][0]['count'];
+        if(Number(v['productSalePrice'])>0){
+            this._summa+=v['productSalePrice']*v['count'];
         }
         else{
-            this._summa+=v['price']*v['cart'][0]['count'];
+            this._summa+=v['productPrice']*v['count'];
         }
     }
 
@@ -73,6 +74,18 @@ class CartStore{
     }
     setCouponID(id: string){
         this._couponId = Number(id);
+    }
+
+    addProduct(product: any){
+        this._products.push(product);
+    }
+
+    getProducts(){
+        return this._products;
+    }
+
+    clearProduct(){
+        this._products=[];
     }
 }
 

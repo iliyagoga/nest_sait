@@ -4,11 +4,12 @@ import AdminPanelStore from "../../stores/AdminPanelStore.ts";
 import { useEffect, useState } from "react";
 import CreateModal from "../modals/createCustom";
 import pen from'../../assets/imgs/Frame (3).svg'
-import { Form } from "react-router-dom";
 import RedactModal from "../modals/redactModal";
 import MiniModal from "../modals/modal";
 import Pagination from "../Pagination";
-import MiddleModal from "../modals/middleModal.jsx";
+import DeleteModal from "../modals/deleteModal";
+import MiddleModal from "../modals/middleModal";
+import ErrorsStore from "../../stores/ErrorsStore.ts";
 
 const Coupons=observer(()=>{
     const panel = new CouponUtilite();
@@ -34,9 +35,40 @@ const Coupons=observer(()=>{
     const handleClose3 = () => setR(false);
     const handleClose4 = () => setView(false);
 
+    const [eMode, setEMode] = useState(false)
+    const handleClose5 = ()=>{setEMode(false)}
+
+    const [d, setD] = useState(false)
+    const handleClose6 = ()=>{setD(false)}
 
     return <>
+   <DeleteModal
+        handleClose={handleClose6}
+        show={d}
+        he={'Удаление'}
+        body={
+            'Удалить?'
+        }
+        func={async ()=>{
+            try {
+                await panel.deleteCoupon(AdminPanelStore.getDeleteCouponsIds());
+                AdminPanelStore.clearDeleteCoupons();
+                setCheck(false)
+            } catch (error) {
+                ErrorsStore.setErrorText(error.response.data.message)
+                setEMode(true)
+                setD(false)
+            }
+        }}
+            >
 
+    </DeleteModal>
+    <MiniModal
+            header={"Уведомление"}
+            handleClose={handleClose5}
+            show={eMode}
+            text={ErrorsStore.getErrorText()}
+    ></MiniModal>
     <CreateModal
         handleClose={handleClose} 
         show={show} 
@@ -52,16 +84,18 @@ const Coupons=observer(()=>{
             } 
         func={async ()=>{
             try {
-                if(title.length>0 && value.length>0 && timeLife.length>0){
-                    await panel.createCoupon(title,value, new Date(timeLife).getTime())
-                    setTitle("")
-                    setValue("")
-                    setTimeLife("")
-                }
+                await panel.createCoupon(title,value, new Date(timeLife).getTime())
+                setTitle("")
+                setValue("")
+                setTimeLife("")
+                
             } catch (error) {
                 AdminPanelStore.setTagTitle("");
                 setErrorText(error.response.data.message)
                 setMini(true)
+                setTitle("")
+                setValue("")
+                setTimeLife("")
             }
         }} >
     </CreateModal>
@@ -78,10 +112,19 @@ const Coupons=observer(()=>{
         </div>
         } 
         func={async ()=>{   
-            await panel.redactCoupon(id, title,value, new Date(timeLife).getTime());
-            setTitle("")
-            setValue("")
-            setTimeLife("")
+            try {
+                await panel.redactCoupon(id, title,value, new Date(timeLife).getTime());
+                setTitle("")
+                setValue("")
+                setTimeLife("")
+            } catch (error) {
+                setEMode(true)
+                ErrorsStore.setErrorText(error.response.data.message)
+                setTitle("")
+                setValue("")
+                setTimeLife("")
+            }
+          
             }}> 
     </RedactModal>
 
@@ -113,9 +156,7 @@ const Coupons=observer(()=>{
                 <span onClick={()=>{setShow(true); }}>Добавить</span>
                 <span className="r" onClick={
                     async()=>{
-                        await panel.deleteCoupon(AdminPanelStore.getDeleteCouponsIds());
-                        AdminPanelStore.clearDeleteCoupons();
-                        setCheck(false)
+                        setD(true)
                         }
                     }>Удалить</span>
             </div>
@@ -162,7 +203,7 @@ const Coupons=observer(()=>{
                         return <div className="title" onClick={()=>{
                             setTitle(v.couponTitle)
                             setValue(v.couponValue)
-                            setTimeLife(new Date(Number(v.couponTimelife)).getFullYear()+'-'+(String(new Date(Number(v.couponTimelife)).getMonth()).length==1?('0'+new Date(Number(v.couponTimelife)).getMonth()):new Date(Number(v.couponTimelife)).getMonth())+'-'+new Date(Number(v.couponTimelife)).getDate())
+                            setTimeLife(new Date(Number(v.couponTimelife)).getFullYear()+'-'+(String(new Date(Number(v.couponTimelife)).getMonth()).length==1?('0'+new Date(Number(v.couponTimelife)).getMonth()):new Date(Number(v.couponTimelife)).getMonth())+'-'+(String(new Date(Number(v.couponTimelife)).getDate()).length==1?('0'+new Date(Number(v.couponTimelife)).getDate()):new Date(Number(v.couponTimelife)).getDate()))
                             setView(true)
                         }}>
                             <p> {v.couponTitle} </p>
@@ -175,7 +216,7 @@ const Coupons=observer(()=>{
                         return <div className="count" onClick={()=>{
                             setTitle(v.couponTitle)
                             setValue(v.couponValue)
-                            setTimeLife(new Date(Number(v.couponTimelife)).getFullYear()+'-'+(String(new Date(Number(v.couponTimelife)).getMonth()).length==1?('0'+new Date(Number(v.couponTimelife)).getMonth()):new Date(Number(v.couponTimelife)).getMonth())+'-'+new Date(Number(v.couponTimelife)).getDate())
+                            setTimeLife(new Date(Number(v.couponTimelife)).getFullYear()+'-'+(String(new Date(Number(v.couponTimelife)).getMonth()).length==1?('0'+new Date(Number(v.couponTimelife)).getMonth()):new Date(Number(v.couponTimelife)).getMonth())+'-'+(String(new Date(Number(v.couponTimelife)).getDate()).length==1?('0'+new Date(Number(v.couponTimelife)).getDate()):new Date(Number(v.couponTimelife)).getDate()))
                             setView(true)
                         }}>
                              <p>{ new Date(Number(v.couponTimelife)).getDate()}-{ new Date(Number(v.couponTimelife)).getMonth()+1}-{ new Date(Number(v.couponTimelife)).getFullYear()} { new Date(Number(v.couponTimelife)).getHours()}:{ new Date(Number(v.couponTimelife)).getMinutes()}</p>  
@@ -192,7 +233,7 @@ const Coupons=observer(()=>{
                             return  <div className="redact" onClick={()=>{
                                 setTitle(v.couponTitle)
                                 setValue(v.couponValue)
-                                setTimeLife(new Date(Number(v.couponTimelife)).getFullYear()+'-'+(String(new Date(Number(v.couponTimelife)).getMonth()).length==1?('0'+new Date(Number(v.couponTimelife)).getMonth()):new Date(Number(v.couponTimelife)).getMonth())+'-'+new Date(Number(v.couponTimelife)).getDate())
+                                setTimeLife(new Date(Number(v.couponTimelife)).getFullYear()+'-'+(String(new Date(Number(v.couponTimelife)).getMonth()).length==1?('0'+new Date(Number(v.couponTimelife)).getMonth()):new Date(Number(v.couponTimelife)).getMonth())+'-'+(String(new Date(Number(v.couponTimelife)).getDate()).length==1?('0'+new Date(Number(v.couponTimelife)).getDate()):new Date(Number(v.couponTimelife)).getDate()))
                                 setId(v.id)
                                 setR(true);
                                 }}>

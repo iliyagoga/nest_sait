@@ -9,6 +9,8 @@ import MiniModal from "../modals/modal.jsx";
 import RedactModal from "../modals/redactModal.jsx";
 
 import Pagination from "../Pagination.jsx";
+import ErrorsStore from "../../stores/ErrorsStore.ts";
+import DeleteModal from "../modals/deleteModal.jsx";
 const TagsView = observer(()=>{
     const panel = new Filters();
     useEffect(()=>{
@@ -28,10 +30,41 @@ const TagsView = observer(()=>{
     const handleClose2 = () => setMini(false);
     const handleClose3 = () => setR(false);
 
+    const [eMode, setEMode] = useState(false)
+    const handleClose4 = ()=>{setEMode(false)}
 
+    const [d, setD] = useState(false)
+    const handleClose5 = ()=>{setD(false)}
 
     return <>
 
+    <DeleteModal
+            handleClose={handleClose5}
+            show={d}
+            he={'Удаление'}
+            body={
+                'Удалить?'
+            }
+            func={async ()=>{
+                try {
+                    await panel.removetag();
+                    AdminPanelStore.clearDeletes();
+                    setCheck(false)
+                } catch (error) {
+                    ErrorsStore.setErrorText(error.response.data.message)
+                    setEMode(true)
+                    setD(false)
+                }
+            }}
+            >
+
+    </DeleteModal>
+    <MiniModal
+            header={"Уведомление"}
+            handleClose={handleClose4}
+            show={eMode}
+            text={ErrorsStore.getErrorText()}
+    ></MiniModal>
     <CreateModal 
         handleClose={handleClose} 
         show={show} 
@@ -43,9 +76,8 @@ const TagsView = observer(()=>{
                 await panel.createTag()
                 AdminPanelStore.setTagTitle("");
             } catch (error) {
-                AdminPanelStore.setTagTitle("");
-                setErrorText(error.response.data.message)
-                setMini(true)
+                ErrorsStore.setErrorText(error.response.data.message)
+                setEMode(true)
             }
         }} >
     </CreateModal>
@@ -60,8 +92,14 @@ const TagsView = observer(()=>{
         </Form.Control>
         } 
         func={async ()=>{   
-            await panel.redactTag(actualTag);
-            AdminPanelStore.setTagTitle("");
+            try {
+                await panel.redactTag(actualTag);
+                AdminPanelStore.setTagTitle("");
+            } catch (error) {
+                ErrorsStore.setErrorText(error.response.data.message)
+                setEMode(true)
+            }
+           
         }}> 
     </RedactModal>
 
@@ -78,9 +116,7 @@ const TagsView = observer(()=>{
                 <span onClick={()=>{setShow(true); }}>Добавить</span>
                 <span className="r" onClick={
                     async()=>{
-                        await panel.removetag();
-                        AdminPanelStore.clearDeletes();
-                        setCheck(false)
+                        setD(true)
                         }
                     }>Удалить</span>
             </div>

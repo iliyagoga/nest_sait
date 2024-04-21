@@ -6,11 +6,15 @@ import  AuthStore  from '../stores/AuthStore.ts';
 import { Reg } from '../utilites/auth/reg.ts';
 import { useState } from 'react';
 import Modal from '../components/modals/modal.jsx';
+import MiniModal from '../components/modals/modal.jsx';
+import ErrorsStore from '../stores/ErrorsStore.ts';
 const Login = observer(({mode})=>{
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleClose2 =()=>{setModalError(false)}
+    const [modalError, setModalError] = useState(false)
     const [text,setText] =useState("");
     const [classEmail, setClassEmail] =useState("");
     const [classNick, setClassNick] =useState("");
@@ -24,6 +28,14 @@ const Login = observer(({mode})=>{
     const regUtil= new Reg(AuthStore.getNick(), AuthStore.getEmail(), AuthStore.getPass(), AuthStore.getRePass())
 
     return <div className="login">
+        <MiniModal
+        handleCLose={handleClose2}
+        show={modalError}
+        text={ErrorsStore.getErrorText()}
+        header={"Уведомление"}
+        >
+
+        </MiniModal>
         <Modal handleClose={handleClose} show={show} text={text}></Modal>
         <div className='block'>
         {!mode ? (<>

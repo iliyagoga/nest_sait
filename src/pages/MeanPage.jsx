@@ -4,7 +4,13 @@ import img1 from '../assets/imgs/Yanki (51) 1.png'
 import img2 from '../assets/imgs/Yanki (51) 2.png'
 import img3 from '../assets/imgs/Yanki (51) 3.png'
 import '../assets/styles/css/meanPage.css'
+import { useNavigate } from "react-router-dom";
+import { config } from "../config.ts";
+import Client from "../stores/Client.ts";
+import Footer from "../components/client/Footer.jsx";
+
 const MeanPage = observer(()=>{
+    const nav= useNavigate()
     return <div className="mean">
         <Header></Header>
         <div className="preview">
@@ -25,12 +31,12 @@ const MeanPage = observer(()=>{
                     Новая коллекция
                 </h2>
                 <div className="line"></div>
-                <div className="link">
+                <div className="link" onClick={()=>{Client.setOrderFilter('asc');nav(config.catalog); }}>
                     <span>Смотреть новинки</span>
                 </div>
             </div>
-
         </div>
+        <Footer></Footer>
     </div>
 })
 

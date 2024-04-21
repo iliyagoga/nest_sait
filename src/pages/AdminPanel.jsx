@@ -9,21 +9,28 @@ import '../assets/styles/css/adminPanel.css'
 import { apiMap } from '../utilites/apiMap.ts'
 import { role } from '../utilites/axiosConfig.ts'
 import  AuthStore  from '../stores/AuthStore.ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Workspace from '../components/adminpanel/Workspace.jsx'
+import { useNavigate } from 'react-router-dom'
+import { config } from '../config.ts'
 export default function AdminPanel(){
     const [ mode, setMode]= useState(false)
     const [m, setM] = useState(0)
-    role.post(apiMap.role.checkRole, {},{
-        headers:{
-            Authorization: 'Bearer '+ (AuthStore.getAuth()? AuthStore.getAuth(): localStorage.getItem('token'))}}).then((e)=>{setMode(e.data)})
+    const nav = useNavigate()
+    useEffect(()=>{
+        role.post(apiMap.role.checkRole, {},{
+                headers:{
+                    Authorization: 'Bearer '+ (AuthStore.getAuth()? AuthStore.getAuth(): localStorage.getItem('token'))}}).then((e)=>{setMode(e.data)}).then().catch(e=>{ nav(config.login)})
+    },[])
+
+   
     if(mode){
         return <div className='adminPanel'>
         <div className='sidebar'>
             <div className='productBlock block'>
                 <h2>Товар</h2>
                 <div className='product child_block'>
-                    <div> 
+                    <div>
                         <img src={pr} alt="product_icon" />
                         <p onClick={()=>{setM(1)}}>Товары</p>
                     </div>

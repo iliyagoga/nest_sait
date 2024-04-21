@@ -35,9 +35,9 @@ class CatalogUtilite{
             throw error;
         }
     }
-    async getProducts(price: string, rating: string, order: string, limit: number, offset: number){
+    async getProducts(price: string, rating: string, order: string, limit: number, offset: number, search: string| null= null){
         try {
-            const res = await products.get(apiMap.products.getProductsClient +'/'+ price +'/'+ rating +'/'+ order +'/'+ limit +'/'+offset)
+            const res = await products.get(apiMap.products.getProductsClient +'/'+ price +'/'+ rating +'/'+ order +'/'+ limit +'/'+offset+'/'+search)
             Client.setProducts(res.data)
         } catch (error) {
             throw error;

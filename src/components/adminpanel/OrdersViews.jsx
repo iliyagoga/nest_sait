@@ -8,6 +8,8 @@ import th from '../../assets/imgs/Vector (4).svg'
 import RedactModal from "../modals/redactModal.jsx";
 import Order from "./Order.jsx";
 import DeleteModal from "../modals/deleteModal.jsx";
+import MiniModal from "../modals/modal.jsx";
+import ErrorsStore from "../../stores/ErrorsStore.ts";
 const OrdersViews = observer(()=>{
 
     const [show, setShow] = useState(false);
@@ -28,9 +30,19 @@ const OrdersViews = observer(()=>{
     const handleClose = () => setShow(false);
     
     const handleClose2 = () => setRemoveOrders(false);
+
+    const [eMode, setEMode] = useState(false)
+    const handleClose3 = ()=>{setEMode(false)}
     return <>
     {!o?
         <div className="orderView">
+            <MiniModal
+                header={"Уведомление"}
+                handleClose={handleClose3}
+                show={eMode}
+                text={ErrorsStore.getErrorText()}
+            ></MiniModal>
+
             <DeleteModal
             handleClose={handleClose2}
             show={removeOrders}
@@ -38,10 +50,17 @@ const OrdersViews = observer(()=>{
             body={
                 'Удалить?'
             }
-            func={async ()=>{await panel.deleteOrders();
-                AdminPanelStore.clearDeleteOrders();
-                setRemAll(false)
-                setRemoveOrders(false)
+            func={async ()=>{
+                try {
+                    await panel.deleteOrders();
+                    AdminPanelStore.clearDeleteOrders();
+                    setRemAll(false)
+                    setRemoveOrders(false)
+                } catch (error) {
+                    setEMode(true)
+                    ErrorsStore.setErrorText(error.response.data.message)
+                }
+              
             
             }}
             >

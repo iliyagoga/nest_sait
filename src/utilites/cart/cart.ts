@@ -7,8 +7,9 @@ export class CartUtilite{
 
     async addToCart(productId: number, varId: number, count: number){
         try {
-            const res = await cart.post(apiMap.cart.addToCart, {productId, varId, count}, {headers: {Authorization: 'Bearer '+ localStorage.getItem('token')}})
-            this.countAll()
+            const res = await cart.post(apiMap.cart.addToCart, {productId, varId, count}, {headers: {Authorization: 'Bearer '+ localStorage.getItem('token')}});
+            this.countAll();
+            return true;
             
         } catch (error) {
             throw error;
@@ -18,36 +19,32 @@ export class CartUtilite{
     async getCart(){
         try {
             const res = await cart.get(apiMap.cart.getCart, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
-            CartStore.setCart(res.data.res)
             CartStore.clearSumma()
-            res.data.res.map(v=>{
+            CartStore.setCart(res.data.res[0])
+            CartStore.setAttrs(res.data.attrs[0])
+            res.data.res[0].map(v=>{
                 CartStore.setSumma(v)
             })
-            CartStore.setAttrs(res.data.attrs)
+            return true
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }
 
     filter(id: number){
-        let ac: any=null;
         const res= CartStore.getAttrs().filter(v=>{
-            for(let y of v['attributeValue']){
-                for(let i of y['variations']){
-                    if(i.productId==id){
-                        ac=y;
-                        return v
-                    }
-                }
+            if(v.productId==id){
+                return v
             }
         })
-        return {res,ac}
+        return res
 
     }
 
-    async minusProduct(productId: number){
+    async minusProduct(productId: number, varId: number){
         try {
-            const res = await cart.post(apiMap.cart.minusProduct, {productId}, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
+            const res = await cart.post(apiMap.cart.minusProduct, {productId,varId}, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
             this.getCart()
             return res.data
            
@@ -56,9 +53,9 @@ export class CartUtilite{
         }
     }
 
-    async plusProduct(productId: number){
+    async plusProduct(productId: number, varId: number){
         try {
-            const res = await cart.post(apiMap.cart.plusProduct, {productId}, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
+            const res = await cart.post(apiMap.cart.plusProduct, {productId,varId}, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
             this.getCart()
             return res.data
         } catch (error) {
@@ -79,6 +76,7 @@ export class CartUtilite{
     async countAll(){
         const res = await cart.get(apiMap.cart.countAll, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
         CartStore.setCount(res.data)
+        return true
     }
 
     async getCoupon(coupon: string){
@@ -107,7 +105,7 @@ export class CartUtilite{
         }
         if(deliv==false){
             if(!city || ! otd){
-                throw new Error('ЗАполните поля доставки')
+                throw new Error('Заполните поля доставки')
             }
         }
         const body={
@@ -135,5 +133,17 @@ export class CartUtilite{
             throw error;
         }
       
+    }
+
+    async changeVars(productId: number, varId: number, newVarId: number){
+        try {
+            const res = await cart.post(apiMap.cart.changeVars, {productId: Number(productId), varId: Number(varId), newVarId: Number(newVarId)}, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}});
+            CartStore.setCart([])
+            this.getCart()
+            return res
+        } catch (error) {
+            throw error;
+            
+        }
     }
 }

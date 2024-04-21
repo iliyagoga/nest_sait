@@ -23,17 +23,9 @@ export class Filters{
 
     async createTag(){
         try {
-            if(AdminPanelStore.getTagTitle()!=undefined){
-                try {
-                    await filters.post(apiMap.filters.createTag, {tagTitle: AdminPanelStore.getTagTitle()}, {headers:{Authorization: ('Bearer '+ localStorage.getItem('token'))}});
-                    await this.getCountTags(0);
-                    await this.countPages();
-                } catch (error) {
-                    throw error;
-                }
-               
-            }
-           
+            await filters.post(apiMap.filters.createTag, {tagTitle: AdminPanelStore.getTagTitle()}, {headers:{Authorization: ('Bearer '+ localStorage.getItem('token'))}});
+            await this.getCountTags(0);
+            await this.countPages();
 
         } catch (error) {
             throw error;

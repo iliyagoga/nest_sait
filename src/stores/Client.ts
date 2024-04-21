@@ -15,7 +15,9 @@ class Client{
 
     private _product: object;
 
-    private _user : object;
+    private _user: object;
+
+    private _search: string ="";
 
 
     getGroups(){
@@ -89,6 +91,14 @@ class Client{
     }
     setUser(user: object){
         this._user=user;
+    }
+
+    setSearch(search: string){
+        this._search= search;
+    }
+
+    getSearch(){
+        return this._search;
     }
 }
 export default new Client()

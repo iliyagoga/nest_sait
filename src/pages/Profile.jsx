@@ -10,11 +10,15 @@ import { Reg } from "../utilites/auth/reg.ts";
 import { useNavigate } from "react-router-dom";
 import Client from "../stores/Client.ts";
 import { apiMap } from "../utilites/apiMap.ts";
+import ErrorsStore from "../stores/ErrorsStore.ts";
+import MiniModal from "../components/modals/modal.jsx";
+import Footer from "../components/client/Footer.jsx";
 const { observer } = require("mobx-react-lite");
 
 
 const Profile = observer(()=>{
     const [modeM, setModeM]= useState(null)
+    const [modalError, setModalError] = useState(false)
     const {decodedToken, isExpired} = useJwt(localStorage.getItem('token'))
     const [ser, setSer]=useState("")
     const [num, setNum] = useState("")
@@ -40,7 +44,7 @@ const Profile = observer(()=>{
     const reg = new Reg()
     useEffect(()=>{
         reg.checkToken().then(e=>{
-            setModeM(e)
+            setModeM(true)
             setName(Client.getUser().firstName)
             setSername(Client.getUser().secondName)
             setFathername(Client.getUser().fatherName)
@@ -59,11 +63,14 @@ const Profile = observer(()=>{
             setSer(Client.getUser().passportSeria)
             setNum(Client.getUser().passportNumber)
           
-        })
+        }).catch(e=>{setModeM(false)})
     },[])
+
+
     
 return <div className="profile">
-    {modeM==true?<>
+
+    {modeM===true?<>
         <Header theme={false}></Header>
         <BreadCrumbs names={['Главная','Личный кабинет']} links={[config.mean,config.profile]}></BreadCrumbs>
         <div className="btns">
@@ -153,6 +160,7 @@ return <div className="profile">
         }}>
             Обновить данные
         </div>
+        <Footer></Footer>
         </>
         : modeM==false&&nav(config.login)}
     </div>

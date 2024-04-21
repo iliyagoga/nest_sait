@@ -12,6 +12,7 @@ import Pagination from "../Pagination.jsx";
 const ProductView = observer(()=>{
     const panel = new Products()
     useEffect(()=>{
+        AdminPanelStore.clearStoreProduct()
         AdminPanelStore.setProductPage(0)
         panel.getProducts(0,6, 'null', 'null', AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
         panel.productCountPages(6, 'null', 'null', AdminPanelStore.getSearch().length>0?AdminPanelStore.getSearch():"null")
@@ -60,7 +61,7 @@ const ProductView = observer(()=>{
                                     <option value="desc">По убыванию</option>
                                 </select>
                                 </div>
-                                <div className="fRating">
+                                {/* <div className="fRating"> 
                                     <h4>Рейтинг:</h4>
                                     <select onChange={(e)=>{
                                         AdminPanelStore.setFilterDate(e.target.value)
@@ -71,7 +72,7 @@ const ProductView = observer(()=>{
                                         <option value="asc">По возрастранию</option>
                                         <option value="desc">По убыванию</option>
                                     </select>
-                                </div>
+                                    </div>*/}
                                
                             </div>
                             }
@@ -173,7 +174,7 @@ const ProductView = observer(()=>{
                             </div>
                             <div className="col4">
                                 <div className="rating">
-                                    <h4>Рейтинг</h4>
+                                    <h4>Дата</h4>
                                 </div>
                                 {AdminPanelStore.getProducts().length>0&&AdminPanelStore.getProducts().map(v=>{
                                     return <div className="bl" onClick={async ()=>{
@@ -182,7 +183,7 @@ const ProductView = observer(()=>{
                                         AdminPanelStore.setActualProductId(v.id)
                                         
                                         }}>
-                                        <p>{v.rating}/5</p>
+                                        <p>{new Date(v.createdAt).getFullYear()}-{new Date(v.createdAt).getMonth()}-{new Date(v.createdAt).getDate()}</p>
                                         
                                        
                                     

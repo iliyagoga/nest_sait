@@ -53,6 +53,7 @@ export class Categories{
                 {headers:{Authorization:('Bearer '+ localStorage.getItem('token'))}})
             this.getGroups(0);
             this.getGroupsCountPages();
+            return res
         } catch (error) {
             throw error;
         }

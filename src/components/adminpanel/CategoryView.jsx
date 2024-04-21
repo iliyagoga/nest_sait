@@ -10,6 +10,8 @@ import th from '../../assets/imgs/Vector (4).svg'
 import MiniModal from "../modals/modal.jsx";
 import RedactModal from "../modals/redactModal.jsx";
 import ElemCategory from "./ElemCategory.jsx";
+import DeleteModal from "../modals/deleteModal.jsx";
+import ErrorsStore from "../../stores/ErrorsStore.ts";
 
 
 const CategoryView = observer(()=>{
@@ -23,9 +25,47 @@ const CategoryView = observer(()=>{
     const [renameGroup, setRenameGroup] = useState(false);
     const [remAll, setRemAll]= useState(false);
     const [createGroupMode, setCreateGroupMode] = useState(false);
+    const [removeCats, setRemoveCats] = useState(false)
+   
+    const handleClose2 = () => setRemoveCats(false);
 
+    const [eMode, setEMode] = useState(false)
+    const handleClose = ()=>{setEMode(false)}
     return <div className="categoryView">
 
+        <MiniModal
+            header={"Уведомление"}
+            handleClose={handleClose}
+            show={eMode}
+            text={ErrorsStore.getErrorText()}
+        ></MiniModal>
+
+        <DeleteModal
+            handleClose={handleClose2}
+            show={removeCats}
+            he={'Удаление'}
+            body={
+                'Удалить?'
+            }
+            func={async ()=>{
+                try {
+                    const res = await panel.removeGroup();
+                    AdminPanelStore.clearDeletesGroup();
+                    setRemAll(false);
+                    setRemoveCats(false);
+                } catch (error) {
+                    ErrorsStore.setErrorText(error.response.data.message)
+                    setEMode(true)
+                    setRemAll(false);
+                    setRemoveCats(false);
+                }
+                
+               
+            
+            }}
+            >
+
+            </DeleteModal>
         <CreateModal handleClose={()=>{setCreateCatMode(false)}} show={createCatMode} body={<>
             <Form.Control as='textarea' onChange={(e)=>{
                 AdminPanelStore.setCreateCategory(e.target.value);
@@ -35,10 +75,16 @@ const CategoryView = observer(()=>{
         </>
                 }
         func={async ()=>{
-            await panel.createCategory(AdminPanelStore.getGroupId(),AdminPanelStore.getCreateCategory());
-            await panel.getCategoriesByGroup(AdminPanelStore.getGroupId(),0);
-            await panel.getCategoriesCountPages(AdminPanelStore.getGroupId())
-            AdminPanelStore.setCategoryPage(0)
+            try {
+                await panel.createCategory(AdminPanelStore.getGroupId(),AdminPanelStore.getCreateCategory());
+                await panel.getCategoriesByGroup(AdminPanelStore.getGroupId(),0);
+                await panel.getCategoriesCountPages(AdminPanelStore.getGroupId())
+                AdminPanelStore.setCategoryPage(0)
+            } catch (error) {
+                ErrorsStore.setErrorText(error.response.data.message)
+                setEMode(true)
+            }
+            
         }
       
         }
@@ -84,8 +130,14 @@ const CategoryView = observer(()=>{
              </>
                     }
             func={async ()=>{
-                await panel.createGroup(AdminPanelStore.getCreateGroup());
-                panel.getGroups(0)
+                try {
+                    await panel.createGroup(AdminPanelStore.getCreateGroup());
+                    panel.getGroups(0) 
+                } catch (error) {
+                    ErrorsStore.setErrorText(error.response.data.message)
+                    setEMode(true)
+                }
+            
             }
         
             }
@@ -98,15 +150,21 @@ const CategoryView = observer(()=>{
             show={renameGroup}
             body={
                 <Form.Control
-                    value={AdminPanelStore.renameGroup}
+                    value={AdminPanelStore.getRenameGroup()}
                     onChange={(e)=>{AdminPanelStore.setRenameGroup(e.target.value)}}
                 >
 
                 </Form.Control>
             }
             func={async ()=>{
-                await panel.renameGroup();
-                await panel.getGroups(0)
+                try {
+                    await panel.renameGroup();
+                    await panel.getGroups(0)
+                } catch (error) {
+                    ErrorsStore.setErrorText(error.response.data.message)
+                    setEMode(true)
+                }
+           
             }}
             >
 
@@ -120,9 +178,7 @@ const CategoryView = observer(()=>{
                 <span onClick={()=>{setCreateGroupMode(true); }}>Добавить</span>
                 { <span className="r" onClick={
                     async()=>{
-                        await panel.removeGroup();
-                        AdminPanelStore.clearDeletesGroup();
-                        setRemAll(false)
+                        setRemoveCats(true)
                         }
                     }>Удалить</span> }
             </div>
@@ -151,7 +207,7 @@ const CategoryView = observer(()=>{
                     </div>
                     {AdminPanelStore.getGroups()!=undefined&&AdminPanelStore.getGroups().map(v=>{
                             return  <div className="redact" onClick={()=>{
-                                AdminPanelStore.setRenameGroup(v.attributeName);
+                                AdminPanelStore.setRenameGroup(v.groupTitle);
                                 setRenameGroup(true);
                                 AdminPanelStore.setRenameGroupId(v.id);
                                 }}>

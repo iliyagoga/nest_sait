@@ -42,7 +42,7 @@ const ProductsModal = observer(({show,setShow})=>{
                             <option value="desc">По убыванию</option>
                         </select>
                         </div>
-                        <div className="fRating">
+                        {/* <div className="fRating">
                             <h4>Рейтинг:</h4>
                             <select onChange={(e)=>{
                                 AdminPanelStore.setFilterDate(e.target.value)
@@ -53,7 +53,7 @@ const ProductsModal = observer(({show,setShow})=>{
                                 <option value="asc">По возрастранию</option>
                                 <option value="desc">По убыванию</option>
                             </select>
-                        </div>
+                        </div> */}
                         
                     </div>
                     }

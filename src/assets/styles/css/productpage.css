@@ -35,10 +35,88 @@
 .productpage .product .container .gallery {
   width: 50%;
   height: 50vh;
+  display: flex;
+  overflow: hidden;
+}
+.productpage .product .container .gallery .contGallery {
+  width: 30%;
+  display: flex;
+  margin-right: 0.5rem;
+  height: 100%;
+  overflow: hidden;
+  flex-direction: column;
+  position: relative;
+}
+.productpage .product .container .gallery .contGallery .btnd {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1450980392);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  height: 1.5rem;
+}
+.productpage .product .container .gallery .contGallery .btnd img {
+  height: 50%;
+  position: relative;
+  top: 25%;
+}
+.productpage .product .container .gallery .contGallery .btnd:hover {
+  background: rgba(0, 0, 0, 0.2862745098);
+}
+.productpage .product .container .gallery .contGallery .btnu {
+  position: absolute;
+  top: 0;
+  background: rgba(0, 0, 0, 0.1450980392);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  height: 1.5rem;
+  z-index: 200;
+  transform: rotateZ(180deg);
+}
+.productpage .product .container .gallery .contGallery .btnu img {
+  height: 50%;
+  position: relative;
+  top: 25%;
+}
+.productpage .product .container .gallery .contGallery .btnu:hover {
+  background: rgba(0, 0, 0, 0.2862745098);
+}
+.productpage .product .container .gallery .contGallery ul {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  height: -moz-max-content;
+  height: max-content;
+  position: absolute;
+}
+.productpage .product .container .gallery .contGallery ul li {
+  position: relative;
+  background: rgba(0, 0, 0, 0.062745098);
+  width: 100%;
+  height: 10rem;
+  padding: 0;
+  position: relative;
+  transition-duration: 0.4s;
+  transition-timing-function: easy-in-out;
+}
+.productpage .product .container .gallery .contGallery ul li img {
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.productpage .product .container .gallery .contGallery ul li:hover {
+  background: rgba(0, 0, 0, 0.1019607843);
 }
 .productpage .product .container .gallery .preview {
   position: relative;
-  height: 100%;
+  height: 30rem;
   width: 70%;
 }
 .productpage .product .container .gallery .preview img {

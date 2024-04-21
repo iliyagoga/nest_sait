@@ -28,6 +28,9 @@ function App() {
     <Route path={ config.catalog} element={
             <Catalog></Catalog>
           }>
+     <Route path={ config.catalog+"/:search"} element={
+            <Catalog></Catalog>
+          }></Route>
     </Route>
     <Route path={ config.login} element={
             <Login></Login>

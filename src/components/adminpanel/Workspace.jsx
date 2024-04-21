@@ -6,9 +6,13 @@ import ProductView from "./ProductView";
 import Coupons from "./Coupons";
 import OrdersViews from "./OrdersViews";
 import Analitycs from "./Analtics";
+import AdminPanelStore from "../../stores/AdminPanelStore.ts";
 
 
 const Workspace = observer(({m})=>{
+    if(AdminPanelStore.getPageMode()!=null){
+        m= AdminPanelStore.getPageMode()
+    }
     switch (m) {
         
         case 1:

@@ -9,16 +9,24 @@ import '../assets/styles/css/catalog.css'
 import Category from "../components/client/Category.jsx";
 import { config } from "../config.ts";
 import Product from "../components/client/Product.jsx";
+import Footer from "../components/client/Footer.jsx";
+import { useParams, useSearchParams } from "react-router-dom";
 
 const Catalog = observer(()=>{
     const catalog = new CatalogUtilite()
+    const params = useParams()
     useEffect(()=>{
         catalog.getCategories()
-        catalog.getProducts('null', 'null', 'null', 12, 0)
-    },[])
+        if(params.search!=undefined){
+            Client.setOrderFilter('null')
+            catalog.getProducts('null','null','null',12,0,Client.getSearch() || params.search)
+        }else
+        catalog.getProducts('null', 'null', Client.getOrderFilter(), 12, 0)
+    },[params.search])
+    
     return <div className="catalog">
         <Header theme={false}></Header>
-        <BreadCrumbs names={['Главная','Каталог']} links={[config.mean, config.catalog]}></BreadCrumbs>
+        <BreadCrumbs names={(params.search!=undefined?['Главная','Каталог',params.search]:['Главная','Каталог'])} links={[config.mean, config.catalog]}></BreadCrumbs>
         <div className="body">
             <div className="sidebar">
                 <h3>Каталог</h3>
@@ -45,7 +53,7 @@ const Catalog = observer(()=>{
                             <option value="desc">По убыванию</option>
                         </select>
                     </div>
-                    <div className="rating">
+                    {/* <div className="rating">
                         <h4>Рейтинг:</h4>
                         <select onChange={(e)=>{
                             Client.setRatingFilter(e.target.value);
@@ -61,10 +69,10 @@ const Catalog = observer(()=>{
                             <option value="asc">По возрастанию</option>
                             <option value="desc">По убыванию</option>
                         </select>
-                    </div>
+                    </div> */}
                     <div className="other">
                         <h4>Сортировать по:</h4>
-                        <select onChange={(e)=>{
+                        <select value={Client.getOrderFilter()} onChange={(e)=>{
                             Client.setOrderFilter(e.target.value);
                             if(Client.getCategory()!=undefined){
                                 catalog.getProductsCats(Client.getCategory().idGroup, Client.getCategory().idCat, Client.getPriceFilter(), Client.getRatingFilter(), Client.getOrderFilter(), 12, 0)
@@ -86,6 +94,7 @@ const Catalog = observer(()=>{
             </div>
          
         </div>
+        <Footer></Footer>
         
 
     </div>

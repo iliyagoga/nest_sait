@@ -10,6 +10,8 @@ import Form from 'react-bootstrap/Form';
 import CreateModal from "../modals/createCustom.jsx";
 import ElemAtributeValue from "./ElemAttributeValue.jsx";
 import RedactModal from "../modals/redactModal.jsx";
+import DeleteModal from "../modals/deleteModal.jsx";
+import ErrorsStore from "../../stores/ErrorsStore.ts";
 
 const AttributeView = observer(()=>{
     const panel = new Attributes();
@@ -35,25 +37,66 @@ const AttributeView = observer(()=>{
     const handleCloseCreateAttr = () => setCa(false);
     const handleCloseRenameAttr = () => setRA(false)
 
-    return <div className="attributeView">
+    const [eMode, setEMode] = useState(false)
+    const handleClose3 = ()=>{setEMode(false)}
 
+    const [dA, setDA] =useState(false)
+    const handleClose4 = ()=>{setDA(false)}
+
+    return <div className="attributeView">
+        <MiniModal
+            header={"Уведомление"}
+            handleClose={handleClose3}
+            show={eMode}
+            text={ErrorsStore.getErrorText()}
+        ></MiniModal>
+        <DeleteModal
+            handleClose={handleClose4}
+            show={dA}
+            he={'Удаление'}
+            body={
+                'Удалить?'
+            }
+            func={async ()=>{
+                try {
+                    await panel.deleteAttributes();
+                    AdminPanelStore.clearDeleteAttrs();
+                    setRemAll(false)
+                } catch (error) {
+                    ErrorsStore.setErrorText(error.response.data.message)
+                    setEMode(true)
+                    setDA(false)
+                }
+                
+               
+            
+            }}
+            >
+
+            </DeleteModal>
         <CreateModal handleClose={handleClose2} show={mini} body={<>
             <Form.Control as='textarea' onChange={(e)=>{
                 AdminPanelStore.setCreateAttrValue(e.target.value);
             }}> 
 
             </Form.Control>
-        </>
+            </>
+                    }
+            func={async ()=>{
+                try {
+                    await panel.createAttributeValue(AdminPanelStore.getAttributeId(),AdminPanelStore.getCreateAttrValue());
+                    getAttributeValues(AdminPanelStore.getAttributeId(),0);
+                    await panel.getCountAttributeValuesPages(AdminPanelStore.getAttributeId())
+                    AdminPanelStore.setAttrValuePage(0)
+                } catch (error) {
+                    setEMode(true)
+                    ErrorsStore.setErrorText(error.response.data.message)
                 }
-        func={async ()=>{
-            await panel.createAttributeValue(AdminPanelStore.getAttributeId(),AdminPanelStore.getCreateAttrValue());
-            getAttributeValues(AdminPanelStore.getAttributeId(),0);
-            await panel.getCountAttributeValuesPages(AdminPanelStore.getAttributeId())
-            AdminPanelStore.setAttrValuePage(0)
-        }
-      
-        }
-        he={"Создать значение"}
+               
+            }
+        
+            }
+            he={"Создать значение"}
         
         ></CreateModal>
         <MiniModal handleClose={handleClose} show={show} text={ 
@@ -94,8 +137,14 @@ const AttributeView = observer(()=>{
              </>
                     }
             func={async ()=>{
-                await panel.createAttribute(AdminPanelStore.getCreateAttr());
-                panel.getAttributes(0)
+                try {
+                    await panel.createAttribute(AdminPanelStore.getCreateAttr());
+                    panel.getAttributes(0)
+                } catch (error) {
+                    setEMode(true)
+                    ErrorsStore.setErrorText(error.response.data.message)
+                }
+              
             }
         
             }
@@ -115,8 +164,14 @@ const AttributeView = observer(()=>{
                 </Form.Control>
             }
             func={async ()=>{
-                await panel.renameAttribute(renameAttrId, renameAttr);
-                await panel.getAttributes(0)
+                try {
+                    await panel.renameAttribute(renameAttrId, renameAttr);
+                    await panel.getAttributes(0)
+                } catch (error) {
+                    setEMode(true)
+                    ErrorsStore.setErrorText(error.response.data.message)
+                }
+              
             }}
                 >
 
@@ -130,9 +185,7 @@ const AttributeView = observer(()=>{
                 <span onClick={()=>{setCa(true); }}>Добавить</span>
                 { <span className="r" onClick={
                     async()=>{
-                        await panel.deleteAttributes();
-                        AdminPanelStore.clearDeleteAttrs();
-                        setRemAll(false)
+                       setDA(true)
                         }
                     }>Удалить</span> }
             </div>

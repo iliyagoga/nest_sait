@@ -1,0 +1,29 @@
+.searchline {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 5rem;
+  background: rgba(0, 0, 0, 0.0392156863);
+  padding: 0.5rem 0;
+  z-index: 200;
+  transition-duration: 0.5s;
+  transition-timing-function: easy-in-out;
+}
+.searchline .s {
+  display: flex;
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
+.searchline .s input {
+  margin-left: 1rem;
+  max-width: 90%;
+  outline: 0;
+  border: 0;
+  width: 40rem;
+}
+
+.meanclass {
+  width: 0rem !important;
+}/*# sourceMappingURL=search.css.map */
