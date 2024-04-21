@@ -25,7 +25,7 @@ export class AnalitycsService {
             const res = await this.orderRepository.findAll({
 
                 where:{
-                    createdAt: {[Op.gt]: date.getTime()}
+                    createdAt: {[Op.gte]: date.getTime()}
                 }
             })
             const min= new Date(res[0].createdAt).getDate()
@@ -44,7 +44,7 @@ export class AnalitycsService {
             const res = await this.orderRepository.findAll({
 
                 where:{
-                    createdAt: {[Op.gt]: date.getTime()}
+                    createdAt: {[Op.gte]: date.getTime()}
                 }
             })
             const min= new Date(res[0].createdAt).getDate()

@@ -154,7 +154,7 @@ export class ProductsController {
         return this.productService.getProductsCats(params)
     }
 
-    @Get('/getProductsClient/:price/:rating/:order/:limit/:offset')
+    @Get('/getProductsClient/:price/:rating/:order/:limit/:offset/:search')
     getProductsDef(@Param() params: string[]){
         return this.productService.getProductsDef(params)
     }

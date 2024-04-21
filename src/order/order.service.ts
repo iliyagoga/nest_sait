@@ -276,15 +276,22 @@ export class OrderService {
     }
 
     async deleteOrders(ids: number[]){
-        try {
-            await this.orders.destroy({where: {id:ids}})
-            await this.orderUser.destroy({where: {orderId: ids}})
-            await this.addresOrder.destroy({where: {orderId: ids}})
-            await this.orderProduct.destroy({where:{orderId:ids}})
-            return true
-        } catch (error) {
-            throw error;
+        const res = await this.orders.count({where: {id:ids}})
+        if(res>0){
+            try {
+                await this.orders.destroy({where: {id:ids}})
+                await this.orderUser.destroy({where: {orderId: ids}})
+                await this.addresOrder.destroy({where: {orderId: ids}})
+                await this.orderProduct.destroy({where:{orderId:ids}})
+                return true
+            } catch (error) {
+                throw error;
+            }
         }
+        else{
+            throw new HttpException('Выделите элементы для удаления', HttpStatus.BAD_REQUEST)
+        }
+       
     }
 
 }

@@ -13,6 +13,7 @@ import sequelize from 'sequelize';
 import { RemoveTag } from './dto/removeTag.dto';
 import { Op } from 'sequelize';
 import { RemoveGroupDto } from './dto/removeGroup.dto';
+import { dot } from 'node:test/reporters';
 
 @Injectable()
 export class FiltersService {
@@ -23,26 +24,53 @@ export class FiltersService {
 
     async createTag(dto: TagDto){
         try {
-            const t = await this.tag.findOne({where:{tagTitle: dto. tagTitle}})
-        if(!t){
-            return await this.tag.create(dto);
-        }
-        throw new HttpException("Такой тег уже существует", HttpStatus.BAD_REQUEST);
+            if(dto.tagTitle!=undefined && dto.tagTitle.length>0 ){
+                const t = await this.tag.findOne({where:{tagTitle: dto. tagTitle}})
+                if(!t){
+                    return await this.tag.create(dto);
+                }
+                throw new HttpException("Такой тег уже существует", HttpStatus.BAD_REQUEST);
+            }
+            else{
+                throw new HttpException("Имя тега не должно быть пустым", HttpStatus.BAD_REQUEST);
+            }
+       
+    
         } catch (error) {
-            throw new HttpException("Такой тег уже существует", HttpStatus.BAD_REQUEST);
+            throw error;
         }
         
     }
     async removeTag(body: RemoveTag){
-        return await this.tag.destroy({where:{id: body.tags }});
+        try {
+            const res = await this.tag.findOne({where: {id: body.tags}});
+            if(res){
+                return await this.tag.destroy({where:{id: body.tags }});
+            }
+            throw new HttpException('Такого тега нет', HttpStatus.BAD_REQUEST);
+            
+        } catch (error) {
+            throw error;
+        }
+        
     }
 
     async redactTag(dto: TagRedact){
         try {
-           const t = await this.tag.update({tagTitle:dto.tagTitle},{where:{id: dto.id}});
-           return t;
+            if(dto.tagTitle!=undefined && dto.tagTitle.length>0 ){
+                const t = await this.tag.findOne({where:{tagTitle: dto. tagTitle, id: {[Op.not]: dto.id}}})
+                if(!t){
+                   return await this.tag.update({tagTitle:dto.tagTitle},{where:{id: dto.id}});
+                }
+                throw new HttpException("Такой тег уже существует", HttpStatus.BAD_REQUEST);
+            }
+            else{
+                throw new HttpException('Имя тега не должно быть пустым', HttpStatus.BAD_REQUEST)
+            }
+
+         
         } catch (error) {
-            throw new HttpException(error.name, HttpStatus.BAD_REQUEST);
+            throw error;
         }
         
     }
@@ -78,25 +106,37 @@ export class FiltersService {
 
     
     async createGroup(dto: GroupDto){
-        const t = await this.group.findOne({where:{groupTitle: dto.groupTitle}})
-        if(!t){
-            return await this.group.create(dto);
+        if(dto.groupTitle!=undefined){
+            const t = await this.group.findOne({where:{groupTitle: dto.groupTitle}})
+            if(!t){
+                return await this.group.create(dto);
+            }
+            throw new HttpException("Такая группа уже существует", HttpStatus.BAD_REQUEST);
         }
-        throw new HttpException("Такая группа уже существует", HttpStatus.BAD_REQUEST);
+        else{
+            throw new HttpException('Укажите имя группы', HttpStatus.BAD_REQUEST)
+        }
+      
     }
 
     async createCategory(dto: CategoryDto){
-        const c = await this.category.findOne({where:{categoryName: dto.categoryName}})
-        const g = await this.group.findOne({where:{id: dto.groupId}})
-        if(!c && g){
-            return await this.category.create(dto);
+        if(dto.categoryName!=undefined){
+            const c = await this.category.findOne({where:{categoryName: dto.categoryName}})
+            const g = await this.group.findOne({where:{id: dto.groupId}})
+            if(!c && g){
+                return await this.category.create(dto);
+            }
+            throw new HttpException("Такая категория уже существует уже существует или группы, прикрепленной к категории, не существует", HttpStatus.BAD_REQUEST);
         }
-        throw new HttpException("Такая категория уже существует уже существует или группы, прикрепленной к категории, не существует", HttpStatus.BAD_REQUEST);
+        else{
+            throw new HttpException('Укажите имя категории', HttpStatus.BAD_REQUEST)
+        }
+       
     }
 
 
     async removeGroup(ids: RemoveGroupDto){
-        const t = await this.group.findAll(
+        const t = await this.group.findOne(
             {
                 where:{
                     id: ids.ids
@@ -129,8 +169,13 @@ export class FiltersService {
     async renameGroup(dto : RenameGroupDto){
         const t = this.group.findOne({where:{id: dto.id}})
         if(t){
-            
-            return await this.group.update({groupTitle: dto.groupTitle},{where:{id: dto.id}});
+            if(dto.groupTitle.length>0){
+                return await this.group.update({groupTitle: dto.groupTitle},{where:{id: dto.id}});
+            }
+           
+            else{
+                throw new HttpException("Укажите имя группы", HttpStatus.BAD_REQUEST);
+            }
         }
         throw new HttpException("Такой группы не существует", HttpStatus.BAD_REQUEST);
     }
@@ -143,8 +188,12 @@ export class FiltersService {
     async renameCategory(dto : RenameCategoryDto){
         const t = await this.category.findOne({where:{id: dto.id}})
         if(t){
-            
-            return await this.category.update({categoryName: dto.categoryName},{where:{id: dto.id}});
+            if(dto.categoryName.length>0){
+                return await this.category.update({categoryName: dto.categoryName},{where:{id: dto.id}});
+            }else{
+                throw new HttpException("Укажите имя категории", HttpStatus.BAD_REQUEST);
+            }
+         
         }
         throw new HttpException("Такой категории не существует", HttpStatus.BAD_REQUEST);
     }

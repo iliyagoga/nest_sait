@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Coupon } from './coupon.model';
 import { CreateCouponDto } from './dto/createCoupon.dto';
@@ -11,32 +11,81 @@ export class CouponService {
     ){}
 
     async createCoupon(dto: CreateCouponDto){
-        return await this.couponRepository.create(dto)
+        if(dto.couponTitle!=undefined && dto.couponTitle.length>0){
+            if(dto.couponValue!=undefined && Number.isInteger(Number(dto.couponValue)) && Number(dto.couponValue)>0){
+                if(dto.couponTimelife){
+                    try {
+                        return await this.couponRepository.create(dto);
+                    } catch (error) {
+                        throw new HttpException('Такой купон уже есть', HttpStatus.BAD_REQUEST);
+                    }
+                }else{
+                    throw new HttpException('Укажите окончание действия купона', HttpStatus.BAD_REQUEST)
+                }
+               
+            }
+            else{
+                throw new HttpException('Укажите цену купона', HttpStatus.BAD_REQUEST)
+            }
+           
+            
+        }
+        else{
+            throw new HttpException('Имя купона не должно быть пустым', HttpStatus.BAD_REQUEST)
+        }
+       
     }
 
     async removeCoupon(ids: number[]){
-        return await this.couponRepository.destroy(
-        {
-                where:
+        const res = await this.couponRepository.count({where: {id: ids}})
+        if(res>0){
+            return await this.couponRepository.destroy(
                 {
-                    id: ids
-                }
-            }
-        )
+                        where:
+                        {
+                            id: ids
+                        }
+                    }
+                )
+        }
+        else{
+            throw new HttpException('Выделите элементы для удаления', HttpStatus.BAD_REQUEST)
+        }
+        
     }
 
     async redactCoupon(dto: RedactCouponDto){
-        return await this.couponRepository.update(
-            {couponTitle: dto.couponTitle,
-            couponValue: dto.couponValue,
-            couponTimelife: dto.couponTimelife
-            },
-            {
-                where:{
-                    id: dto.id
+        if(dto.couponTitle!=undefined && dto.couponTitle.length>0){
+            if(dto.couponValue!=undefined && Number.isInteger(Number(dto.couponValue)) && Number(dto.couponValue)>0){
+                if(dto.couponTimelife){
+                    try {
+                        return await this.couponRepository.update(
+                            {couponTitle: dto.couponTitle,
+                            couponValue: dto.couponValue,
+                            couponTimelife: dto.couponTimelife
+                            },
+                            {
+                                where:{
+                                    id: dto.id
+                                }
+                            }
+                        )
+                    } catch (error) {
+                        throw new HttpException('Такой купон уже есть', HttpStatus.BAD_REQUEST);
+                    }
+                }else{
+                    throw new HttpException('Укажите окончание действия купона', HttpStatus.BAD_REQUEST)
                 }
             }
-        )
+            else{
+                throw new HttpException('Укажите цену купона', HttpStatus.BAD_REQUEST)
+            }
+            
+        }
+        else{
+            throw new HttpException('Имя купона не должно быть пустым', HttpStatus.BAD_REQUEST)
+        }
+       
 
     }
 

@@ -31,14 +31,21 @@ export class CartController {
 
     @UseGuards(JwtAuthGuard)
     @Post('/plusCount')
-    plusCount(@Headers('authorization') hs: string,@Body() dto:RemoveFromCartDto){
-        return this.cartService.plusCount(dto,hs);
+    plusCount(@Headers('authorization') hs: string, @Body('productId') productId: number, @Body('varId') varId: number){
+        return this.cartService.plusCount(productId, varId, hs);
     }
 
     @UseGuards(JwtAuthGuard)
     @Post('/minusCount')
-    minusCount(@Headers('authorization') hs: string, @Body() dto:RemoveFromCartDto){
-        return this.cartService.minusCount(dto,hs);
+    minusCount(@Headers('authorization') hs: string, @Body('productId') productId: number, @Body('varId') varId: number){
+        return this.cartService.minusCount(productId, varId, hs);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('/changeVars')
+    changeVars(@Headers('authorization') hs: string, @Body('productId') productId: number, @Body('varId') varId: number, @Body('newVarId') newVarId: number)
+    {
+        return this.cartService.changeVars(productId, varId, newVarId, hs)
     }
 
     @UseGuards(JwtAuthGuard)

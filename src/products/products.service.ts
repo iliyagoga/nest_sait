@@ -41,15 +41,23 @@ export class ProductsService {
      ){}
 
     async createAttribute(dto: AttributeDto){
-        const attribute= await this.attr.findOne({where:{attributeName: dto.attributeName}});
-        if(!attribute){
-            return await this.attr.create(dto)
+        if(dto.attributeName!=undefined && dto.attributeName.length>0){
+            const attribute= await this.attr.findOne({where:{attributeName: dto.attributeName}});
+            if(!attribute){
+                return await this.attr.create(dto)
+            }
+            throw new HttpException("Аттрибут с таким названием уже есть",HttpStatus.BAD_REQUEST)
         }
-        throw new HttpException("Аттрибут с таким названием уже есть",HttpStatus.BAD_REQUEST)
+        else{
+            throw new HttpException("Название атрибута не должно быть пустым",HttpStatus.BAD_REQUEST)
+        }
+  
     }
 
     async renameAttribute(dto: RenameAttributeValue){
-        try {
+       
+        if(dto.attributeValue!=undefined && dto.attributeValue.length>0){
+            try {
             return await this.attr.update(
                 {
                     attributeName: dto.attributeValue
@@ -58,9 +66,14 @@ export class ProductsService {
                         id: dto.attributeValueId
                     }
                 })
-        } catch (error) {
-            throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
+            } catch (error) {
+                throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
+            }
         }
+        else{
+            throw new HttpException("Название атрибута не должно быть пустым",HttpStatus.BAD_REQUEST)
+        }
+    
     }
     
     async deleteAttribute(id: number[]){
@@ -77,30 +90,45 @@ export class ProductsService {
         }
         else 
         {
-            throw new HttpException("Такого аттрибута нет", HttpStatus.BAD_REQUEST)
+            throw new HttpException("Такого атрибута нет", HttpStatus.BAD_REQUEST)
         }
     }
     
     async createAttributeValue(dto: AttributeValueDto){
-        try {
-            return await this.attrValue.create({attributeValue: dto.attributeValue, attributeId: dto.attributeId})
-        } catch (error) {
-            throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
+    
+        if(dto.attributeValue!=undefined && dto.attributeValue.length>0){
+            try {
+                return await this.attrValue.create({attributeValue: dto.attributeValue, attributeId: dto.attributeId})
+            } catch (error) {
+                throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
+            }
         }
+        else{
+            throw new HttpException("Значение атрибута не должно быть пустым",HttpStatus.BAD_REQUEST)
+        }
+       
+       
     }
     async renameAttributeValue(dto: RenameAttributeValue){
-        try {
-            return await this.attrValue.update(
-                {
-                    attributeValue: dto.attributeValue
-                },{
-                    where: {
-                        id: dto.attributeValueId
-                    }
-                })
-        } catch (error) {
-            throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
-        }
+            if(dto.attributeValue!=undefined && dto.attributeValue.length>0){
+                try {
+                    return await this.attrValue.update(
+                        {
+                            attributeValue: dto.attributeValue
+                        },{
+                            where: {
+                                id: dto.attributeValueId
+                            }
+                        })
+                } catch (error) {
+                    throw new HttpException(error.name,HttpStatus.BAD_REQUEST)
+                }
+              
+            }else{
+                throw new HttpException("Значение атрибута не должно быть пустым",HttpStatus.BAD_REQUEST)
+            }
+            
+       
     }
     async deleteAttributeValue(id: number){
         const attrVal= await this.attrValue.findOne({where:{id}});
@@ -264,6 +292,9 @@ export class ProductsService {
     }
 
     async redactProduct(dto: object, images: Blob[]){
+        if(dto['productName'].length>0 && dto['title'].length>0){
+
+        
         const product = await this.product.findOne({
             where:{id: dto['id']},
             include:[
@@ -359,7 +390,12 @@ export class ProductsService {
             }
             return true
         }
+
         throw new HttpException("Такого товара не сущетсвует", HttpStatus.BAD_REQUEST)
+    }
+    else{
+        throw new HttpException("Имя и краткое описание товара не должны быть пустыт", HttpStatus.BAD_REQUEST)
+    }
 
     }
 
@@ -737,41 +773,90 @@ export class ProductsService {
        } catch (error) {
         throw error;
        }
+       
     }
 
     async getProductsDef(params: string[]){
         try {
          let orders=[]
-         if(params['price']=='asc'){
-             orders.push(['price', 'asc'])
+         if(params['search']=='null'){
+            if(params['price']=='asc'){
+                orders.push(['price', 'asc'])
+            }
+            if(params['price']=='desc'){
+                orders.push(['price', 'desc'])
+            }
+            if(params['rating']=='asc'){
+                orders.push(['rating', 'asc'])
+            }
+            if(params['rating']=='desc'){
+                orders.push(['rating', 'desc'])
+            }
+            if(params['order']=='asc'){
+                orders.push(['id', 'asc'])
+            }
+            if(params['order']=='desc'){
+                orders.push(['id', 'desc'])
+            }
+    
+            const res = await this.product.findAll({
+                offset: Number(params['offset']),
+                limit: Number(params['limit']),
+                order: orders,
+                include:[
+                   {model: Previews}
+
+                ]
+                
+            })
+            return res
          }
-         if(params['price']=='desc'){
-             orders.push(['price', 'desc'])
+         else{
+            let search= params['search']
+                if(search[0]=="$"){
+                    let copy: string =search;
+                    let sArr: string[] =copy.split('');
+                    sArr.shift();
+                    let str: string = sArr.join("");
+        
+                    
+                    const products= await this.product.findAll({
+                        include:[{
+                            model:Tag,
+                            where:{
+                                tagTitle:{
+                                    [Op.startsWith]: str
+                                }
+                                
+                            },
+                            
+                        },
+                            {
+                                model: Previews
+                            }],
+                        order: [['id','desc']]
+                    })
+                    return products;
+                }
+                else{
+                    const products= await this.product.findAll({
+                        where:{ productName:{
+                            [Op.startsWith]: search
+                        }
+                            
+                        },
+                        order: [['id','desc']],
+                        include: {
+                            model: Previews
+                        }
+                    }
+                        
+                    )
+                    return products;
+                }
          }
-         if(params['rating']=='asc'){
-             orders.push(['rating', 'asc'])
-         }
-         if(params['rating']=='desc'){
-             orders.push(['rating', 'desc'])
-         }
-         if(params['order']=='asc'){
-             orders.push(['id', 'asc'])
-         }
-         if(params['order']=='desc'){
-             orders.push(['id', 'desc'])
-         }
- 
-         const res = await this.product.findAll({
-             offset: Number(params['offset']),
-             limit: Number(params['limit']),
-             order: orders,
-             include:[
-                {model: Previews},
-                {model: Gallery}
-             ]
-             
-         })
-         return res
+         
+         
         } catch (error) {
          throw error;
         }
