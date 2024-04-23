@@ -15,7 +15,9 @@
     src: url('../static/Raleway-Regular.ttf')
 @font-face 
     font-family: 'Raleway-Thin'
-    src: url('../static/Raleway-Thin.ttf'), 
+    src: url('../static/Raleway-Thin.ttf')
+@import mixins
+
 header
     position: absolute
     display: flex
@@ -36,6 +38,10 @@ header
         width: 30%
         display: flex
         justify-content: space-evenly
+        @include mixin('mi')
+            width: 40%
+            font-size: 1.2rem
+            align-items: center
         & span
             font-family: 'Raleway-Regular'
             cursor: pointer
@@ -44,6 +50,9 @@ header
         color: black
     & .logo
         width: 30%
+        @include mixin('mi')
+            width: 20%
+        
     & .icons
         font-size: 1.125rem
         font-weight: 300
@@ -53,6 +62,8 @@ header
         width: 30%
         display: flex
         justify-content: space-evenly
+        @include mixin('mi')
+            width: 40%
         & .cartimg
             position: relative
             width: max-content

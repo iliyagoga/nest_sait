@@ -1,3 +1,4 @@
+@import mixins
 .breadcrumbs
     display: flex
     position: relative
@@ -8,6 +9,8 @@
         cursor: pointer
         color: #9DA4AE
         padding: .2rem 0
+        @include mixinCatalog('ph')
+            font-size: 1.5rem
     & .activeLink
         border-bottom: 1px solid black
         color: black

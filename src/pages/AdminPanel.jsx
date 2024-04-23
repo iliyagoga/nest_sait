@@ -5,6 +5,7 @@ import tag from '../assets/imgs/tags.svg'
 import cp from '../assets/imgs/Nav → List → Item → Button → SVG.svg'
 import or from '../assets/imgs/orders.svg'
 import an from '../assets/imgs/an.svg'
+import admins from '../assets/imgs/admins.svg'
 import '../assets/styles/css/adminPanel.css'
 import { apiMap } from '../utilites/apiMap.ts'
 import { role } from '../utilites/axiosConfig.ts'
@@ -75,6 +76,17 @@ export default function AdminPanel(){
                     <div>
                         <img src={an} alt="analitycs" />
                         <p onClick={()=>{setM(7)}}>Аналитика</p>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div className="couponBlock block">
+                <h2>Администрация</h2>
+                <div className="coupon child_block">
+                    <div>
+                        <img src={admins} alt="analitycs" />
+                        <p onClick={()=>{setM(8)}}>Пользователи</p>
                     </div>
                 </div>
                 

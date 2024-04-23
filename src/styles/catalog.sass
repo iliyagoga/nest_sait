@@ -15,7 +15,17 @@
     src: url('../static/Raleway-Regular.ttf')
 @font-face 
     font-family: 'Raleway-Thin'
-    src: url('../static/Raleway-Thin.ttf'), 
+    src: url('../static/Raleway-Thin.ttf')
+@import mixins
+html
+    @include mixinCatalog('elg')
+        font-size: 16px
+    @include mixinCatalog('lg')
+        font-size: 13px
+    @include mixinCatalog('md')
+        font-size: 12px
+    @include mixinCatalog('mi')
+        font-size: 8px
 .catalog
     display: flex
     width: 90%
@@ -23,7 +33,6 @@
     position: relative
     height: auto
     flex-direction: column
-   
     & .body
         margin-top: 3rem
         display: flex
@@ -36,27 +45,41 @@
             & .filters
                 display: flex
                 width: max-content
+                @include mixinCatalog('ph')
+                    flex-direction: column 
+                @include mixinCatalog('lg') 
+                    margin: auto
+                    width: 60rem
                 & div
                     display: flex
                     font-family: 'Raleway-Regular'
                     margin-right: 4rem
+                    @include mixinCatalog('ph')
+                        margin-top: .5rem
                     & h4
                         font-size: 1rem
-
                         margin: 0
+                        @include mixinCatalog('ph')
+                            font-size: 1.5rem
 
                     & select
                         outline: none
                         border: 0
                         color: #9DA4AE
+                        @include mixinCatalog('ph')
+                            margin-left: .5rem
+                            font-size: 1.5rem
             & .products
                 display: flex
-               
                 flex-wrap: wrap
-                width: 60rem
+                width: 40rem
                 justify-content: space-between
                 margin: 2rem auto
-                                   
+                @include mixinCatalog('ph') 
+                    width: 40rem
+                    max-width: 100%
+                @include mixinCatalog('lg') 
+                    width: 60rem
 
         & .sidebar
             width: max-content
@@ -64,6 +87,8 @@
             & h3
                 font-family: 'Raleway-Regular'
                 font-size: 1.25rem
+                @include mixinCatalog('ph')
+                    font-size: 1.75rem
             & .groups
                 margin-top: 1rem
                 & .ul
@@ -75,6 +100,8 @@
                         transition-timing-function: ease-in-out
                         transition-duration: .2s
                         letter-spacing: 0
+                        @include mixinCatalog('ph')
+                            font-size: 1.5rem
                       
                     & .active
                         letter-spacing: .2rem
@@ -91,6 +118,8 @@
                             padding: .3rem 0
                             font-family: 'Raleway-Regular'
                             cursor: pointer
+                            @include mixinCatalog('ph')
+                                font-size: 1.4rem
                             &:not(:last-child)
                                 border-bottom: 1px solid black
                         

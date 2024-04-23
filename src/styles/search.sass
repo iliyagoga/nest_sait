@@ -1,4 +1,4 @@
-
+@import mixins
 .searchline
     width: 100%
     display: flex
@@ -10,11 +10,16 @@
     z-index: 200
     transition-duration: .5s
     transition-timing-function: easy-in-out
+    @include mixin('mi')
+        padding: 1rem 0
     & .s
         display: flex
         background: white
         padding: .5rem 1rem
         border-radius: 10px
+        @include mixin('mi')
+            width: 98%
+            margin: auto
         & input
             margin-left: 1rem
             max-width: 90%
@@ -23,7 +28,8 @@
             width: 40rem
 .meanclass
     width: 0rem !important
-    background: ##00000000
+    background: #00000000
+
 
 
 

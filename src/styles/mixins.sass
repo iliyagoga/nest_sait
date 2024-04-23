@@ -1,0 +1,87 @@
+@mixin mixin($scr)
+    @if $scr =='lg'
+        @media screen and (min-width: 1024px)
+            @content
+    @if $scr=='md'
+        @media screen and (min-width: 768px) and (max-width: 1023px)
+            @content
+    @if $scr=='mi'
+        @media screen and (max-width: 767px)
+            @content
+
+@mixin mixinCatalog($scr)
+    @if $scr =='lg'
+        @media screen and (min-width: 1089px)
+            @content
+    @if $scr=='md'
+        @media screen and (min-width: 1004px) and (max-width: 1088px)
+            @content
+    @if $scr=='mi'
+        @media screen and (max-width: 1003px)
+            @content
+    @if $scr=='elg'
+        @media screen and (min-width: 1301px)
+            @content
+    @if $scr=='ph'
+        @media screen and (max-width: 670px)
+            @content
+    @if $scr=='phP'
+        @media screen and (max-width: 456px)
+            @content
+@mixin mixinProduct($scr)
+    @if $scr =='lg'
+        @media screen and (min-width: 1024px) and (max-width: 1300px)
+            @content
+    @if $scr=='md'
+        @media screen and (min-width: 768px) and (max-width: 1023px)
+            @content
+    @if $scr=='mi'
+        @media screen and (max-width: 767px)
+            @content
+    @if $scr=='elg'
+        @media screen and (min-width: 1301px)
+            @content
+@mixin mixinCart($scr)
+    @if $scr =='lg'
+        @media screen and (min-width: 1024px) and (max-width: 1300px)
+            @content
+    @if $scr=='md'
+        @media screen and (min-width: 768px) and (max-width: 1023px)
+            @content
+    @if $scr=='mi'
+        @media screen and (max-width: 767px)
+            @content
+    @if $scr=='elg'
+        @media screen and (min-width: 1301px)
+            @content
+@mixin mixinProfile($scr)
+    @if $scr =='lg'
+        @media screen and (min-width: 1024px) and (max-width: 1300px)
+            @content
+    @if $scr=='md'
+        @media screen and (min-width: 768px) and (max-width: 1023px)
+            @content
+    @if $scr=='mi'
+        @media screen and (max-width: 767px)
+            @content
+    @if $scr=='elg'
+        @media screen and (min-width: 1301px)
+            @content
+@mixin mixinLogin($scr)
+    @if $scr =='lg'
+        @media screen and (min-width: 1024px) and (max-width: 1300px)
+            @content
+    @if $scr=='md'
+        @media screen and (min-width: 768px) and (max-width: 1023px)
+            @content
+    @if $scr=='mi'
+        @media screen and (max-width: 767px)
+            @content
+    @if $scr=='elg'
+        @media screen and (min-width: 1301px)
+            @content
+
+
+
+                
+    

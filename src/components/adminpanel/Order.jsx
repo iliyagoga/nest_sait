@@ -47,6 +47,14 @@ const Order= observer(({sO})=>{
                         <p>{AdminPanelStore.getOrder().user.firstName} {AdminPanelStore.getOrder().user.secondName}</p>
                     </div>
                 </div>
+                <div className="user">
+                    <div className="l">
+                        <span>Email</span>
+                    </div>
+                    <div className="r">
+                        <p>{AdminPanelStore.getOrder().user.email}</p>
+                    </div>
+                </div>
                 <div className="date">
                     <div className="l">
                         <span>Дата заказа</span>
@@ -136,9 +144,9 @@ const Order= observer(({sO})=>{
                     <h3>Цена</h3>
                 </div>
                 <div className="o_orders_c__b">
-                    {AdminPanelStore.getOrder().products.products.map(v=>{
+                    {AdminPanelStore.getOrder().products[0].map(v=>{
                         return <div className="product">
-                            <span>{v.productName} x {v.OrderProduct.count}</span>
+                            <span>{v.productName} {v.attributeValue&&(' x '+(v.attributeValue)+' ')}x {v.count} </span>
                             <span>₽ {v.price==0?v.price: v.sale_price}</span>
                         </div>
                     })}

@@ -53,7 +53,7 @@ body
 
                     & p
                         margin: 0
-                        margin-left: 1rem
+                        margin-left: .5rem
                         color: #9DA4AE
                         font-size: 1rem
                         cursor: pointer
@@ -78,7 +78,7 @@ body
 
                     & p
                         margin: 0
-                        margin-left: 1rem
+                        margin-left: .5rem
                         color: #9DA4AE
                         font-size: 1rem
                         cursor: pointer
@@ -278,6 +278,104 @@ body
 
                         & .col_header
                             justify-content: center
+        
+        & .adminsView
+            width: 100%
+            & .container
+                margin: auto
+                padding: 1rem 2rem
+                border-radius: 20px
+                box-shadow: #44444411 0px 5px 22px 0  
+                &_header
+                    padding: 0 0 .5rem 0
+                    border-bottom: 1px solid #4444440c
+                    & span
+                        color: #6C737F
+                        line-height: 1.4375rem
+                        margin-right: 1rem
+                        cursor: pointer
+                        font-size: 1.5rem
+                        &:hover
+                            color: #6366F1
+                            border-bottom: 1px solid #6366F1
+                            padding-bottom: .5rem
+                    & .r
+                        &:hover
+                            color: red
+                            border-bottom: 1px solid red
+                            padding-bottom: .5rem
+                &_table
+                    display: flex
+                    width: 100%
+                    margin-top: 2rem
+                    & .col0
+                        display: flex
+                        flex-direction: column
+                        & h3
+                            font-size: 1.2rem
+                            margin: 0
+                        & span
+                            font-size: 1.2rem
+                            padding: 1rem 0
+                            cursor: pointer
+                            margin: 0
+                            margin-left: 1rem
+                    & .col_header
+                        background: #F8F9FA
+                        padding: 1rem 2rem
+                        box-sizing: border-box
+                        width: 100%
+                        height: 5rem
+                        display: flex
+                        align-items: center
+                    & .col1
+                        width: 50% 
+                        & .rem
+                            padding: 1rem 2rem
+                            box-sizing: border-box
+                            width: 100%
+                            height: 5rem
+                            display: flex
+                            align-items: center
+                    & .col2
+                        width: 50%
+                        & .title
+                            padding: 1rem 2rem
+                            height: 5rem
+                            display: flex
+                            align-items: center
+                            cursor: pointer
+                            &:hover
+                                background: #f8f9fa77
+                                border-radius: 10px
+                            & p
+                                margin: 0
+                                margin-left: 3rem
+                        & h4
+                            margin: 0
+                            margin-left: 2rem
+                            font-size: 1.2rem
+                & .create
+                    display: flex
+                    flex-direction: column
+                    margin-top: 2rem
+                    & h3
+                        color: #6C737F
+                        font-size: 1.5rem
+                    & input
+                        margin-top: 1rem
+                        padding: .5rem 1rem
+                        border-radius: 8px
+                        border: 1px solid #6C737F
+                    & .search
+                        background: #dde0e4ab
+                        padding: 1rem 2rem
+                        margin: auto
+                        width: max-content
+                        margin-top: 1rem
+                        border-radius: 8px
+                        font-size: 1.2rem
+                        cursor: pointer
 
         & .categoryView
             width: 100%
@@ -1286,6 +1384,22 @@ body
         border: 1px solid #acacac
     &>*:not(:first-child)
         margin-top: 1rem
+.adminModal
+    display: flex
+    flex-direction: column
+    align-items: center
+    & span
+        padding: 1rem 0
+        width: 90%
+    &>*:not(:last-child)
+        border-bottom: 1px solid #acacac
+    & .button
+        margin-top: 2rem
+        padding: .5rem 1rem
+        color: white
+        border-radius: 8px
+        cursor: pointer
+        background: #acacac
 
 
                             

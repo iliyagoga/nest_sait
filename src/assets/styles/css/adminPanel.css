@@ -60,7 +60,7 @@ body {
 }
 .adminPanel .sidebar .productBlock .product div p, .adminPanel .sidebar .productBlock .orders div p, .adminPanel .sidebar .orderBlock .product div p, .adminPanel .sidebar .orderBlock .orders div p {
   margin: 0;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   color: #9DA4AE;
   font-size: 1rem;
   cursor: pointer;
@@ -87,7 +87,7 @@ body {
 }
 .adminPanel .sidebar .couponBlock .coupon div p {
   margin: 0;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   color: #9DA4AE;
   font-size: 1rem;
   cursor: pointer;
@@ -325,6 +325,125 @@ body {
 }
 .adminPanel .workspace .attributeView .container_table .col4 .col_header, .adminPanel .workspace .orderView .container_table .col4 .col_header {
   justify-content: center;
+}
+.adminPanel .workspace .adminsView {
+  width: 100%;
+}
+.adminPanel .workspace .adminsView .container {
+  margin: auto;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  box-shadow: rgba(68, 68, 68, 0.0666666667) 0px 5px 22px 0;
+}
+.adminPanel .workspace .adminsView .container_header {
+  padding: 0 0 0.5rem 0;
+  border-bottom: 1px solid rgba(68, 68, 68, 0.0470588235);
+}
+.adminPanel .workspace .adminsView .container_header span {
+  color: #6C737F;
+  line-height: 1.4375rem;
+  margin-right: 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+.adminPanel .workspace .adminsView .container_header span:hover {
+  color: #6366F1;
+  border-bottom: 1px solid #6366F1;
+  padding-bottom: 0.5rem;
+}
+.adminPanel .workspace .adminsView .container_header .r:hover {
+  color: red;
+  border-bottom: 1px solid red;
+  padding-bottom: 0.5rem;
+}
+.adminPanel .workspace .adminsView .container_table {
+  display: flex;
+  width: 100%;
+  margin-top: 2rem;
+}
+.adminPanel .workspace .adminsView .container_table .col0 {
+  display: flex;
+  flex-direction: column;
+}
+.adminPanel .workspace .adminsView .container_table .col0 h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+.adminPanel .workspace .adminsView .container_table .col0 span {
+  font-size: 1.2rem;
+  padding: 1rem 0;
+  cursor: pointer;
+  margin: 0;
+  margin-left: 1rem;
+}
+.adminPanel .workspace .adminsView .container_table .col_header {
+  background: #F8F9FA;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+}
+.adminPanel .workspace .adminsView .container_table .col1 {
+  width: 50%;
+}
+.adminPanel .workspace .adminsView .container_table .col1 .rem {
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+}
+.adminPanel .workspace .adminsView .container_table .col2 {
+  width: 50%;
+}
+.adminPanel .workspace .adminsView .container_table .col2 .title {
+  padding: 1rem 2rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.adminPanel .workspace .adminsView .container_table .col2 .title:hover {
+  background: rgba(248, 249, 250, 0.4666666667);
+  border-radius: 10px;
+}
+.adminPanel .workspace .adminsView .container_table .col2 .title p {
+  margin: 0;
+  margin-left: 3rem;
+}
+.adminPanel .workspace .adminsView .container_table .col2 h4 {
+  margin: 0;
+  margin-left: 2rem;
+  font-size: 1.2rem;
+}
+.adminPanel .workspace .adminsView .container .create {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+.adminPanel .workspace .adminsView .container .create h3 {
+  color: #6C737F;
+  font-size: 1.5rem;
+}
+.adminPanel .workspace .adminsView .container .create input {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #6C737F;
+}
+.adminPanel .workspace .adminsView .container .create .search {
+  background: rgba(221, 224, 228, 0.6705882353);
+  padding: 1rem 2rem;
+  margin: auto;
+  width: -moz-max-content;
+  width: max-content;
+  margin-top: 1rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 .adminPanel .workspace .categoryView {
   width: 100%;
@@ -1534,4 +1653,25 @@ body {
 }
 .m_coupons > *:not(:first-child) {
   margin-top: 1rem;
+}
+
+.adminModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.adminModal span {
+  padding: 1rem 0;
+  width: 90%;
+}
+.adminModal > *:not(:last-child) {
+  border-bottom: 1px solid #acacac;
+}
+.adminModal .button {
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #acacac;
 }/*# sourceMappingURL=adminPanel.css.map */

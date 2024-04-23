@@ -74,7 +74,7 @@ return <div className="profile">
         <Header theme={false}></Header>
         <BreadCrumbs names={['Главная','Личный кабинет']} links={[config.mean,config.profile]}></BreadCrumbs>
         <div className="btns">
-       { (decodedToken.role!=undefined && decodedToken.role[0].role=='ADMIN')&&<>
+       { (decodedToken.role!=undefined && (decodedToken.role[0].role=='ADMIN' || decodedToken.role[0].role=='SUPERUSER'))&&<>
         <div className="btn" onClick={()=>{nav(config.adminPanel)}}>Панель администратора</div>
        </>
        }
@@ -132,7 +132,7 @@ return <div className="profile">
                 <input type="text" value={home} onChange={(e)=>{setHome(e.target.value)}} placeholder="Дом"/>
                 <input type="text" value={flat} onChange={(e)=>{setFlat(e.target.value)}}placeholder="Квартира"/>
             </div>
-            {(decodedToken&&(decodedToken.role!=undefined&&decodedToken.role[0].role=='ADMIN'))&&<>
+            {(decodedToken&&(decodedToken.role!=undefined&&(decodedToken.role[0].role=='ADMIN' || decodedToken.role[0].role=='SUPERUSER')))&&<>
             <h3>Паспортные данные: </h3>
             <div className="line l4">
                 <input type="text" value={ser} onChange={(e)=>{

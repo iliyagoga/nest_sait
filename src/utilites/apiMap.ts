@@ -7,10 +7,15 @@ export const apiMap={
         login: '/login',
         checkToken:'/checkToken',
         updateUser: '/updateUser',
+        getAdmins: '/getAdmins',
+        getAdmin: '/getAdmin'
     },
     role: {
         way: '/role',
-        checkRole: '/checkRole'
+        checkRole: '/checkRole',
+        createAdmin: '/createAdmin',
+        deleteAdmin: '/deleteAdmin'
+
     },
 
     filters: {

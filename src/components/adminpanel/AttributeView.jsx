@@ -67,9 +67,6 @@ const AttributeView = observer(()=>{
                     setEMode(true)
                     setDA(false)
                 }
-                
-               
-            
             }}
             >
 

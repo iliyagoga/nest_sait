@@ -1,13 +1,19 @@
+@import mixins
 .product
     display: flex
     flex-direction: column
     width: 18.75rem
     margin-top: 1rem
+    @include mixinCatalog('phP')
+        width: 90%
     & .preview
         height: 22.5rem
         position: relative
         overflow: hidden
         width: 18.75rem
+        @include mixinCatalog('phP')
+            width: 90%
+            height: 27rem
         & .rating
             position: absolute
             left: 0
@@ -50,6 +56,8 @@
         & span
             text-align: center
             font-family: 'Raleway-Regular'
+            @include mixinCatalog('phP')
+                font-size: 1.5rem
     & .price
         display: flex
         justify-content: center

@@ -7,6 +7,7 @@ import Coupons from "./Coupons";
 import OrdersViews from "./OrdersViews";
 import Analitycs from "./Analtics";
 import AdminPanelStore from "../../stores/AdminPanelStore.ts";
+import Admins from "./Admins.jsx";
 
 
 const Workspace = observer(({m})=>{
@@ -55,6 +56,15 @@ const Workspace = observer(({m})=>{
                 <Analitycs></Analitycs>
             </div>
         </>)
+
+        case 8:
+            return (<>
+            <div className='workspace'>
+                <Admins></Admins>
+            </div>
+        </>)
+
+        
     
         default:
             break;

@@ -4,11 +4,22 @@
   width: 18.75rem;
   margin-top: 1rem;
 }
+@media screen and (max-width: 456px) {
+  .product {
+    width: 90%;
+  }
+}
 .product .preview {
   height: 22.5rem;
   position: relative;
   overflow: hidden;
   width: 18.75rem;
+}
+@media screen and (max-width: 456px) {
+  .product .preview {
+    width: 90%;
+    height: 27rem;
+  }
 }
 .product .preview .rating {
   position: absolute;
@@ -57,6 +68,11 @@
 .product .title span {
   text-align: center;
   font-family: "Raleway-Regular";
+}
+@media screen and (max-width: 456px) {
+  .product .title span {
+    font-size: 1.5rem;
+  }
 }
 .product .price {
   display: flex;

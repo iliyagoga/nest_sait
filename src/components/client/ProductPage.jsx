@@ -12,6 +12,7 @@ import { CartUtilite } from "../../utilites/cart/cart.ts";
 import MiniModal from "../modals/modal.jsx";
 import ErrorsStore from "../../stores/ErrorsStore.ts";
 import btnd from '../../assets/imgs/btnd.svg'
+import Footer from "./Footer.jsx";
 const { observer } = require("mobx-react-lite");
 
 
@@ -41,7 +42,7 @@ const ProductPage = observer(()=>{
         <div className="product">
             <div className="container">
                 <div className="gallery">
-                    {Client.getProduct().res.previews[0]!=undefined&&<div className="contGallery">
+                    {Client.getProduct().res.gallery[0]!=undefined&&<div className="contGallery">
                         <div className="btnu" onClick={()=>{if(counter<0)setCounter(counter+10)}}>
                             <img src={btnd} alt="" />
                         </div>
@@ -123,6 +124,7 @@ const ProductPage = observer(()=>{
             </div>
            
         </div>
+        <Footer></Footer>
     </div>
 })
 

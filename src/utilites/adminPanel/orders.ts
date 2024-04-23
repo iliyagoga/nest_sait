@@ -51,4 +51,18 @@ export class Orders{
             throw error;
         }
     }
+
+    findVar(productId: number){
+        const vars= AdminPanelStore.getOrder().vars;
+        let arr:string[]=[];
+        for(let el of vars){
+            for( let y of el['variations']){
+                if(y.productId==productId){
+                    arr.push(el.attributeValue)
+                }
+            }
+        }
+        return arr.join(' x ')
+        return null
+    }
 }

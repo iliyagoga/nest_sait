@@ -43,6 +43,13 @@ header .left {
   display: flex;
   justify-content: space-evenly;
 }
+@media screen and (max-width: 767px) {
+  header .left {
+    width: 40%;
+    font-size: 1.2rem;
+    align-items: center;
+  }
+}
 header .left span {
   font-family: "Raleway-Regular";
   cursor: pointer;
@@ -54,6 +61,11 @@ header .black {
 header .logo {
   width: 30%;
 }
+@media screen and (max-width: 767px) {
+  header .logo {
+    width: 20%;
+  }
+}
 header .icons {
   font-size: 1.125rem;
   font-weight: 300;
@@ -63,6 +75,11 @@ header .icons {
   width: 30%;
   display: flex;
   justify-content: space-evenly;
+}
+@media screen and (max-width: 767px) {
+  header .icons {
+    width: 40%;
+  }
 }
 header .icons .cartimg {
   position: relative;

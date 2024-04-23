@@ -11,6 +11,11 @@
   color: #9DA4AE;
   padding: 0.2rem 0;
 }
+@media screen and (max-width: 670px) {
+  .breadcrumbs span {
+    font-size: 1.5rem;
+  }
+}
 .breadcrumbs .activeLink {
   border-bottom: 1px solid black;
   color: black;

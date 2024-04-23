@@ -10,11 +10,22 @@
   transition-duration: 0.5s;
   transition-timing-function: easy-in-out;
 }
+@media screen and (max-width: 767px) {
+  .searchline {
+    padding: 1rem 0;
+  }
+}
 .searchline .s {
   display: flex;
   background: white;
   padding: 0.5rem 1rem;
   border-radius: 10px;
+}
+@media screen and (max-width: 767px) {
+  .searchline .s {
+    width: 98%;
+    margin: auto;
+  }
 }
 .searchline .s input {
   margin-left: 1rem;
@@ -26,4 +37,5 @@
 
 .meanclass {
   width: 0rem !important;
+  background: rgba(0, 0, 0, 0);
 }/*# sourceMappingURL=search.css.map */

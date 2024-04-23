@@ -16,7 +16,7 @@
 @font-face 
     font-family: 'Raleway-Thin'
     src: url('../static/Raleway-Thin.ttf')
-    
+@import mixins
 .profile
     width: 90%
     margin: auto
@@ -118,8 +118,13 @@
             & input
                 width: 49%
         & .l3
+            @include mixinProfile('mi')
+                flex-direction: column
             & input
                 width: 15%
+                @include mixinProfile('mi')
+                    width: 100%
+                    margin-top: 1rem
     & .meanbtn
         width: 100%
         padding: 1rem

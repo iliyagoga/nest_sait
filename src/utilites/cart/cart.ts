@@ -74,9 +74,18 @@ export class CartUtilite{
         }
     }
     async countAll(){
-        const res = await cart.get(apiMap.cart.countAll, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
-        CartStore.setCount(res.data)
-        return true
+        try {
+            if(localStorage.getItem('token')){
+                const res = await cart.get(apiMap.cart.countAll, {headers:{Authorization:'Bearer '+ localStorage.getItem('token')}})
+                CartStore.setCount(res.data)
+                return true
+            }   
+        } catch (error) {
+            return true
+        }
+  
+       
+       
     }
 
     async getCoupon(coupon: string){

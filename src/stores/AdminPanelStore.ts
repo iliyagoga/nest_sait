@@ -130,6 +130,9 @@ class AdminPanelStore{
 
     private _pageMode: number | null=null;
 
+    private _admins: any[];
+    private _admin: any;
+
 
 
 
@@ -1294,6 +1297,22 @@ class AdminPanelStore{
 
     getPageMode(){
         return this._pageMode;
+    }
+
+    setAdmins(admins: any[]){
+        this._admins=admins;
+    }
+
+    getAdmins(){
+        return this._admins;
+    }
+
+    setAdmin(admin: any){
+        this._admin=admin;
+    }
+
+    getAdmin(){
+        return this._admin;
     }
 
 
