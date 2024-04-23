@@ -15,10 +15,11 @@ import { Attribute } from 'src/products/attributes.model';
 import { OrderUser } from './orderUser.model';
 import { User } from 'src/user/user.model';
 import { CouponService } from 'src/coupon/coupon.service';
+import { AttributeValue } from 'src/products/AttributeValuea.model';
 
 @Module({
     imports: [
-        SequelizeModule.forFeature([Order, AddresOrder, OrderProduct, OrderUser, Coupon, Variations, Cart, Product, Attribute, User])
+        SequelizeModule.forFeature([Order, AddresOrder, OrderProduct, OrderUser, Coupon, Variations, Cart, Product, Attribute, User, AttributeValue])
     ],
     controllers: [OrderController],
     providers: [OrderService,JwtService, CartService,CouponService]

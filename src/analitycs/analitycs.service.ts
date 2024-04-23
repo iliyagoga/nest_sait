@@ -21,60 +21,80 @@ export class AnalitycsService {
         
         if(mode=='w'){
             const date = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-            let arr=[];
+            let arr= []
+            for(let i=1; i<8; i++){
+                arr.push({label:new Date(Date.now() - (8-i) * 24 * 60 * 60 * 1000), orders:[]})
+            }
             const res = await this.orderRepository.findAll({
-
                 where:{
                     createdAt: {[Op.gte]: date.getTime()}
                 }
             })
-            const min= new Date(res[0].createdAt).getDate()
             for(let el of res){
-                if(arr[new Date(el.createdAt).getDate()-min]==undefined){
-                    arr.push([])
+                for(let o of arr){
+                    if(o.label.getDate() ==new Date(el.createdAt).getDate()){
+                        o.orders.push(el);
+                    }
                 }
-                arr[new Date(el.createdAt).getDate()-min].push(el)
             }
 
-            return {labels: arr.map(v=>{return  new Date(v[0].createdAt).getDate()}), values: arr.map(v=>{return v.length})};
+            return {labels: arr.map(v=>{
+                return  new Date(v.label).getDate()
+            }), values: arr.map(v=>{
+                return v.orders.length
+            })};
         }
         if(mode=='m'){
-            const date = new Date(Date.now() - 4 * 7 * 24 * 60 * 60 * 1000)
-            let arr=[];
+            const mDays=new Date(new Date(Date.now()).getFullYear(),new Date(Date.now()).getMonth()+1,0).getDate()
+            const date = new Date(Date.now() - mDays * 24 * 60 * 60 * 1000)
+            let arr= []
+            for(let i=1; i<mDays; i++){
+                arr.push({label:new Date(Date.now() - (mDays-i) * 24 * 60 * 60 * 1000), orders:[]})
+            }
             const res = await this.orderRepository.findAll({
-
                 where:{
                     createdAt: {[Op.gte]: date.getTime()}
                 }
             })
-            const min= new Date(res[0].createdAt).getDate()
             for(let el of res){
-                if(arr[new Date(el.createdAt).getDate()-min]==undefined){
-                    arr.push([])
+                for(let o of arr){
+                    if(o.label.getDate() ==new Date(el.createdAt).getDate() && new Date(el.createdAt).getMonth() == o.label.getMonth()){
+                        o.orders.push(el);
+                    }
                 }
-                arr[new Date(el.createdAt).getDate()-min].push(el)
             }
 
-            return {labels: arr.map(v=>{return  new Date(v[0].createdAt).getDate()}), values: arr.map(v=>{return v.length})};
+            return {labels: arr.map(v=>{
+                return  new Date(v.label).getDate()
+            }), values: arr.map(v=>{
+                return v.orders.length
+            })};
         }
         if(mode=='y'){
-            const date = new Date(Date.now() - 4 * 7 * 24 * 60 * 60 * 1000)
-            let arr=[];
+            const date = new Date(Date.now() - 12* 30 * 24 * 60 * 60 * 1000)
+            let arr= []
+            for(let i=1; i<13; i++){
+                arr.push({label:i, orders:[]})
+            }
             const res = await this.orderRepository.findAll({
-
                 where:{
                     createdAt: {[Op.gt]: date.getTime()}
                 }
             })
-            const min= new Date(res[0].createdAt).getMonth()+1
             for(let el of res){
-                if(arr[new Date(el.createdAt).getMonth()+1-min]==undefined){
-                    arr.push([])
+                for(let o of arr){
+                    if(new Date(el.createdAt).getMonth()+1 == o.label){
+                        o.orders.push(el);
+                    }
                 }
-                arr[new Date(el.createdAt).getMonth()+1-min].push(el)
             }
 
-            return {labels: arr.map(v=>{return  new Date(v[0].createdAt).getMonth()+1}), values: arr.map(v=>{return v.length})};
+            return {labels: arr.map(v=>{
+                return  v.label
+            }), values: arr.map(v=>{
+                return v.orders.length
+            })};
+           
         }
 
         

@@ -5,12 +5,15 @@ import { CreateRoleDto } from './dto/createRole.dto';
 import { ValidationException } from 'src/exceptions/validation.exception';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/user/user.model';
+import { RolesUser } from './RolesUser.model';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class RoleService {
     constructor(
         @InjectModel(Role) private roles: typeof Role,
         @InjectModel(User) private userRepository: typeof User,
+        @InjectModel(RolesUser) private roleUserRepository: typeof RolesUser,
         private jwt: JwtService
         ){}
 
@@ -37,7 +40,7 @@ export class RoleService {
                     include: {
                         model: Role,
                         where: {
-                            role: 'ADMIN'
+                            role: {[Op.or]:['ADMIN', 'SUPERUSER']}
                         }
                     }
                 })
@@ -52,5 +55,29 @@ export class RoleService {
             }
         }
 
+    }
+
+    async createAdmin(email: string, role: string = 'ADMIN'){
+        try {
+            const user = await this.userRepository.findOne({where: {email}})
+            const roles = await this.roles.findOne({where: {role}})
+            await this.roleUserRepository.update({roleId: roles.id},{where: {userId: user.id }})
+            return true
+        } catch (error) {
+            throw error;
+        }
+       
+    }
+
+    async deleteAdmin(email: string, role: string = 'USER'){
+        try {
+            const user = await this.userRepository.findOne({where: {email}})
+            const roles = await this.roles.findOne({where: {role}})
+            await this.roleUserRepository.update({roleId: roles.id},{where: {userId: user.id }})
+            return true
+        } catch (error) {
+            throw error;
+        }
+    
     }
 }

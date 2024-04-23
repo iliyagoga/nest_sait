@@ -11,6 +11,9 @@ import { OrderUser } from './orderUser.model'
 import { Product } from 'src/products/product.model';
 import { CouponService } from 'src/coupon/coupon.service';
 import { Coupon } from 'src/coupon/coupon.model';
+import { Variations } from 'src/products/variations.model';
+import { AttributeValue } from 'src/products/AttributeValuea.model';
+import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()
 export class OrderService {
@@ -24,7 +27,8 @@ export class OrderService {
         @InjectModel(Product) private productRepository: typeof Product,
         @InjectModel(Cart) private cart: typeof Cart,
         @InjectModel(OrderUser) private orderUser: typeof OrderUser,
-        @InjectModel(Coupon) private couponRepository: typeof Coupon
+        @InjectModel(Coupon) private couponRepository: typeof Coupon,
+        @InjectModel(AttributeValue) private attributeValueRepository: typeof AttributeValue
     ){}
 
     async createOrder(auth: string, order: OrderDto){
@@ -258,17 +262,22 @@ export class OrderService {
                     }
                 }
             })
-            const products= await this.orders.findOne({
-                where: {id},
-                attributes: [],
-                include:{
-                    model: Product
-                }})
+            const products= await this.productRepository.sequelize.query((`select "Variations"."id" as "varsId", "productName","price","sale_price","price","count","varId","AtrributeValue"."attributeValue" as "attributeValue" from (select "Products"."id" as "pId", 
+            "Products"."productName" as "productName",  
+            "Products"."price" as "price",
+            "Products"."sale_price" as "sale_price",
+            "OrderProducts"."count" as "count",
+            "OrderProducts"."varId" as "varId"
+            
+            from "Products" INNER JOIN "OrderProducts" ON "Products"."id" = "OrderProducts"."productId"
+            inner JOIN "Orders" ON "Orders"."id" = "OrderProducts"."orderId" where "Orders"."id" = `+id+`) left  join "Variations" on "pId" = "Variations"."productId"
+            left join "AtrributeValue" on "AtrributeValue"."id" = "Variations"."attributeValueId"
+            where "Variations"."id" is null or "Variations"."id" = "varId"`) )
             let sum =0;
-            products['products'].map(v=>{
-                sum+=(v.sale_price==0?v.price:v.sale_price)*v['OrderProduct']['count']
+            products[0].map((v: any)=>{
+                sum+=(v['sale_price']==0?v['price']:v['sale_price'])*v['count']
             })
-            return {order, user, addres, products,sum, coupon}
+            return {order, user, addres, products, sum, coupon}
         } catch (error) {
             throw error;
         }

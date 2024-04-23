@@ -68,7 +68,7 @@ export class UserService {
     async getUser(hs: string){
         try {
             const token = this.jwt.decode(hs.split(' ')[1])
-            if(token.role!=undefined&&token.role[0].role=='ADMIN'){
+            if(token.role!=undefined&&(token.role[0].role=='ADMIN' || token.role[0].role=='SUPERUSER')){
                 const user = await this.userRepository.findOne({
                     attributes:['firstName', 'secondName', 'fatherName','email', 'phone', 'country', 'region', 'city', 'street', 'home', 'flat','avatar','passportSeria', 'passportNumber'],
                     where: {
@@ -178,6 +178,25 @@ export class UserService {
             }
 
             return true
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getAdmins(){
+        try {
+            const users = this.userRepository.findAll({
+                include:[{model: Role, where: {role: 'ADMIN'}}]
+            })
+            return users
+        } catch (error) {
+            throw error;
+        }
+    }
+    async getCandidate(email: string){
+        try {
+            const res = this.userRepository.findOne({where: {email}})
+            return res;
         } catch (error) {
             throw error;
         }
