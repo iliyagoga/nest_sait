@@ -1,38 +1,54 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNumber, Length, MinLength } from "class-validator";
 
 export class OrderDto{
+    @ApiProperty({example: 'Имя', description: 'Имя'})
     @MinLength(1,{message:"Поле не должно быть пустым"})
-    firstName: string;
+    readonly firstName: string;
 
+    @ApiProperty({example: 'Фамилия', description: 'Фамилия'})
     @MinLength(1,{message:"Поле не должно быть пустым"})
-    secondName: string;
+    readonly secondName: string;
 
+    @ApiProperty({example: 'ttt@ttt.tt', description: 'Почта'})
     @MinLength(1,{message:"Поле не должно быть пустым"})
-    email: string;
+    readonly email: string;
 
+    @ApiProperty({example: '111111', description: 'Номер телефона'})
     @MinLength(1,{message:"Поле не должно быть пустым"})
-    phone: string;
+    readonly phone: string;
 
-    comment: string;
+    @ApiProperty({example: 'Комментарий', description: 'Комментарий'})
+    readonly comment: string;
 
-    deliv: boolean;
+    @ApiProperty({example: 'true/false/null', description: 'Вид доставки'})
+    readonly deliv: boolean;
 
-    payment: boolean;
+    @ApiProperty({example: 'true/false/null', description: 'Вид оплаты'})
+    readonly payment: boolean;
 
-    country: string;
+    @ApiProperty({example: 'Страна', description: 'Страна'})
+    readonly country: string;
 
-    region: string;
+    @ApiProperty({example: 'Регион', description: 'Область, округ, штат'})
+    readonly region: string;
 
-    city: string;
+    @ApiProperty({example: 'Город', description: 'Город'})
+    readonly city: string;
 
-    street: string;
+    @ApiProperty({example: 'Улица', description: 'Улица'})
+    readonly street: string;
 
-    home: string;
+    @ApiProperty({example: '8', description: 'Номер дома'})
+    readonly home: string;
 
-    flat: string;
+    @ApiProperty({example: '11', description: 'Номер квартиры'})
+    readonly flat: string;
 
-    otd: string;
+    @ApiProperty({example: 'Отдел почты', description: 'Отдел почты'})
+    readonly otd: string;
 
-    couponId: number;
+    @ApiProperty({example: '2', description: 'id купона'})
+    readonly couponId: number;
     
 }

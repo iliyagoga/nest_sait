@@ -14,46 +14,47 @@ import { Gallery } from "./gallery.model";
 import { Variations } from "./variations.model";
 import { RecommendationProducts } from "./recommendationProduct.model";
 import { Order } from "src/order/order.model";
+import { ApiProperty } from "@nestjs/swagger";
 
 
 @Table({tableName:"Products"})
 
 export class Product extends Model<Product>{
-
+    @ApiProperty({example: '1', description: 'id продукта'})
     @Column({type: DataTypes.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
     id: number;
 
+    @ApiProperty({example: 'Гантель', description: 'Название товара'})
     @Column ({ type: DataTypes.TEXT, allowNull: false})
-
     productName: string;
 
+    @ApiProperty({example: '...', description: 'Краткое описание товара'})
     @Column ({ type: DataTypes.TEXT, allowNull: false})
-
     title: string;
 
+    @ApiProperty({example: '..........', description: 'Описание товара'})
     @Column ({ type: DataTypes.TEXT})
-
     description: string;
 
+    @ApiProperty({example: '1000', description: 'Цена товара'})
     @Column ({ type: DataTypes.INTEGER})
-
     price: number;
 
+    @ApiProperty({example: '200', description: 'Акционная цена товара'})
     @Column ({ type: DataTypes.INTEGER})
-
     sale_price: number;
-    @Column ({type: DataTypes.TEXT})
 
+    @ApiProperty({example: '-', description: '-'})
+    @Column ({type: DataTypes.TEXT})
     mean_image: string;
 
+    @ApiProperty({example: '-', description: '-'})
     @Column ({ type: DataTypes.INTEGER, defaultValue: 0})
-
     rating: number;
 
+    @ApiProperty({example: '-', description: '-'})
     @Column ({ type: DataTypes.INTEGER, defaultValue: 0})
-
     ratingCount: number
-
 
     @BelongsToMany(()=>Category,()=>CategoryProduct)
     category: Category[];
@@ -86,7 +87,6 @@ export class Product extends Model<Product>{
     @HasMany(()=>RecommendationProducts)
     recommendationProducts: RecommendationProducts[];
 
-    
     @BelongsToMany(()=>Order, ()=>OrderProduct)
     orders: Order[]
 

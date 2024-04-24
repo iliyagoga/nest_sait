@@ -176,7 +176,6 @@ export class CartService {
     async countAll(hs: string){
         try {
             const token = this.jwt.decode(hs.split(' ')[1])
-            let sum=0;
             let cart= await this.productRepositury.count(
                 {
                     include:{
@@ -187,7 +186,7 @@ export class CartService {
                     }
             })
           
-         return cart;
+            return cart;
         } catch (error) {
             throw error;
         }

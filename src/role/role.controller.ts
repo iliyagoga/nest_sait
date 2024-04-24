@@ -5,23 +5,33 @@ import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { JwtAuthGuard } from 'src/user/jwt-auth.guard';
 import { RolesGuard } from './roles.guard';
 import { Roles } from './roles-auth.decoration';
+import { Role } from './role.model';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Роли')
 @Controller('role')
 export class RoleController {
     constructor(private roleService: RoleService){}
+
+    @ApiOperation({summary:'Получение роли (фиктивно)'})
+    @ApiResponse({status: 200, type: Role})
     @Get("/:value")
     getRoleByValue(@Param('value') id: string){
         return this.roleService.getRoleByValue(id);
     }
 
-    @UsePipes(ValidationPipe)
 
+    @ApiOperation({summary:'Проверка юзера на роль'})
+    @ApiResponse({status: 200, type: Boolean})
+    @UsePipes(ValidationPipe)
     @Post('/checkRole')
     @UseGuards(JwtAuthGuard)
     checkRole(@Headers() headers: object){
         return this.roleService.checkRole(headers);
     }
 
+    @ApiOperation({summary:'Создание администратора'})
+    @ApiResponse({status: 200, type: Boolean})
     @UseGuards(RolesGuard)
     @Roles('SUPERUSER')
     @UseGuards(JwtAuthGuard)
@@ -30,7 +40,8 @@ export class RoleController {
         return this.roleService.createAdmin(email)
     }
 
-    
+    @ApiOperation({summary:'Удаление администратора'})
+    @ApiResponse({status: 200, type: Boolean})
     @UseGuards(RolesGuard)
     @Roles('SUPERUSER')
     @UseGuards(JwtAuthGuard)

@@ -19,9 +19,10 @@ import { Category } from 'src/filters/category.model';
 import { Group } from 'src/filters/group.model';
 import { Variations } from './variations.model';
 import { RecommendationProducts } from './recommendationProduct.model';
+import { User } from 'src/user/user.model';
 
 @Module({
-  imports:[SequelizeModule.forFeature([Attribute,Product,AttributeValue,AttributeProduct,CategoryProduct,TagProduct,Cart,Previews, Gallery, Tag, Category, Group, Variations, RecommendationProducts]),FiltersModule],
+  imports:[SequelizeModule.forFeature([Attribute,Product,AttributeValue,AttributeProduct,CategoryProduct,TagProduct,Cart,Previews, Gallery, Tag, Category, Group, Variations, RecommendationProducts, User]),FiltersModule],
   controllers: [ProductsController],
   providers: [ProductsService, JwtService, FilesService],
   exports:[ProductsModule]
