@@ -14,7 +14,7 @@ const Admins = observer(()=>{
     const [eMode, setEMode] = useState(false)
     const [search, setSearch] = useState("")
     useState(()=>{
-        panel.getAdmins()
+        panel.getAdmins().then().catch(e=>{setEMode(true);ErrorsStore.setErrorText(e.response.data.message)})
     },[])
 
     return <>
