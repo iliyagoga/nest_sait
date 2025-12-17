@@ -1,0 +1,35 @@
+import { Tag } from './tag.model';
+import { TagDto } from './dto/tag.dto';
+import { Group } from './group.model';
+import { GroupDto } from './dto/group.dto';
+import { Category } from './category.model';
+import { CategoryDto } from './dto/category.dto';
+import { TagRedact } from './dto/tag-redact.dto';
+import { RenameGroupDto } from './dto/rename-group.dto';
+import { RenameCategoryDto } from './dto/rename-category.dto';
+import { RemoveTag } from './dto/removeTag.dto';
+import { RemoveGroupDto } from './dto/removeGroup.dto';
+export declare class FiltersService {
+    private tag;
+    private group;
+    private category;
+    constructor(tag: typeof Tag, group: typeof Group, category: typeof Category);
+    createTag(dto: TagDto): Promise<Tag>;
+    removeTag(body: RemoveTag): Promise<number>;
+    redactTag(dto: TagRedact): Promise<[affectedCount: number]>;
+    getTags(): Promise<Tag[]>;
+    countTags(): Promise<number>;
+    getCountTags(num?: number): Promise<Tag[]>;
+    createGroup(dto: GroupDto): Promise<Group>;
+    createCategory(dto: CategoryDto): Promise<Category>;
+    removeGroup(ids: RemoveGroupDto): Promise<boolean>;
+    renameGroup(dto: RenameGroupDto): Promise<[affectedCount: number]>;
+    removeCategory(data: object): Promise<number>;
+    renameCategory(dto: RenameCategoryDto): Promise<[affectedCount: number]>;
+    getCategoriesCountPages(id: number): Promise<number>;
+    getCategoriesByGroup(id: number, page: number, limit?: number): Promise<Category[]>;
+    getGroups(page: number, limit?: number): Promise<Group[]>;
+    getAllGroups(): Promise<Group[]>;
+    countGroupsPages(): Promise<number>;
+    getAllCategories(): Promise<Group[]>;
+}

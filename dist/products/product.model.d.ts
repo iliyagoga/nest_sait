@@ -1,0 +1,34 @@
+import { Model } from "sequelize-typescript";
+import { Category } from "src/filters/category.model";
+import { AttributeValue } from "./AttributeValuea.model";
+import { Tag } from "src/filters/tag.model";
+import { User } from "src/user/user.model";
+import { Cart } from "src/cart/cart.model";
+import { OrderProduct } from "src/order/orderProduct.model";
+import { Previews } from "./preview.model";
+import { Gallery } from "./gallery.model";
+import { Variations } from "./variations.model";
+import { RecommendationProducts } from "./recommendationProduct.model";
+import { Order } from "src/order/order.model";
+export declare class Product extends Model<Product> {
+    id: number;
+    productName: string;
+    title: string;
+    description: string;
+    price: number;
+    sale_price: number;
+    mean_image: string;
+    rating: number;
+    ratingCount: number;
+    category: Category[];
+    attributeValue: AttributeValue[];
+    tag: Tag[];
+    user: User[];
+    orderProduct: OrderProduct[];
+    cart: Cart[];
+    previews: Previews[];
+    gallery: Gallery[];
+    variations: Variations[];
+    recommendationProducts: RecommendationProducts[];
+    orders: Order[];
+}

@@ -1,0 +1,42 @@
+import { ProductsService } from './products.service';
+import { AttributeDto } from './dto/attribute.dto';
+import { ProductDto } from './dto/product.dto';
+import { AttributeValueDto } from './dto/attributeValue.dto';
+import { RenameAttributeValue } from './dto/rename-attributeValue.dto';
+import { Attribute } from './attributes.model';
+import { AttributeValue } from './AttributeValuea.model';
+import { Product } from './product.model';
+import { Gallery } from './gallery.model';
+export declare class ProductsController {
+    private productService;
+    constructor(productService: ProductsService);
+    createAttribute(dto: AttributeDto): Promise<Attribute>;
+    renameAttribute(dto: RenameAttributeValue): Promise<[affectedCount: number]>;
+    deleteAttribute(body: object): Promise<number>;
+    createAttributeValue(dto: AttributeValueDto): Promise<AttributeValue>;
+    deleteAttributeValue(body: object): Promise<number>;
+    renameAttributeValue(dto: RenameAttributeValue): Promise<[affectedCount: number]>;
+    createProduct(images: Blob[], dto: ProductDto): Promise<Product>;
+    createGalleryProduct(images: Blob[], dto: ProductDto): Promise<void>;
+    redactProduct(images: Blob[], dto: ProductDto): Promise<boolean>;
+    updateGalleryProduct(images: Blob[], dto: ProductDto): Promise<boolean>;
+    deleteProduct(data: object): Promise<boolean>;
+    getProducts(pars: string[]): Promise<Product[]>;
+    getProduct(id: string): Promise<{
+        res: Product;
+        cs: import("../filters/category.model").Category[];
+        ats: Attribute[];
+        variations: Attribute;
+        recommendations: Product[];
+    }>;
+    getPhotos(): Promise<Gallery[]>;
+    getProductCountPages(pars: string[]): Promise<number>;
+    getAttributes(page: number): Promise<Attribute[]>;
+    getAttributesLimit(page: number, limit: number): Promise<Attribute[]>;
+    getCountAttributesPages(): Promise<number>;
+    getAttributesValues(id: number, page: number): Promise<AttributeValue[]>;
+    getAttributesValuesLimit(id: number, page: number, limit: number): Promise<AttributeValue[]>;
+    getCountAttributeValuesPages(attributeId: number): Promise<number>;
+    getProductsCats(params: string[]): Promise<Product[]>;
+    getProductsDef(params: string[]): Promise<Product[]>;
+}

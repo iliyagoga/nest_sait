@@ -1,0 +1,37 @@
+import { TagDto } from './dto/tag.dto';
+import { FiltersService } from './filters.service';
+import { CategoryDto } from './dto/category.dto';
+import { GroupDto } from './dto/group.dto';
+import { TagRedact } from './dto/tag-redact.dto';
+import { RenameGroupDto } from './dto/rename-group.dto';
+import { RenameCategoryDto } from './dto/rename-category.dto';
+import { RemoveTag } from './dto/removeTag.dto';
+import { RemoveGroupDto } from './dto/removeGroup.dto';
+import { Tag } from './tag.model';
+import { Group } from './group.model';
+import { Category } from './category.model';
+export declare class FiltersController {
+    private filtersService;
+    constructor(filtersService: FiltersService);
+    createTag(dto: TagDto): Promise<Tag>;
+    createGroup(dto: GroupDto): Promise<Group>;
+    createCategory(dto: CategoryDto): Promise<Category>;
+    removeTag(data: RemoveTag): Promise<number>;
+    redactTag(dto: TagRedact): Promise<[affectedCount: number]>;
+    removeGroup(ids: RemoveGroupDto): Promise<boolean>;
+    renameGroup(dto: RenameGroupDto): Promise<[affectedCount: number]>;
+    removeCategory(data: object): Promise<number>;
+    getCategoriesCountPages(id: string): Promise<number>;
+    renameCategory(dto: RenameCategoryDto): Promise<[affectedCount: number]>;
+    getCategoriesByGroup(id: string, page: string): Promise<Category[]>;
+    getCategoriesByGroupLimit(id: string, page: string, limit: string): Promise<Category[]>;
+    getTags(): Promise<Tag[]>;
+    getCountTags(num: string): Promise<Tag[]>;
+    countTags(): Promise<number>;
+    getGroups(page: string): Promise<Group[]>;
+    getGroupsLimit(page: string, limit: string): Promise<Group[]>;
+    getAllGroups(): Promise<Group[]>;
+    getGroupsCountPages(): Promise<number>;
+    getGroupsClient(): Promise<Group[]>;
+    getCategoriesClient(): Promise<Group[]>;
+}
